@@ -1,5 +1,26 @@
 
 <?xml version="1.0" encoding="UTF-8"?>
 <productes>
+	<begudes>
+		<producte id=1>
+			<nom>Coca-Cola</nom>
+			<preu>1.99</preu>
+			<descripcio>Clasica</descripcio>
+			<imatge>
+				<image href="Imatges/coca-cola.jpg"/>
+			</imatge>
+		</producte>
+	</begudes>
+	<tapes>
 	
+	</tapes>
+	<platscombinats>
+	
+	</platscombinats>
+	<entrepansfreds>
+	
+	</entrepansfreds>
+	<entrepanscalents>
+	
+	</entrepanscalents>
 </productes>
