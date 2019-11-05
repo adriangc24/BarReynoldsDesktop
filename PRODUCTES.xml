@@ -67,11 +67,105 @@
 		</producte>
 	</begudes>
 	<tapes>
-	
+		<producte id='9'>
+			<nom>Pernil Serra</nom>
+			<preu>1.00</preu>
+			<descripcio>Tapa de pernil serra</descripcio>
+			<imatge>
+				<image href=""/>
+			</imatge>
+		</producte>
+		<producte id='10'>
+			<nom>Truita espanyola</nom>
+			<preu>1.00</preu>
+			<descripcio>Tapa de triuta espanyola</descripcio>
+			<imatge>
+				<image href=""/>
+			</imatge>
+		</producte>
+		<producte id='11'>
+			<nom>Olives</nom>
+			<preu>1.00</preu>
+			<descripcio>Tapa de olives farcides amb anxova</descripcio>
+			<imatge>
+				<image href=""/>
+			</imatge>
+		</producte>
+		<producte id='12'>
+			<nom>Croquetes</nom>
+			<preu>1.00</preu>
+			<descripcio>Tapa de croquetes de pernil</descripcio>
+			<imatge>
+				<image href=""/>
+			</imatge>
+		</producte>
+		<producte id='13'>
+			<nom>Pop gallec</nom>
+			<preu>1.50</preu>
+			<descripcio>Tapa de pop gallec</descripcio>
+			<imatge>
+				<image href=""/>
+			</imatge>
+		</producte>
+		<producte id='14'>
+			<nom>Pa amb tomaquet</nom>
+			<preu>1.00</preu>
+			<descripcio>Tapa de pa amb tomaquet i oli</descripcio>
+			<imatge>
+				<image href=""/>
+			</imatge>
+		</producte>
 	</tapes>
-	<platscombinats>
-	
-	</platscombinats>
+	<plats>
+		<producte id='15'>
+			<nom>Patates Braves</nom>
+			<preu>4.50</preu>
+			<descripcio>Plat de patates braves amb salsa brava</descripcio>
+			<imatge>
+				<image href=""/>
+			</imatge>
+		</producte>
+		<producte id='16'>
+			<nom>Paella</nom>
+			<preu>5.00</preu>
+			<descripcio>Paella tradicional valenciana</descripcio>
+			<imatge>
+				<image href=""/>
+			</imatge>
+		</producte>
+		<producte id='17'>
+			<nom>Pintxo</nom>
+			<preu>4.50</preu>
+			<descripcio>Plat de pintxos de carn de porc marinada</descripcio>
+			<imatge>
+				<image href=""/>
+			</imatge>
+		</producte>
+		<producte id='18'>
+			<nom>Lluç al forn</nom>
+			<preu>5.50</preu>
+			<descripcio>Plat de lluç al forn amb patates de guarnicio</descripcio>
+			<imatge>
+				<image href=""/>
+			</imatge>
+		</producte>
+		<producte id='19'>
+			<nom>Pizza Hawaiana</nom>
+			<preu>6.50</preu>
+			<descripcio>Pizza amb pernil de york i pinya</descripcio>
+			<imatge>
+				<image href=""/>
+			</imatge>
+		</producte>
+		<producte id='20'>
+			<nom>Pizza Reynolds</nom>
+			<preu>6.50</preu>
+			<descripcio>Pizza de la casa. Mozzarella, carbasso, ceba, pebrot vermell, olives negres, orenga</descripcio>
+			<imatge>
+				<image href=""/>
+			</imatge>
+		</producte>
+	</plats>
 	<entrepans>
 
 	</entrepans>
