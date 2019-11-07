@@ -72,7 +72,7 @@
 			<preu>1.00</preu>
 			<descripcio>Tapa de pernil serra</descripcio>
 			<imatge>
-				<image href=""/>
+				<image href="Imatges/pernil-serra.jpg"/>
 			</imatge>
 		</producte>
 		<producte id='10'>
@@ -80,7 +80,7 @@
 			<preu>1.00</preu>
 			<descripcio>Tapa de triuta espanyola</descripcio>
 			<imatge>
-				<image href=""/>
+				<image href="Imatges/tapa-truita.jpg"/>
 			</imatge>
 		</producte>
 		<producte id='11'>
@@ -88,7 +88,7 @@
 			<preu>1.00</preu>
 			<descripcio>Tapa de olives farcides amb anxova</descripcio>
 			<imatge>
-				<image href=""/>
+				<image href="Imatges/tapa-oliva.jpg"/>
 			</imatge>
 		</producte>
 		<producte id='12'>
@@ -96,7 +96,7 @@
 			<preu>1.00</preu>
 			<descripcio>Tapa de croquetes de pernil</descripcio>
 			<imatge>
-				<image href=""/>
+				<image href="Imatges/tapa-croquetas.jpg"/>
 			</imatge>
 		</producte>
 		<producte id='13'>
@@ -104,7 +104,7 @@
 			<preu>1.50</preu>
 			<descripcio>Tapa de pop gallec</descripcio>
 			<imatge>
-				<image href=""/>
+				<image href="Imatges/tapa-pulpo.jpg"/>
 			</imatge>
 		</producte>
 		<producte id='14'>
@@ -112,7 +112,7 @@
 			<preu>1.00</preu>
 			<descripcio>Tapa de pa amb tomaquet i oli</descripcio>
 			<imatge>
-				<image href=""/>
+				<image href="Imatges/tapa-pa.jpg"/>
 			</imatge>
 		</producte>
 	</tapes>
@@ -122,7 +122,7 @@
 			<preu>4.50</preu>
 			<descripcio>Plat de patates braves amb salsa brava</descripcio>
 			<imatge>
-				<image href=""/>
+				<image href="Imatges/bravas.jpg"/>
 			</imatge>
 		</producte>
 		<producte id='16'>
@@ -130,7 +130,7 @@
 			<preu>5.00</preu>
 			<descripcio>Paella tradicional valenciana</descripcio>
 			<imatge>
-				<image href=""/>
+				<image href="Imatges/paella.jpg"/>
 			</imatge>
 		</producte>
 		<producte id='17'>
@@ -138,7 +138,7 @@
 			<preu>4.50</preu>
 			<descripcio>Plat de pintxos de carn de porc marinada</descripcio>
 			<imatge>
-				<image href=""/>
+				<image href="Imatges/pincho.jpg"/>
 			</imatge>
 		</producte>
 		<producte id='18'>
@@ -146,7 +146,7 @@
 			<preu>5.50</preu>
 			<descripcio>Plat de lluç al forn amb patates de guarnicio</descripcio>
 			<imatge>
-				<image href=""/>
+				<image href="Imatges/lluç.jpg"/>
 			</imatge>
 		</producte>
 		<producte id='19'>
@@ -154,7 +154,7 @@
 			<preu>6.50</preu>
 			<descripcio>Pizza amb pernil de york i pinya</descripcio>
 			<imatge>
-				<image href=""/>
+				<image href="Imatges/pizza-hawaiana.jpg"/>
 			</imatge>
 		</producte>
 		<producte id='20'>
@@ -162,11 +162,58 @@
 			<preu>6.50</preu>
 			<descripcio>Pizza de la casa. Mozzarella, carbasso, ceba, pebrot vermell, olives negres, orenga</descripcio>
 			<imatge>
-				<image href=""/>
+				<image href="Imatges/pizza-reynolds.jpg"/>
 			</imatge>
 		</producte>
 	</plats>
 	<entrepans>
-
+		<producte id='21'>
+			<nom>Entrepa de llom i formatge (calent)</nom>
+			<preu>2.50</preu>
+			<descripcio>Entrepa de llom de porc amb formatge</descripcio>
+			<imatge>
+				<image href="Imatges/lomo-queso.jpg"/>
+			</imatge>
+		</producte>
+		<producte id='22'>
+			<nom>Entrepa de pernil serra</nom>
+			<preu>2.50</preu>
+			<descripcio>Entrepa de pernil serra</descripcio>
+			<imatge>
+				<image href="Imatges/entrepa-pernil-serra.jpg"/>
+			</imatge>
+		</producte>
+		<producte id='23'>
+			<nom>Vegetal de pollastre</nom>
+			<preu>2.50</preu>
+			<descripcio>Entrepa vegetal de pollastre</descripcio>
+			<imatge>
+				<image href="Imatges/vegetal-pollo.jpg"/>
+			</imatge>
+		</producte>
+		<producte id='24'>
+			<nom>Vegetal de tonyina</nom>
+			<preu>2.50</preu>
+			<descripcio>Entrepa vegetal de tonyina</descripcio>
+			<imatge>
+				<image href="Imatges/vegetal-atun.jpg"/>
+			</imatge>
+		</producte>
+		<producte id='25'>
+			<nom>Entrepa de pernil de york</nom>
+			<preu>2.50</preu>
+			<descripcio>Entrepa de pernil de york i formatge</descripcio>
+			<imatge>
+				<image href="Imatges/york-queso.jpg"/>
+			</imatge>
+		</producte>
+		<producte id='26'>
+			<nom>Entrepa de truita espanyola</nom>
+			<preu>3.00</preu>
+			<descripcio>Entrepa de truita espanyola</descripcio>
+			<imatge>
+				<image href="Imatges/entrepa-truita.jpg"/>
+			</imatge>
+		</producte>
 	</entrepans>
 </productes>
