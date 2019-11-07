@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <config>
-	<numeroTaulas>x</numeroTaulas>
+	<numeroTaulas>5</numeroTaulas>
 	<ipServer>x.x.x.x</ipServer>
 	<pda id="1">
 		<pdaName>adrian</pdaName>
