@@ -53,16 +53,20 @@ public class FramePrincipal extends JFrame {
 		menuBar.add(menuTaula);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		contentPane.setLayout(new BorderLayout(0, 0));
 
 		for (int i = 1; i < numeroTaules + 1; i++) {
 			JMenuItem taula = new JMenuItem();
 			taula.setText("Taula " + i);
+			int numero = i;
 			taula.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					contentPane.removeAll();
+					contentPane.updateUI();
 					FrameInterno intFrame = new FrameInterno();
+					intFrame.setTitle("Taula" + numero);
 					contentPane.add(intFrame);
 				}
 			});

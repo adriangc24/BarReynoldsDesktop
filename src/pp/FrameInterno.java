@@ -1,6 +1,7 @@
 package pp;
 
 import java.awt.EventQueue;
+import java.beans.PropertyVetoException;
 
 import javax.swing.JInternalFrame;
 
@@ -20,13 +21,11 @@ public class FrameInterno extends JInternalFrame {
 	}
 
 	public FrameInterno() {	
-		//setMaximizable(true);
-		//setIconifiable(true);
-		//setResizable(true);
 		setClosable(true);
 		setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
 		
-		setSize(320,240);
+		
+		setSize(310,240);
 		setVisible(true);
 	}
 
