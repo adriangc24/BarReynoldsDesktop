@@ -91,7 +91,12 @@ public class FramePrincipal extends JFrame {
 
 	public static void introducirComanda(FrameInterno intFrame) {
 		if (intFrame.getTitle().equals("Taula1")) {
+<<<<<<< HEAD
 			intFrame.model.addRow(new Object[] {"1", "Coca-Cola Classica", "1.99", false });
+=======
+			intFrame.model.addRow(new Object[] {"Coca-Cola Classica", "1.99", false});
+			
+>>>>>>> Sergio
 		}
 	}
 
