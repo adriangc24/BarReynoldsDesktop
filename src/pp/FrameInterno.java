@@ -17,6 +17,8 @@ public class FrameInterno extends JInternalFrame {
 				return String.class;
 			case 1:
 				return String.class;
+			case 2:
+				return String.class;
 			default:
 				return Boolean.class;
 			}
@@ -37,6 +39,7 @@ public class FrameInterno extends JInternalFrame {
 	}
 
 	public FrameInterno() {
+		model.addColumn("Quantitat");
 		model.addColumn("Producte");
 		model.addColumn("Preu");
 		model.addColumn("Preparat");

@@ -44,7 +44,7 @@ public class FramePrincipal extends JFrame {
 
 	public FramePrincipal() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(1280, 720);
+		setSize(800, 600);
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 
@@ -88,10 +88,10 @@ public class FramePrincipal extends JFrame {
 		}
 		return 0;
 	}
-	
+
 	public static void introducirComanda(FrameInterno intFrame) {
 		if (intFrame.getTitle().equals("Taula1")) {
-			intFrame.model.addRow(new Object[] {"Coca-Cola Classica", "1.99", false});
+			intFrame.model.addRow(new Object[] {"1", "Coca-Cola Classica", "1.99", false });
 		}
 	}
 
