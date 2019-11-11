@@ -1,6 +1,7 @@
 package pp;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,6 +22,7 @@ import org.w3c.dom.NodeList;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
+import javax.swing.JTabbedPane;
 
 public class FramePrincipal extends JFrame {
 
@@ -47,31 +49,20 @@ public class FramePrincipal extends JFrame {
 	public FramePrincipal() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(800, 600);
-		JMenuBar menuBar = new JMenuBar();
-		setJMenuBar(menuBar);
-
-		JMenu menuTaula = new JMenu("Taula");
-		menuBar.add(menuTaula);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		contentPane.add(tabbedPane, BorderLayout.CENTER);
+
 		for (int i = 1; i < numeroTaules + 1; i++) {
 			FrameInterno intFrame = new FrameInterno();
 			intFrame.setTitle("Taula" + i);
 			introducirComanda(intFrame);
-			JMenuItem taula = new JMenuItem();
-			taula.setText("Taula " + i);
-			taula.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					contentPane.removeAll();
-					contentPane.updateUI();
-					contentPane.add(intFrame);
-				}
-			});
-			menuTaula.add(taula);
+			Component tab = intFrame;
+			tabbedPane.addTab("Taula" + i, tab);
 		}
 	}
 
