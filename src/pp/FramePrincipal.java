@@ -83,8 +83,26 @@ public class FramePrincipal extends JFrame {
 
 	public static void introducirComanda(FrameInterno intFrame) {
 		if (intFrame.getTitle().equals("Taula1")) {
-			intFrame.model.addRow(new Object[] { "1", "Coca-Cola Classica", "1.99", false });
+			try {
+				File file = new File("Comandes" + File.separatorChar + "ComandaTaula1.xml");
+				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+				Document doc = dBuilder.parse(file);
+				NodeList nList = doc.getElementsByTagName("producto");
+				for (int i = 0; i < nList.getLength(); i++) {
+					Element element = (Element) nList.item(i);
+					NodeList childList = element.getChildNodes();
+					for (int j = 0; j < childList.getLength(); j++) {
+						System.out.println(childList.item(i).getNodeName());
+					}
+					//String nombre = childList.item(0).getNodeName();
+					//String precio = childList.item(1).getNodeName();
+					//String cantidad = childList.item(2).getNodeName();
+					//intFrame.model.addRow(new Object[] { cantidad, nombre, precio, false });
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
-
 }

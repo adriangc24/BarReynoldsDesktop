@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<comanda>
+	<producto>
+		<nombre>Coca-Cola Classica</nombre>
+		<precio>1.99</precio>
+		<cantidad>3</cantidad>
+	</producto>
+	<producto>
+		<nombre>Olives</nombre>
+		<precio>1.00</precio>
+		<cantidad>1</cantidad>
+	</producto>
+	<producto>
+		<nombre>Croquetes</nombre>
+		<precio>1.00</precio>
+		<cantidad>2</cantidad>
+	</producto>
+	<producto>
+		<nombre>Pop Gallec</nombre>
+		<precio>1.50</precio>
+		<cantidad>1</cantidad>
+	</producto>
+	<producto>
+		<nombre>Patates Braves</nombre>
+		<precio>4.50</precio>
+		<cantidad>1</cantidad>
+	</producto>
+</comanda>
