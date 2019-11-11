@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -56,17 +58,16 @@ public class FramePrincipal extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 
 		for (int i = 1; i < numeroTaules + 1; i++) {
+			FrameInterno intFrame = new FrameInterno();
+			intFrame.setTitle("Taula" + i);
+			introducirComanda(intFrame);
 			JMenuItem taula = new JMenuItem();
 			taula.setText("Taula " + i);
-			int numero = i;
 			taula.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					contentPane.removeAll();
 					contentPane.updateUI();
-					FrameInterno intFrame = new FrameInterno();
-					intFrame.setTitle("Taula" + numero);
-					introducirComanda(intFrame);
 					contentPane.add(intFrame);
 				}
 			});

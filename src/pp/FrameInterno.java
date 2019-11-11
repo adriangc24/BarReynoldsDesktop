@@ -46,10 +46,8 @@ public class FrameInterno extends JInternalFrame {
 		table = new JTable(model);
 		getContentPane().add(table, BorderLayout.WEST);
 		add(new JScrollPane(table));
-
-		setClosable(true);
 		setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
-		// setSize(310, 240);
 		setVisible(true);
+		
 	}
 }
