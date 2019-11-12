@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<comanda>
+	<producto>
+		<nombre>Coca-Cola Classica</nombre>
+		<precio>1.99</precio>
+		<cantidad>1</cantidad>
+	</producto>
+	<producto>
+		<nombre>Coca-Cola Zero</nombre>
+		<precio>1.99</precio>
+		<cantidad>3</cantidad>
+	</producto>
+	<producto>
+		<nombre>Pernil Serra</nombre>
+		<precio>1.00</precio>
+		<cantidad>1</cantidad>
+	</producto>
+	<producto>
+		<nombre>Truita espanyola</nombre>
+		<precio>1.00</precio>
+		<cantidad>2</cantidad>
+	</producto>
+	<producto>
+		<nombre>Pintxo</nombre>
+		<precio>4.50</precio>
+		<cantidad>3</cantidad>
+	</producto>
+</comanda>

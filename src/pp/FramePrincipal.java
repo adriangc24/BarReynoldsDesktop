@@ -82,26 +82,23 @@ public class FramePrincipal extends JFrame {
 	}
 
 	public static void introducirComanda(FrameInterno intFrame) {
-		if (intFrame.getTitle().equals("Taula1")) {
-			try {
-				File file = new File("Comandes" + File.separatorChar + "ComandaTaula1.xml");
-				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-				Document doc = dBuilder.parse(file);
-				NodeList nList = doc.getElementsByTagName("producto");
-				for (int i = 0; i < nList.getLength(); i++) {
-					Element element = (Element) nList.item(i);
-					NodeList childList = element.getChildNodes();
-					for (int j = 0; j < childList.getLength(); j++) {
-						System.out.println(childList.item(i).getNodeName());
+		for (int i = 1; i < numeroTaules + 1; i++) {
+			if (intFrame.getTitle().equals("Taula" + i)) {
+				try {
+					File file = new File("Comandes" + File.separatorChar + "ComandaTaula" + i + ".xml");
+					DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+					DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+					Document doc = dBuilder.parse(file);
+					NodeList nList = doc.getElementsByTagName("producto");
+					for (int j = 0; j < nList.getLength(); j++) {
+						Element element = (Element) nList.item(j);
+						String nombre = element.getElementsByTagName("nombre").item(0).getTextContent();
+						String precio = element.getElementsByTagName("precio").item(0).getTextContent();
+						String cantidad = element.getElementsByTagName("cantidad").item(0).getTextContent();
+						intFrame.model.addRow(new Object[] { cantidad, nombre, precio, false });
 					}
-					//String nombre = childList.item(0).getNodeName();
-					//String precio = childList.item(1).getNodeName();
-					//String cantidad = childList.item(2).getNodeName();
-					//intFrame.model.addRow(new Object[] { cantidad, nombre, precio, false });
+				} catch (Exception e) {
 				}
-			} catch (Exception e) {
-				e.printStackTrace();
 			}
 		}
 	}
