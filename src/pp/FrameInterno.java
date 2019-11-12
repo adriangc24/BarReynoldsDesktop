@@ -47,6 +47,7 @@ public class FrameInterno extends JInternalFrame {
 		getContentPane().add(table, BorderLayout.WEST);
 		add(new JScrollPane(table));
 		setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
+		setBorder(null);
 		setVisible(true);
 		
 	}
