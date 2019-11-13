@@ -3,6 +3,8 @@ package pp;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
@@ -31,6 +33,10 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import javax.swing.JTabbedPane;
+import javax.swing.JToolBar;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
 public class FramePrincipal extends JFrame {
 
@@ -64,7 +70,34 @@ public class FramePrincipal extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setVisible(false);
 		contentPane.add(tabbedPane, BorderLayout.CENTER);
+
+		JMenuBar menuBar = new JMenuBar();
+		contentPane.add(menuBar, BorderLayout.NORTH);
+
+		JMenu mnPantalla = new JMenu("Pantalla");
+		menuBar.add(mnPantalla);
+
+		JMenuItem mntmPrincipal = new JMenuItem("Principal");
+		mntmPrincipal.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				tabbedPane.setVisible(false);
+			}
+		});
+		mnPantalla.add(mntmPrincipal);
+
+		JMenuItem mntmTaules = new JMenuItem("Taules");
+		mntmTaules.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				tabbedPane.setVisible(true);
+			}
+		});
+		mnPantalla.add(mntmTaules);
 
 		for (int i = 1; i < numeroTaules + 1; i++) {
 			FrameInterno intFrame = new FrameInterno() {
@@ -81,57 +114,34 @@ public class FramePrincipal extends JFrame {
 			tabbedPane.addTab("Taula" + i, tab);
 		}
 
-		// SERVER
-		try {
-			System.out.println("LocalHost = " + InetAddress.getLocalHost().toString());
-		} catch (UnknownHostException uhe) {
-			System.err.println("No puedo saber la dirección IP local : " + uhe);
-		}
-		// Abrimos un "Socket de Servidor" TCP en el puerto 4444.
-		ServerSocket serverSocket = null;
-
-		try {
-			serverSocket = new ServerSocket(4444);
-		} catch (IOException ex) {
-			System.out.println("Can't setup server on this port number. ");
-		}
-
-		Socket socket = null;
-		InputStream in = null;
-		OutputStream out = null;
-
-		try {
-			socket = serverSocket.accept();
-		} catch (IOException ex) {
-			System.out.println("Can't accept client connection. ");
-		}
-
-		try {
-			in = socket.getInputStream();
-		} catch (IOException ex) {
-			System.out.println("Can't get socket input stream. ");
-		}
-
-		try {
-			out = new FileOutputStream("Comandes" + File.separatorChar + "aaa.txt");
-		} catch (FileNotFoundException ex) {
-			System.out.println("File not found. ");
-		}
-
-		byte[] bytes = new byte[16 * 1024];
-
-		int count;
-		try {
-			while ((count = in.read(bytes)) > 0) {
-				out.write(bytes, 0, count);
-			}
-			out.close();
-			in.close();
-			socket.close();
-			serverSocket.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		/*
+		 * SERVER try { System.out.println("LocalHost = " +
+		 * InetAddress.getLocalHost().toString()); } catch (UnknownHostException uhe) {
+		 * System.err.println("No puedo saber la dirección IP local : " + uhe); } //
+		 * Abrimos un "Socket de Servidor" TCP en el puerto 4444. ServerSocket
+		 * serverSocket = null;
+		 * 
+		 * try { serverSocket = new ServerSocket(4444); } catch (IOException ex) {
+		 * System.out.println("Can't setup server on this port number. "); }
+		 * 
+		 * Socket socket = null; InputStream in = null; OutputStream out = null;
+		 * 
+		 * try { socket = serverSocket.accept(); } catch (IOException ex) {
+		 * System.out.println("Can't accept client connection. "); }
+		 * 
+		 * try { in = socket.getInputStream(); } catch (IOException ex) {
+		 * System.out.println("Can't get socket input stream. "); }
+		 * 
+		 * try { out = new FileOutputStream("Comandes" + File.separatorChar +
+		 * "aaa.txt"); } catch (FileNotFoundException ex) {
+		 * System.out.println("File not found. "); }
+		 * 
+		 * byte[] bytes = new byte[16 * 1024];
+		 * 
+		 * int count; try { while ((count = in.read(bytes)) > 0) { out.write(bytes, 0,
+		 * count); } out.close(); in.close(); socket.close(); serverSocket.close(); }
+		 * catch (IOException e) { e.printStackTrace(); }
+		 */
 	}
 
 	public static int leerMesas() {
