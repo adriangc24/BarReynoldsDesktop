@@ -33,7 +33,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import javax.swing.JTabbedPane;
-import javax.swing.JToolBar;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -41,7 +40,7 @@ import javax.swing.JMenuItem;
 public class FramePrincipal extends JFrame {
 
 	private JPanel contentPane;
-	private static int numeroTaules = leerMesas();
+	static FramePrincipal frame;
 
 	/**
 	 * Launch the application.
@@ -50,8 +49,7 @@ public class FramePrincipal extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					System.out.println(numeroTaules);
-					FramePrincipal frame = new FramePrincipal();
+					frame = new FramePrincipal();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -61,6 +59,10 @@ public class FramePrincipal extends JFrame {
 	}
 
 	public FramePrincipal() {
+		int numeroTaules = leerMesas();
+		System.out.println(numeroTaules);
+		
+		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(800, 600);
 		setResizable(false);
@@ -75,6 +77,20 @@ public class FramePrincipal extends JFrame {
 
 		JMenuBar menuBar = new JMenuBar();
 		contentPane.add(menuBar, BorderLayout.NORTH);
+
+		JMenu mnConfiguracio = new JMenu("Configuracio");
+		menuBar.add(mnConfiguracio);
+
+		JMenuItem mntmModifTaules = new JMenuItem("Cambiar total de taules");
+		mntmModifTaules.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				FrameConfigTaules frameConfig = new FrameConfigTaules();
+				frameConfig.setVisible(true);
+			}
+		});
+		mnConfiguracio.add(mntmModifTaules);
 
 		JMenu mnPantalla = new JMenu("Pantalla");
 		menuBar.add(mnPantalla);
@@ -109,7 +125,7 @@ public class FramePrincipal extends JFrame {
 				}
 			};
 			intFrame.setTitle("Taula" + i);
-			introducirComanda(intFrame);
+			introducirComanda(intFrame, numeroTaules);
 			Component tab = intFrame;
 			tabbedPane.addTab("Taula" + i, tab);
 		}
@@ -144,6 +160,11 @@ public class FramePrincipal extends JFrame {
 		 */
 	}
 
+	public static void refreshFrame() {
+		frame.dispose();
+		frame = new FramePrincipal();
+	}
+
 	public static int leerMesas() {
 		try {
 			File file = new File("config.xml");
@@ -159,7 +180,7 @@ public class FramePrincipal extends JFrame {
 		return 0;
 	}
 
-	public static void introducirComanda(FrameInterno intFrame) {
+	public static void introducirComanda(FrameInterno intFrame, int numeroTaules) {
 		for (int i = 1; i < numeroTaules + 1; i++) {
 			if (intFrame.getTitle().equals("Taula" + i)) {
 				try {
