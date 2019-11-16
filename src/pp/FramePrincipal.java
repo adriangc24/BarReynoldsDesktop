@@ -27,7 +27,7 @@ public class FramePrincipal extends JFrame {
 
 	private JPanel contentPane;
 	static FramePrincipal frame;
-
+	public JTabbedPane tabbedPane;
 	/**
 	 * Launch the application.
 	 */
@@ -57,7 +57,7 @@ public class FramePrincipal extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setVisible(false);
 		contentPane.add(tabbedPane, BorderLayout.CENTER);
 
@@ -100,21 +100,7 @@ public class FramePrincipal extends JFrame {
 			}
 		});
 		mnPantalla.add(mntmTaules);
-
-		for (int i = 1; i < numeroTaules + 1; i++) {
-			FrameInterno intFrame = new FrameInterno() {
-				public void setUI(InternalFrameUI ui) {
-					super.setUI(ui);
-					BasicInternalFrameUI frameUI = (BasicInternalFrameUI) getUI();
-					if (frameUI != null)
-						frameUI.setNorthPane(null);
-				}
-			};
-			intFrame.setTitle("Taula" + i);
-			introducirComanda(intFrame, numeroTaules);
-			Component tab = intFrame;
-			tabbedPane.addTab("Taula" + i, tab);
-		} 
+		generarTaules(tabbedPane, numeroTaules);
 	}
 
 	public static void refreshFrame() {
@@ -157,5 +143,22 @@ public class FramePrincipal extends JFrame {
 				}
 			}
 		}
+	}
+	
+	public static void generarTaules(JTabbedPane tabbedPane, int numeroTaules) {
+		for (int i = 1; i < numeroTaules + 1; i++) {
+			FrameInterno intFrame = new FrameInterno() {
+				public void setUI(InternalFrameUI ui) {
+					super.setUI(ui);
+					BasicInternalFrameUI frameUI = (BasicInternalFrameUI) getUI();
+					if (frameUI != null)
+						frameUI.setNorthPane(null);
+				}
+			};
+			intFrame.setTitle("Taula" + i);
+			introducirComanda(intFrame, numeroTaules);
+			Component tab = intFrame;
+			tabbedPane.addTab("Taula" + i, tab);
+		} 
 	}
 }
