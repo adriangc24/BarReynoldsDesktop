@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <comanda>
+	<cambrer>Sergio</cambrer>
+	<taula>1</taula>
+	<data>17/11/2019 18:41:00</data>
 	<producto>
 		<nombre>Coca-Cola Classica</nombre>
 		<precio>1.99</precio>

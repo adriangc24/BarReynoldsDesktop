@@ -145,6 +145,60 @@ public class FramePrincipal extends JFrame {
 		}
 	}
 	
+	public static void introducirCambrer(FrameInterno intFrame, int numeroTaules) {
+		for (int i = 1; i < numeroTaules + 1; i++) {
+			if (intFrame.getTitle().equals("Taula" + i)) {
+				try {
+					File file = new File("Comandes" + File.separatorChar + "ComandaTaula" + i + ".xml");
+					DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+					DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+					Document doc = dBuilder.parse(file);
+					
+					NodeList nList = doc.getElementsByTagName("cambrer");
+					intFrame.lblCambrer.setText("Cambrer: " + nList.item(0).getTextContent());
+				} catch (Exception e) {
+				}
+			}
+		}
+	}
+	
+	public static void introducirNumTaula(FrameInterno intFrame, int numeroTaules) {
+		for (int i = 1; i < numeroTaules + 1; i++) {
+			if (intFrame.getTitle().equals("Taula" + i)) {
+				try {
+					File file = new File("Comandes" + File.separatorChar + "ComandaTaula" + i + ".xml");
+					DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+					DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+					Document doc = dBuilder.parse(file);
+					
+					NodeList nList = doc.getElementsByTagName("taula");
+					intFrame.lblTaula.setText("Taula: " + nList.item(0).getTextContent());
+				} catch (Exception e) {
+				}
+			}
+		}
+	}
+	
+	public static void introducirData(FrameInterno intFrame, int numeroTaules) {
+		for (int i = 1; i < numeroTaules + 1; i++) {
+			if (intFrame.getTitle().equals("Taula" + i)) {
+				try {
+					File file = new File("Comandes" + File.separatorChar + "ComandaTaula" + i + ".xml");
+					DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+					DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+					Document doc = dBuilder.parse(file);
+					
+					NodeList nList = doc.getElementsByTagName("data");
+					String[] parts = nList.item(0).getTextContent().split(" ");
+					String data = parts[0];
+					String hora = parts[1];
+					intFrame.lblData.setText("Data: " + data + " Hora: " + hora);
+				} catch (Exception e) {
+				}
+			}
+		}
+	}
+	
 	public static void generarTaules(JTabbedPane tabbedPane, int numeroTaules) {
 		for (int i = 1; i < numeroTaules + 1; i++) {
 			FrameInterno intFrame = new FrameInterno() {
@@ -156,6 +210,9 @@ public class FramePrincipal extends JFrame {
 				}
 			};
 			intFrame.setTitle("Taula" + i);
+			introducirCambrer(intFrame, numeroTaules);
+			introducirNumTaula(intFrame, numeroTaules);
+			introducirData(intFrame, numeroTaules);
 			introducirComanda(intFrame, numeroTaules);
 			Component tab = intFrame;
 			tabbedPane.addTab("Taula" + i, tab);
