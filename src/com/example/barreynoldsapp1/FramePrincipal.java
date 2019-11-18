@@ -1,4 +1,4 @@
-package pp;
+package com.example.barreynoldsapp1;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -8,12 +8,8 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Arrays;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -52,8 +48,6 @@ public class FramePrincipal extends JFrame {
 				try {
 					frame = new FramePrincipal();
 					frame.setVisible(true);
-					ArrayList<Cambrer> listaCambrers = new ArrayList<Cambrer>();
-					generarListaCambrers(listaCambrers);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -258,22 +252,6 @@ public class FramePrincipal extends JFrame {
 			} catch (TransformerException tfe) {
 				tfe.printStackTrace();
 			}
-		}
-	}
-
-	public static void generarListaCambrers(ArrayList<Cambrer> listaCambrers) {
-		Connection conn;
-		try {
-			String url = "jdbc:mysql://localhost/barreynolds?useUnicode=true&useJDBCCompliantTimeZoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			conn = DriverManager.getConnection(url, "root", "");
-			Statement stmnt = conn.createStatement();
-			AccesSQL.generarListaCambrers(stmnt, listaCambrers);
-			for(Cambrer cambrer : listaCambrers) {
-				System.out.println(cambrer.toString());
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
 }

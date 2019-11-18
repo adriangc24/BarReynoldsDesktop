@@ -78,7 +78,7 @@
 		<producte id='10'>
 			<nom>Truita espanyola</nom>
 			<preu>1.00</preu>
-			<descripcio>Tapa de triuta espanyola</descripcio>
+			<descripcio>Tapa de truita espanyola</descripcio>
 			<imatge>
 				<image href="Imatges/tapa-truita.jpg"/>
 			</imatge>

@@ -1,4 +1,4 @@
-package pp;
+package com.example.barreynoldsapp1;
 
 import java.awt.EventQueue;
 import java.awt.TextField;

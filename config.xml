@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><config>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<config>
 	<numeroTaulas>5</numeroTaulas>
-	<ipServer>x.x.x.x</ipServer>
 	<pda id="1">
-		<pdaName>adrian</pdaName>
+		<pdaName>Sergio</pdaName>
 	</pda>
 	<pda id="2">
-		<pdaName>sergio</pdaName>
+		<pdaName>Adrian</pdaName>
 	</pda>
 	<pda id="3">
-		<pdaName>javier</pdaName>
+		<pdaName>Javier</pdaName>
 	</pda>
 </config>
