@@ -50,7 +50,7 @@ public class Server {
 			}
 
 			try {
-				out = new FileOutputStream("Comandes" + File.separatorChar + "ComandaTaula2.xml");
+				out = new FileOutputStream("Comandes" + File.separatorChar + "ArchivoRecibido.xml");
 			} catch (FileNotFoundException ex) {
 				System.out.println("File not found. ");
 			}
@@ -66,7 +66,6 @@ public class Server {
 				out.close();
 				in.close();
 				socket.close();
-
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

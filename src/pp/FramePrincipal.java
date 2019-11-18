@@ -6,6 +6,14 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -13,6 +21,12 @@ import javax.swing.plaf.InternalFrameUI;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -28,6 +42,7 @@ public class FramePrincipal extends JFrame {
 	private JPanel contentPane;
 	static FramePrincipal frame;
 	public JTabbedPane tabbedPane;
+
 	/**
 	 * Launch the application.
 	 */
@@ -37,6 +52,8 @@ public class FramePrincipal extends JFrame {
 				try {
 					frame = new FramePrincipal();
 					frame.setVisible(true);
+					ArrayList<Cambrer> listaCambrers = new ArrayList<Cambrer>();
+					generarListaCambrers(listaCambrers);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -47,7 +64,7 @@ public class FramePrincipal extends JFrame {
 	public FramePrincipal() {
 		int numeroTaules = leerMesas();
 		System.out.println(numeroTaules);
-		
+
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(800, 600);
@@ -144,7 +161,7 @@ public class FramePrincipal extends JFrame {
 			}
 		}
 	}
-	
+
 	public static void introducirCambrer(FrameInterno intFrame, int numeroTaules) {
 		for (int i = 1; i < numeroTaules + 1; i++) {
 			if (intFrame.getTitle().equals("Taula" + i)) {
@@ -153,7 +170,7 @@ public class FramePrincipal extends JFrame {
 					DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 					DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 					Document doc = dBuilder.parse(file);
-					
+
 					NodeList nList = doc.getElementsByTagName("cambrer");
 					intFrame.lblCambrer.setText("Cambrer: " + nList.item(0).getTextContent());
 				} catch (Exception e) {
@@ -161,7 +178,7 @@ public class FramePrincipal extends JFrame {
 			}
 		}
 	}
-	
+
 	public static void introducirNumTaula(FrameInterno intFrame, int numeroTaules) {
 		for (int i = 1; i < numeroTaules + 1; i++) {
 			if (intFrame.getTitle().equals("Taula" + i)) {
@@ -170,7 +187,7 @@ public class FramePrincipal extends JFrame {
 					DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 					DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 					Document doc = dBuilder.parse(file);
-					
+
 					NodeList nList = doc.getElementsByTagName("taula");
 					intFrame.lblTaula.setText("Taula: " + nList.item(0).getTextContent());
 				} catch (Exception e) {
@@ -178,7 +195,7 @@ public class FramePrincipal extends JFrame {
 			}
 		}
 	}
-	
+
 	public static void introducirData(FrameInterno intFrame, int numeroTaules) {
 		for (int i = 1; i < numeroTaules + 1; i++) {
 			if (intFrame.getTitle().equals("Taula" + i)) {
@@ -187,7 +204,7 @@ public class FramePrincipal extends JFrame {
 					DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 					DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 					Document doc = dBuilder.parse(file);
-					
+
 					NodeList nList = doc.getElementsByTagName("data");
 					String[] parts = nList.item(0).getTextContent().split(" ");
 					String data = parts[0];
@@ -198,7 +215,7 @@ public class FramePrincipal extends JFrame {
 			}
 		}
 	}
-	
+
 	public static void generarTaules(JTabbedPane tabbedPane, int numeroTaules) {
 		for (int i = 1; i < numeroTaules + 1; i++) {
 			FrameInterno intFrame = new FrameInterno() {
@@ -214,8 +231,49 @@ public class FramePrincipal extends JFrame {
 			introducirNumTaula(intFrame, numeroTaules);
 			introducirData(intFrame, numeroTaules);
 			introducirComanda(intFrame, numeroTaules);
+			generarArxiusComanda(numeroTaules);
 			Component tab = intFrame;
 			tabbedPane.addTab("Taula" + i, tab);
-		} 
+		}
+	}
+
+	public static void generarArxiusComanda(int numeroTaules) {
+		for (int i = 1; i < numeroTaules + 1; i++) {
+			try {
+				DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+				DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+				Document doc = docBuilder.newDocument();
+				Element rootElement = doc.createElement("comanda");
+				doc.appendChild(rootElement);
+				TransformerFactory transformerFactory = TransformerFactory.newInstance();
+				Transformer transformer = transformerFactory.newTransformer();
+				DOMSource source = new DOMSource(doc);
+				File file = new File("Comandes" + File.separatorChar + "ComandaTaula" + i + ".xml");
+				StreamResult result = new StreamResult(file);
+				if (!file.exists()) {
+					transformer.transform(source, result);
+				}
+			} catch (ParserConfigurationException pce) {
+				pce.printStackTrace();
+			} catch (TransformerException tfe) {
+				tfe.printStackTrace();
+			}
+		}
+	}
+
+	public static void generarListaCambrers(ArrayList<Cambrer> listaCambrers) {
+		Connection conn;
+		try {
+			String url = "jdbc:mysql://localhost/barreynolds?useUnicode=true&useJDBCCompliantTimeZoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			conn = DriverManager.getConnection(url, "root", "");
+			Statement stmnt = conn.createStatement();
+			AccesSQL.generarListaCambrers(stmnt, listaCambrers);
+			for(Cambrer cambrer : listaCambrers) {
+				System.out.println(cambrer.toString());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

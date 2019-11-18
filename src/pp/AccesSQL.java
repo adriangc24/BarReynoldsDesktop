@@ -1,28 +1,23 @@
 package pp;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Scanner;
+import java.util.ArrayList;
 
 public class AccesSQL {
 
-	public static void main(String[] args) {
-		Connection conn;
+	public static void generarListaCambrers(Statement stmnt, ArrayList<Cambrer> listaCambrers) {
 		try {
-			String url = "jdbc:mysql://localhost/barreynolds?useUnicode=true&useJDBCCompliantTimeZoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			conn = DriverManager.getConnection(url, "root", "");
-			Statement stmnt = conn.createStatement();
-			System.out.println("Conexion establecida (creo xd)");
-		} catch (Exception e) {
+			ResultSet rsst = stmnt.executeQuery("SELECT * FROM cambrer");
+			while (rsst.next()) {
+				int id = (int) rsst.getObject("id");
+				String nom = rsst.getObject("Nom_Cambrer").toString();
+				listaCambrers.add(new Cambrer(id, nom));
+			}
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 }
