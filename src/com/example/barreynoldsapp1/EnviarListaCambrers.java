@@ -38,6 +38,9 @@ public class EnviarListaCambrers {
 				socket = serverSocket.accept();
 				ObjectOutputStream salidaCambrers = new ObjectOutputStream(socket.getOutputStream());
 				salidaCambrers.writeObject(listaCambrers);
+				System.out.println("lista enviada");
+				salidaCambrers.close();
+				socket.close();
 			} catch (IOException ex) {
 				System.out.println("Can't accept client connection. ");
 			}
