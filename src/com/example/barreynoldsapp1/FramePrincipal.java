@@ -6,10 +6,6 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
-import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -212,7 +208,7 @@ public class FramePrincipal extends JFrame {
 
 	public static void generarTaules(JTabbedPane tabbedPane, int numeroTaules) {
 		for (int i = 1; i < numeroTaules + 1; i++) {
-			FrameInterno intFrame = new FrameInterno() {
+			FrameInterno intFrame = new FrameInterno("Taula" + i) {
 				public void setUI(InternalFrameUI ui) {
 					super.setUI(ui);
 					BasicInternalFrameUI frameUI = (BasicInternalFrameUI) getUI();

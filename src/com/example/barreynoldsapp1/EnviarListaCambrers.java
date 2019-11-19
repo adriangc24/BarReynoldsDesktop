@@ -28,12 +28,13 @@ public class EnviarListaCambrers {
 		try {
 			serverSocket = new ServerSocket(4445);
 		} catch (IOException ex) {
-			System.out.println("Can't setup server on this port number. ");
+			System.out.println("No se ha podido crear el servidor en este puerto.");
 		}
 
 		Socket socket = null;
 		ArrayList<Cambrer> listaCambrers = new ArrayList<Cambrer>();
 		generarListaCambrers(listaCambrers);
+		while (true) {
 			try {
 				socket = serverSocket.accept();
 				ObjectOutputStream salidaCambrers = new ObjectOutputStream(socket.getOutputStream());
@@ -42,11 +43,11 @@ public class EnviarListaCambrers {
 				salidaCambrers.close();
 				socket.close();
 			} catch (IOException ex) {
-				System.out.println("Can't accept client connection. ");
+				System.out.println("No se pudo aceptar la conexion.");
 			}
 		}
-	
-	
+	}
+
 	public static void generarListaCambrers(ArrayList<Cambrer> listaCambrers) {
 		Connection conn;
 		try {
@@ -55,7 +56,7 @@ public class EnviarListaCambrers {
 			conn = DriverManager.getConnection(url, "root", "");
 			Statement stmnt = conn.createStatement();
 			AccesSQL.generarListaCambrers(stmnt, listaCambrers);
-			for(Cambrer cambrer : listaCambrers) {
+			for (Cambrer cambrer : listaCambrers) {
 				System.out.println(cambrer.toString());
 			}
 		} catch (Exception e) {

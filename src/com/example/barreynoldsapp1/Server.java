@@ -33,7 +33,7 @@ public class Server {
 		try {
 			serverSocket = new ServerSocket(4444);
 		} catch (IOException ex) {
-			System.out.println("Can't setup server on this port number. ");
+			System.out.println("No se ha podido crear el servidor en este puerto.");
 		}
 
 		Socket socket = null;
@@ -44,19 +44,19 @@ public class Server {
 			try {
 				socket = serverSocket.accept();
 			} catch (IOException ex) {
-				System.out.println("Can't accept client connection. ");
+				System.out.println("No se pudo aceptar la conexion.");
 			}
 
 			try {
 				in = socket.getInputStream();
 			} catch (IOException ex) {
-				System.out.println("Can't get socket input stream. ");
+				System.out.println("No se ha podido recibir el input del cliente.");
 			}
 
 			try {
 				out = new FileOutputStream("Comandes" + File.separatorChar + "ArchivoRecibido.xml");
 			} catch (FileNotFoundException ex) {
-				System.out.println("File not found. ");
+				System.out.println("Archivo no encontrado.");
 			}
 
 			byte[] bytes = new byte[16 * 1024];
