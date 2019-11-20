@@ -1,8 +1,10 @@
 package com.example.barreynoldsapp1;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectOutputStream;
@@ -11,10 +13,21 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.nio.file.Files;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 import java.util.ArrayList;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
 
 public class Server {
 
@@ -67,6 +80,27 @@ public class Server {
 					out.write(bytes, 0, count);
 				}
 				System.out.println("Comanda recibida");
+				File file = new File("Comandes" + File.separatorChar + "ArchivoRecibido.xml");
+				try {
+					DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+					factory.setNamespaceAware(true);
+					DocumentBuilder builder = factory.newDocumentBuilder();
+					Document doc = builder.parse(file);
+					NodeList nList = doc.getElementsByTagName("mesa");
+					String taula = nList.item(0).getTextContent();
+					byte[] fileContent = Files.readAllBytes(file.toPath());
+					file.delete();
+					Document docComanda = builder.parse(new ByteArrayInputStream(fileContent));
+					DOMSource source = new DOMSource(docComanda);
+					FileWriter writer = new FileWriter(
+							new File("Comandes" + File.separatorChar + "ComandaTaula" + taula + ".xml"));
+					StreamResult result = new StreamResult(writer);
+					TransformerFactory transformerFactory = TransformerFactory.newInstance();
+					Transformer transformer = transformerFactory.newTransformer();
+					transformer.transform(source, result);
+				} catch (Exception e) {
+					System.out.println("Esto peta");
+				}
 				out.close();
 				in.close();
 				socket.close();

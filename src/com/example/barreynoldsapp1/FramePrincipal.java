@@ -161,7 +161,7 @@ public class FramePrincipal extends JFrame {
 					DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 					Document doc = dBuilder.parse(file);
 
-					NodeList nList = doc.getElementsByTagName("cambrer");
+					NodeList nList = doc.getElementsByTagName("camarero");
 					intFrame.lblCambrer.setText("Cambrer: " + nList.item(0).getTextContent());
 				} catch (Exception e) {
 				}
@@ -178,7 +178,7 @@ public class FramePrincipal extends JFrame {
 					DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 					Document doc = dBuilder.parse(file);
 
-					NodeList nList = doc.getElementsByTagName("taula");
+					NodeList nList = doc.getElementsByTagName("mesa");
 					intFrame.lblTaula.setText("Taula: " + nList.item(0).getTextContent());
 				} catch (Exception e) {
 				}
@@ -195,7 +195,7 @@ public class FramePrincipal extends JFrame {
 					DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 					Document doc = dBuilder.parse(file);
 
-					NodeList nList = doc.getElementsByTagName("data");
+					NodeList nList = doc.getElementsByTagName("fecha");
 					String[] parts = nList.item(0).getTextContent().split(" ");
 					String data = parts[0];
 					String hora = parts[1];

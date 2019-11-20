@@ -1,7 +1,5 @@
 package com.example.barreynoldsapp1;
 
-import java.awt.EventQueue;
-
 import javax.swing.JInternalFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -10,14 +8,12 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
@@ -33,7 +29,6 @@ import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.ByteArrayInputStream;
-import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -161,7 +156,6 @@ public class FrameInterno extends JInternalFrame {
 			DOMSource source = new DOMSource(doc);
 			FileWriter writer = new FileWriter(new File("Factures" + File.separatorChar + "nuevaFactura.xml"));
 			StreamResult result = new StreamResult(writer);
-
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
 			transformer.transform(source, result);
@@ -197,6 +191,5 @@ public class FrameInterno extends JInternalFrame {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 }
