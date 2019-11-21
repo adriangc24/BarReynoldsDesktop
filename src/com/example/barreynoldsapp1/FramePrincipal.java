@@ -42,12 +42,10 @@ public class FramePrincipal extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					
-			
 					frame = new FramePrincipal();
 					frame.setVisible(true);
 					arrancarServer();
-					//EnviarListaCambrers elc=new EnviarListaCambrers();
+					// EnviarListaCambrers elc=new EnviarListaCambrers();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -58,7 +56,6 @@ public class FramePrincipal extends JFrame {
 	public FramePrincipal() {
 		int numeroTaules = leerMesas();
 		System.out.println(numeroTaules);
-
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(800, 600);
@@ -133,25 +130,26 @@ public class FramePrincipal extends JFrame {
 		}
 		return 0;
 	}
+
 	public static void arrancarServer() {
 		new Thread(new Runnable() {
-		
-		@Override
-		public void run() {
-			// TODO Auto-generated method stub
-			Server s1=new Server();
-			//EnviarListaCambrers elc=new EnviarListaCambrers();
-		}
-	}).start();
-		new Thread(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				EnviarListaCambrers elc=new EnviarListaCambrers();
+				Server s1 = new Server();
+				// EnviarListaCambrers elc=new EnviarListaCambrers();
 			}
 		}).start();
-	
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				EnviarListaCambrers elc = new EnviarListaCambrers();
+			}
+		}).start();
+
 	}
 
 	public static void introducirComanda(FrameInterno intFrame, int numeroTaules) {
