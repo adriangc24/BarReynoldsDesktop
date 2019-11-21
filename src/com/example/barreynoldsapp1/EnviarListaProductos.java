@@ -11,9 +11,9 @@ import java.util.ArrayList;
 
 public class EnviarListaProductos {
 
-	public static void main(String[] args) throws SQLException {
-		EnviarListaProductos elc=new EnviarListaProductos();
-	}
+/*public static void main(String[] args) throws SQLException {
+	EnviarListaProductos e=new EnviarListaProductos();
+}*/
 	public EnviarListaProductos() throws SQLException  {
 		enviarCategorias();
 		
@@ -28,7 +28,7 @@ public void enviarCategorias() throws SQLException {
 	// Abrimos un "Socket de Servidor" TCP en el puerto 4445.
 	ServerSocket serverSocket = null;
 	try {
-		serverSocket = new ServerSocket(4445);
+		serverSocket = new ServerSocket(4446);
 	} catch (IOException ex) {
 		System.out.println("No se ha podido crear el servidor en este puerto.");
 	}
