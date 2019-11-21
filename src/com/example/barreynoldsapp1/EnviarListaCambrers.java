@@ -33,7 +33,7 @@ public class EnviarListaCambrers {
 
 		Socket socket = null;
 		ArrayList<Cambrer> listaCambrers = new ArrayList<Cambrer>();
-		generarListaCambrers(listaCambrers);
+		AccesSQL.generarListaCambrers(listaCambrers);
 		while (true) {
 			try {
 				socket = serverSocket.accept();
@@ -48,19 +48,19 @@ public class EnviarListaCambrers {
 		}
 	}
 
-	public static void generarListaCambrers(ArrayList<Cambrer> listaCambrers) {
+	/*public static void generarListaCambrers(ArrayList<Cambrer> listaCambrers) {
 		Connection conn;
 		try {
 			String url = "jdbc:mysql://localhost/barreynolds?useUnicode=true&useJDBCCompliantTimeZoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			conn = DriverManager.getConnection(url, "root", "");
 			Statement stmnt = conn.createStatement();
-			AccesSQL.generarListaCambrers(stmnt, listaCambrers);
+			AccesSQL.generarListaCambrers( listaCambrers);
 			for (Cambrer cambrer : listaCambrers) {
 				System.out.println(cambrer.toString());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 }
