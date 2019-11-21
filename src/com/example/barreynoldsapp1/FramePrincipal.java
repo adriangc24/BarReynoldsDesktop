@@ -6,6 +6,8 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.sql.SQLException;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -42,6 +44,7 @@ public class FramePrincipal extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+
 					frame = new FramePrincipal();
 					frame.setVisible(true);
 					arrancarServer();
@@ -54,7 +57,8 @@ public class FramePrincipal extends JFrame {
 	}
 
 	public FramePrincipal() {
-		int numeroTaules = leerMesas();
+		// int numeroTaules = leerMesas();
+		int numeroTaules = AccesSQL.configurarMesasBBDD();
 		System.out.println(numeroTaules);
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -149,6 +153,20 @@ public class FramePrincipal extends JFrame {
 				EnviarListaCambrers elc = new EnviarListaCambrers();
 			}
 		}).start();
+
+	/*	new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				try {
+					EnviarListaProductos elp = new EnviarListaProductos();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}).start();*/
 
 	}
 
