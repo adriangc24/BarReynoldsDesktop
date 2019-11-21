@@ -42,8 +42,12 @@ public class FramePrincipal extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					
+			
 					frame = new FramePrincipal();
 					frame.setVisible(true);
+					arrancarServer();
+					//EnviarListaCambrers elc=new EnviarListaCambrers();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -128,6 +132,26 @@ public class FramePrincipal extends JFrame {
 			e.printStackTrace();
 		}
 		return 0;
+	}
+	public static void arrancarServer() {
+		new Thread(new Runnable() {
+		
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			Server s1=new Server();
+			//EnviarListaCambrers elc=new EnviarListaCambrers();
+		}
+	}).start();
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				EnviarListaCambrers elc=new EnviarListaCambrers();
+			}
+		}).start();
+	
 	}
 
 	public static void introducirComanda(FrameInterno intFrame, int numeroTaules) {

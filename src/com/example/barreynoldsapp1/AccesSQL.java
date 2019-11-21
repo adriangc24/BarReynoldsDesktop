@@ -19,5 +19,7 @@ public class AccesSQL {
 			e.printStackTrace();
 		}
 	}
+	
+	//public static
 
 }

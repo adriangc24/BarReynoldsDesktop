@@ -13,9 +13,9 @@ import java.util.ArrayList;
 
 public class EnviarListaCambrers {
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EnviarListaCambrers sv = new EnviarListaCambrers();
-	}
+	}*/
 
 	public EnviarListaCambrers() {
 		try {

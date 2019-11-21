@@ -31,9 +31,9 @@ import org.w3c.dom.NodeList;
 
 public class Server {
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		Server sv = new Server();
-	}
+	}*/
 
 	public Server() {
 		try {
@@ -52,8 +52,7 @@ public class Server {
 		Socket socket = null;
 		InputStream in = null;
 		OutputStream out = null;
-		boolean repetir = true;
-		while (repetir) {
+		while (true) {
 			try {
 				socket = serverSocket.accept();
 			} catch (IOException ex) {
