@@ -53,7 +53,6 @@ public class Login extends JInternalFrame {
 
 		panel = new JPanel();
 		FlowLayout flowLayout = (FlowLayout) panel.getLayout();
-		flowLayout.setVgap(50);
 		flowLayout.setAlignment(FlowLayout.TRAILING);
 		panel.setBounds(0, 75, 434, 196);
 		

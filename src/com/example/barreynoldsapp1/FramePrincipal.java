@@ -59,7 +59,8 @@ public class FramePrincipal extends JFrame {
 	}
 
 	public FramePrincipal() {
-		int numeroTaules = AccesSQL.configurarMesasBBDD();
+		// int numeroTaules = leerMesas();
+		int numeroTaules = AccesSQL.cargarMesasBBDD();
 		System.out.println(numeroTaules);
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -153,7 +154,8 @@ public class FramePrincipal extends JFrame {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				EnviarListaCambrers elc = new EnviarListaCambrers();
+				//EnviarListaCambrers elc = new EnviarListaCambrers();
+				EnviarDatos ed=new EnviarDatos();
 			}
 		}).start();
 
