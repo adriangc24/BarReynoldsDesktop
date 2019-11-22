@@ -1,6 +1,8 @@
 package com.example.barreynoldsapp1;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -11,9 +13,10 @@ import java.util.ArrayList;
 public class EnviarDatos {
 
 	public EnviarDatos() {
-	enviarCamareros_Mesas_Categorias();
-	
+		enviarCamareros_Mesas_Categorias();
+
 	}
+
 	public void enviarCamareros_Mesas_Categorias() {
 		try {
 			System.out.println("LocalHost = " + InetAddress.getLocalHost().toString());
@@ -32,20 +35,21 @@ public class EnviarDatos {
 		ArrayList<Cambrer> listaCambrers = new ArrayList<Cambrer>();
 		AccesSQL.generarListaCambrers(listaCambrers);
 		ArrayList<String> listaCategoria = AccesSQL.cargarCategorias();
-		int numMes=AccesSQL.cargarMesasBBDD();
+		int numMes = AccesSQL.cargarMesasBBDD();
 		while (true) {
 			try {
 				socket = serverSocket.accept();
-				
+
 				ObjectOutputStream salidaDatos = new ObjectOutputStream(socket.getOutputStream());
-				//ObjectOutputStream salidaCategorias = new ObjectOutputStream(socket.getOutputStream());
+				// ObjectOutputStream salidaCategorias = new
+				// ObjectOutputStream(socket.getOutputStream());
 				salidaDatos.writeObject(listaCambrers);
 				salidaDatos.writeObject(numMes);
 				salidaDatos.writeObject(listaCategoria);
-				//ObjectOutputStream numMesas=new ObjectOutputStream(socket.getOutputStream());
-				//numMesas.writeObject(numMesas);
-				//salidaCategorias.writeObject(listaCategoria);
-				
+				// ObjectOutputStream numMesas=new ObjectOutputStream(socket.getOutputStream());
+				// numMesas.writeObject(numMesas);
+				// salidaCategorias.writeObject(listaCategoria);
+
 				System.out.println("listas enviadas");
 				salidaDatos.close();
 				socket.close();
@@ -54,6 +58,7 @@ public class EnviarDatos {
 			}
 		}
 	}
+
 	public void enviarProductos() {
 		try {
 			System.out.println("LocalHost = " + InetAddress.getLocalHost().toString());
@@ -69,13 +74,29 @@ public class EnviarDatos {
 
 		Socket socket = null;
 		ArrayList<Producto> listaProducto;
-		
+
 		while (true) {
 			try {
-				/*aqui llamamos al metodo de recoger productos de la clase accesql(cargarProductos(string categoriapasada por el cliente)) para rellenar la array de productos pero necesitamos que el cliente nos envie la categoria seleccionada*/
 				socket = serverSocket.accept();
+				/*
+				 * aqui llamamos al metodo de recoger productos de la clase
+				 * accesql(cargarProductos(string categoriapasada por el cliente)) para rellenar
+				 * la array de productos pero necesitamos que el cliente nos envie la categoria
+				 * seleccionada
+				 
+				BufferedReader entrada = new BufferedReader(new ObjectInputStream(socket.getInputStream()));
+
+	            while((mensajeServidor = entrada.readLine()) != null) //Mientras haya mensajes desde el cliente
+	            {
+	                //Se muestra por pantalla el mensaje recibido
+	                System.out.println(mensajeServidor);
+	            }
+	            */
+
+
+				
 				ObjectOutputStream salidaProducto = new ObjectOutputStream(socket.getOutputStream());
-				//salidaProducto.writeObject(listaProducto);
+				// salidaProducto.writeObject(listaProducto);
 				System.out.println("productos enviadas");
 				salidaProducto.close();
 				socket.close();
