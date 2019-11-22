@@ -94,7 +94,7 @@ public class Login extends JInternalFrame {
 
 		String row1 = "qwertyuiop";
 		String row2 = "asdfghjklñ";
-		String row3 = "zxcvbnm-";
+		String row3 = "zxcvbnm";
 		int contadorFilas = 0;
 		int contadorColumnas = 0;
 		String[] rows = { row1, row2, row3 };
@@ -125,6 +125,23 @@ public class Login extends JInternalFrame {
 				}
 			}
 		}
+
+		JButton button = new JButton("-");
+		button.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (var == 0 && !textFieldNomCambrer.getText().isEmpty()) {
+					textFieldNomCambrer.setText(
+							textFieldNomCambrer.getText().substring(0, textFieldNomCambrer.getText().length() - 1));
+				} else if (var == 1 && !textFieldPassword.getText().isEmpty()) {
+					textFieldPassword.setText(
+							textFieldPassword.getText().substring(0, textFieldPassword.getText().length() - 1));
+				}
+			}
+		});
+		constraints.gridx = 8;
+		constraints.gridy = 2;
+		panel.add(button, constraints);
 
 		JButton btnEntrar = new JButton("Entrar");
 
