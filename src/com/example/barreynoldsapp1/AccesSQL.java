@@ -48,7 +48,7 @@ public class AccesSQL implements ConexionServer {
 		}
 	}
 
-	public static int configurarMesasBBDD() {
+	public static int cargarMesasBBDD() {
 		int numTaules = 0;
 		conexionJDBC();
 		try {
@@ -56,6 +56,7 @@ public class AccesSQL implements ConexionServer {
 			ResultSet rsst = stmnt.executeQuery("SELECT NumeroTaules FROM taula_mestra_configuracio;");
 			while (rsst.next()) {
 				numTaules = rsst.getInt("NumeroTaules");
+				System.out.println(numTaules);
 			}
 			// System.out.println(numTaules);
 		} catch (SQLException e) {
@@ -88,17 +89,24 @@ public class AccesSQL implements ConexionServer {
 
 	}
 
-	public static ArrayList<String> cargarCategorias() throws SQLException {
+	public static ArrayList<String> cargarCategorias()  {
 		ArrayList<String> categorias = new ArrayList<>();
 		conexionJDBC();
-		Statement stmnt = connection.createStatement();
-		ResultSet rsst = stmnt.executeQuery("SELECT * FROM categoria");
-		while (rsst.next()) {
-			int id = rsst.getInt("id");
-			String nom = rsst.getString("Nom_Categoria");
-			categorias.add(nom);
-			System.out.println(nom);
+		Statement stmnt;
+		try {
+			stmnt = connection.createStatement();
+			ResultSet rsst = stmnt.executeQuery("SELECT * FROM categoria");
+			while (rsst.next()) {
+				int id = rsst.getInt("id");
+				String nom = rsst.getString("Nom_Categoria");
+				categorias.add(nom);
+				System.out.println(nom);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
 		return categorias;
 
 	}
