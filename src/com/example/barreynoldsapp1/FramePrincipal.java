@@ -30,6 +30,10 @@ import javax.swing.JTabbedPane;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JInternalFrame;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
 
 public class FramePrincipal extends JFrame {
 
@@ -44,11 +48,9 @@ public class FramePrincipal extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-
 					frame = new FramePrincipal();
 					frame.setVisible(true);
 					arrancarServer();
-					// EnviarListaCambrers elc=new EnviarListaCambrers();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -57,7 +59,6 @@ public class FramePrincipal extends JFrame {
 	}
 
 	public FramePrincipal() {
-		// int numeroTaules = leerMesas();
 		int numeroTaules = AccesSQL.configurarMesasBBDD();
 		System.out.println(numeroTaules);
 		setVisible(true);
@@ -74,6 +75,7 @@ public class FramePrincipal extends JFrame {
 		contentPane.add(tabbedPane, BorderLayout.CENTER);
 
 		JMenuBar menuBar = new JMenuBar();
+		menuBar.setVisible(false);
 		contentPane.add(menuBar, BorderLayout.NORTH);
 
 		JMenu mnConfiguracio = new JMenu("Configuracio");
@@ -113,6 +115,7 @@ public class FramePrincipal extends JFrame {
 		});
 		mnPantalla.add(mntmTaules);
 		generarTaules(tabbedPane, numeroTaules);
+		generarLogin(contentPane);
 	}
 
 	public static void refreshFrame() {
@@ -154,19 +157,13 @@ public class FramePrincipal extends JFrame {
 			}
 		}).start();
 
-	/*	new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				try {
-					EnviarListaProductos elp = new EnviarListaProductos();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}).start();*/
+		/*
+		 * new Thread(new Runnable() {
+		 * 
+		 * @Override public void run() { // TODO Auto-generated method stub try {
+		 * EnviarListaProductos elp = new EnviarListaProductos(); } catch (SQLException
+		 * e) { // TODO Auto-generated catch block e.printStackTrace(); } } }).start();
+		 */
 
 	}
 
@@ -265,6 +262,31 @@ public class FramePrincipal extends JFrame {
 			Component tab = intFrame;
 			tabbedPane.addTab("Taula" + i, tab);
 		}
+	}
+
+	public static void generarLogin(JPanel contentPane) {
+		JInternalFrame internalFrame = new JInternalFrame("New JInternalFrame") {
+			public void setUI(InternalFrameUI ui) {
+				super.setUI(ui);
+				BasicInternalFrameUI frameUI = (BasicInternalFrameUI) getUI();
+				if (frameUI != null)
+					frameUI.setNorthPane(null);
+			}
+		};
+		contentPane.add(internalFrame, BorderLayout.CENTER);
+		internalFrame.setVisible(true);
+		internalFrame.setBorder(null);
+		Login login = new Login();
+		GroupLayout groupLayout = new GroupLayout(internalFrame.getContentPane());
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addComponent(login, GroupLayout.PREFERRED_SIZE, 784, GroupLayout.PREFERRED_SIZE)
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addComponent(login, GroupLayout.PREFERRED_SIZE, 515, GroupLayout.PREFERRED_SIZE)
+		);
+		internalFrame.getContentPane().setLayout(groupLayout);
 	}
 
 	public static void generarArxiusComanda(int numeroTaules) {

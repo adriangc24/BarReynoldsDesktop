@@ -1,22 +1,18 @@
 package com.example.barreynoldsapp1;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.GridBagLayout;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.JPanel;
 
-public class Login extends JFrame {
-
-	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
+public class Login extends JInternalFrame {
+	private JTextField textFieldNomCambrer;
+	private JTextField textFieldPassword;
+	private JPanel panel;
 
 	/**
 	 * Launch the application.
@@ -38,29 +34,46 @@ public class Login extends JFrame {
 	 * Create the frame.
 	 */
 	public Login() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setVisible(true);
 		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+
+		JLabel lblNomCambrer = new JLabel("Cambrer:");
+		lblNomCambrer.setBounds(10, 14, 75, 14);
+
+		JLabel lblPassword = new JLabel("Contrasenya:");
+		lblPassword.setBounds(10, 47, 76, 17);
+
+		textFieldNomCambrer = new JTextField();
+		textFieldNomCambrer.setBounds(103, 11, 86, 20);
+		textFieldNomCambrer.setColumns(10);
+
+		textFieldPassword = new JTextField();
+		textFieldPassword.setBounds(104, 45, 86, 20);
+		textFieldPassword.setColumns(10);
+
+		panel = new JPanel();
+		FlowLayout flowLayout = (FlowLayout) panel.getLayout();
+		flowLayout.setVgap(50);
+		flowLayout.setAlignment(FlowLayout.TRAILING);
+		panel.setBounds(0, 75, 434, 196);
 		
-		JLabel lblNom = new JLabel("Nombre:");
-		lblNom.setBounds(120, 102, 79, 14);
-		contentPane.add(lblNom);
-		
-		JLabel lblPassword = new JLabel("Password:");
-		lblPassword.setBounds(120, 127, 79, 14);
-		contentPane.add(lblPassword);
-		
-		textField = new JTextField();
-		textField.setBounds(194, 99, 86, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
-		
-		textField_1 = new JTextField();
-		textField_1.setBounds(194, 124, 86, 20);
-		contentPane.add(textField_1);
-		textField_1.setColumns(10);
+		String row1 = "qwertyuiop";
+		String row2 = "asdfghjkl";
+		String row3 = "zxcvbnm";
+		String[] rows = { row1, row2, row3 };
+		for (int i = 0; i < rows.length; i++) {
+			char[] keys = rows[i].toCharArray();
+			for (int j = 0; j < keys.length; j++) {
+				JButton button = new JButton(Character.toString(keys[j]));
+				panel.add(button);
+			}
+		}
+
+		getContentPane().setLayout(null);
+		getContentPane().add(lblNomCambrer);
+		getContentPane().add(textFieldNomCambrer);
+		getContentPane().add(lblPassword);
+		getContentPane().add(textFieldPassword);
+		getContentPane().add(panel);
 	}
 }
