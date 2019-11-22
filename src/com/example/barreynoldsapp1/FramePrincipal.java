@@ -60,7 +60,6 @@ public class FramePrincipal extends JFrame {
 		// int numeroTaules = leerMesas();
 		int numeroTaules = AccesSQL.cargarMesasBBDD();
 		System.out.println(numeroTaules);
-
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(800, 600);
@@ -155,6 +154,7 @@ public class FramePrincipal extends JFrame {
 				EnviarDatos ed=new EnviarDatos();
 			}
 		}).start();
+
 	/*	new Thread(new Runnable() {
 
 			@Override
