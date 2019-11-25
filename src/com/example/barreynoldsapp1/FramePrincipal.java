@@ -265,7 +265,7 @@ public class FramePrincipal extends JFrame {
 			generarArxiusComanda(numeroTaules);
 			Component tab = intFrame;
 			//intFrame.sumarPrecioProductos();
-			intFrame.lblPrecioTotal.setText(String.valueOf(intFrame.sumarPrecioProductos())+" $");
+			intFrame.lblPrecioTotal.setText(String.valueOf(intFrame.sumarPrecioProductos()));
 			//System.out.println(String.valueOf(intFrame.table.getValueAt(1, 1)));
 			
 			tabbedPane.addTab("Taula" + i, tab);
