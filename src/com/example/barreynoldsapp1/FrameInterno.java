@@ -34,14 +34,17 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.awt.event.ActionEvent;
+import java.awt.ScrollPane;
+import java.awt.Component;
+import javax.swing.table.TableModel;
 
 public class FrameInterno extends JInternalFrame {
 	JLabel lblCambrer, lblTaula, lblData;
-	static JTable table;
+	static JTable table, table2;
 	JButton btnCobrar;
 	String nom;
 	static JLabel lblPrecioTotal;
-	
+	DefaultTableModel model2=new DefaultTableModel();
 	DefaultTableModel model = new DefaultTableModel() {
 		public Class getColumnClass(int column) {
 			switch (column) {
@@ -56,6 +59,7 @@ public class FrameInterno extends JInternalFrame {
 			}
 		}
 	};
+	private JScrollPane scrollPane_1;
 
 	public FrameInterno(String nom) {
 		this.nom = nom;
@@ -64,6 +68,8 @@ public class FrameInterno extends JInternalFrame {
 		model.addColumn("Producte");
 		model.addColumn("Preu");
 		model.addColumn("Preparat");
+		model2.addColumn("Quantitat");
+		model2.addColumn("Producte");
 		JPanel panel = new JPanel();
 
 		JPanel panel_1 = new JPanel();
@@ -106,20 +112,62 @@ public class FrameInterno extends JInternalFrame {
 
 			}
 		});
+		
+		JPanel panel_2 = new JPanel();
 
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
-		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-						.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 448, Short.MAX_VALUE).addGap(10))
-				.addComponent(panel, GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE));
-		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 740, Short.MAX_VALUE)
+					.addGap(10))
 				.addGroup(groupLayout.createSequentialGroup()
-						.addComponent(panel, GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)));
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 564, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(panel, GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
+						.addComponent(panel_2, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+		);
+		panel_2.setLayout(null);
+		
+		JButton button_servido = new JButton("+");
+		button_servido.setBounds(0, 11, 41, 16);
+		button_servido.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+		
+				for(int i=model.getRowCount()-1;i>=0;i--) {
+					System.out.println(table.isCellSelected(i, 0));
+					if(table.isRowSelected(i)) {
+						System.out.println("hello");
+					}
+					/*if(table.isRowSelected(i)&&table.getModel().getValueAt(i, 3).equals(true)) {
+						model2.addRow(new Object[] { table.getModel().getValueAt(i, 0), table.getModel().getValueAt(i, 1) });
+						System.out.println("entra");
+					}*/
+				}
+				
+			}
+		});
+		panel_2.add(button_servido);
+		
+		JButton button_devuelto = new JButton("-");
+		button_devuelto.setBounds(0, 38, 41, 16);
+		panel_2.add(button_devuelto);
+		
+		
 		
 		lblPrecioTotal = new JLabel("Precio total: ");
-		//lblPrecioTotal.setText(String.valueOf(sumarPrecioProductos()));
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
@@ -155,9 +203,13 @@ public class FrameInterno extends JInternalFrame {
 		panel.setLayout(new BorderLayout(0, 0));
 
 		table = new JTable(model);
+		table2 = new JTable(model2);
+		
+		scrollPane_1 = new JScrollPane(table2);
+		scrollPane_1.setBounds(45, 0, 125, 402);
+		panel_2.add(scrollPane_1);
 		JScrollPane scrollPane = new JScrollPane(table);
 		panel.add(scrollPane, BorderLayout.NORTH);
-
 		getContentPane().setLayout(groupLayout);
 
 	}

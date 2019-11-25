@@ -50,7 +50,7 @@ public class FramePrincipal extends JFrame {
 				try {
 					frame = new FramePrincipal();
 					frame.setVisible(true);
-					arrancarServer();
+					//arrancarServer();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -264,9 +264,7 @@ public class FramePrincipal extends JFrame {
 			introducirComanda(intFrame, numeroTaules);
 			generarArxiusComanda(numeroTaules);
 			Component tab = intFrame;
-			//intFrame.sumarPrecioProductos();
 			intFrame.lblPrecioTotal.setText(String.valueOf(intFrame.sumarPrecioProductos()));
-			//System.out.println(String.valueOf(intFrame.table.getValueAt(1, 1)));
 			
 			tabbedPane.addTab("Taula" + i, tab);
 		}
