@@ -40,7 +40,8 @@ public class AccesSQL implements ConexionServer {
 			while (rsst.next()) {
 				int id = (int) rsst.getObject("id");
 				String nom = rsst.getObject("Nom_Cambrer").toString();
-				listaCambrers.add(new Cambrer(id, nom));
+				String password = rsst.getObject("Contrasenya").toString();
+				listaCambrers.add(new Cambrer(id, nom, password));
 				System.out.println(id + nom);
 			}
 		} catch (SQLException e) {

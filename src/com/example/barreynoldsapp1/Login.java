@@ -24,26 +24,8 @@ public class Login extends JInternalFrame {
 	private JPanel panel;
 	private static ArrayList<Cambrer> listaCambrers;
 	int var;
+	static Login frame;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Login frame = new Login();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public Login() {
 		listaCambrers = new ArrayList<Cambrer>();
 		AccesSQL.generarListaCambrers(listaCambrers);
@@ -144,6 +126,23 @@ public class Login extends JInternalFrame {
 		panel.add(button, constraints);
 
 		JButton btnEntrar = new JButton("Entrar");
+		btnEntrar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				boolean valid = false;
+				for (int i = 0; i < listaCambrers.size(); i++) {
+					if (listaCambrers.get(i).nom_Cambrer.equalsIgnoreCase(textFieldNomCambrer.getText())
+							&& listaCambrers.get(i).password.equalsIgnoreCase(textFieldPassword.getText())) {
+						valid = true;
+					}
+				}
+
+				if (valid) {
+					FramePrincipal.registrado = true;
+					FramePrincipal.refreshFrame();
+				}
+			}
+		});
 
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(groupLayout

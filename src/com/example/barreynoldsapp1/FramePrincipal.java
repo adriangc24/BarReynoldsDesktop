@@ -34,9 +34,12 @@ import javax.swing.GroupLayout.Alignment;
 
 public class FramePrincipal extends JFrame {
 
-	private JPanel contentPane;
+	static JPanel contentPane;
 	static FramePrincipal frame;
-	public JTabbedPane tabbedPane;
+	static JTabbedPane tabbedPane;
+	static JMenuBar menuBar;
+	static JInternalFrame internalFrame;
+	static boolean registrado = false;
 
 	/**
 	 * Launch the application.
@@ -72,8 +75,8 @@ public class FramePrincipal extends JFrame {
 		tabbedPane.setVisible(false);
 		contentPane.add(tabbedPane, BorderLayout.CENTER);
 
-		JMenuBar menuBar = new JMenuBar();
-		menuBar.setVisible(false);
+		menuBar = new JMenuBar();
+		menuBar.setVisible(true);
 		contentPane.add(menuBar, BorderLayout.NORTH);
 
 		JMenu mnConfiguracio = new JMenu("Configuracio");
@@ -113,7 +116,9 @@ public class FramePrincipal extends JFrame {
 		});
 		mnPantalla.add(mntmTaules);
 		generarTaules(tabbedPane, numeroTaules);
-		generarLogin(contentPane);
+		if (!registrado) {
+			generarLogin(contentPane);
+		}
 	}
 
 	public static void refreshFrame() {
@@ -151,8 +156,8 @@ public class FramePrincipal extends JFrame {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				//EnviarListaCambrers elc = new EnviarListaCambrers();
-				EnviarDatos ed=new EnviarDatos();
+				// EnviarListaCambrers elc = new EnviarListaCambrers();
+				EnviarDatos ed = new EnviarDatos();
 			}
 		}).start();
 
@@ -264,7 +269,7 @@ public class FramePrincipal extends JFrame {
 	}
 
 	public static void generarLogin(JPanel contentPane) {
-		JInternalFrame internalFrame = new JInternalFrame("New JInternalFrame") {
+		internalFrame = new JInternalFrame("New JInternalFrame") {
 			public void setUI(InternalFrameUI ui) {
 				super.setUI(ui);
 				BasicInternalFrameUI frameUI = (BasicInternalFrameUI) getUI();
@@ -276,16 +281,7 @@ public class FramePrincipal extends JFrame {
 		internalFrame.setVisible(true);
 		internalFrame.setBorder(null);
 		Login login = new Login();
-		GroupLayout groupLayout = new GroupLayout(internalFrame.getContentPane());
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addComponent(login, GroupLayout.PREFERRED_SIZE, 784, GroupLayout.PREFERRED_SIZE)
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addComponent(login, GroupLayout.PREFERRED_SIZE, 515, GroupLayout.PREFERRED_SIZE)
-		);
-		internalFrame.getContentPane().setLayout(groupLayout);
+		internalFrame.add(login);
 	}
 
 	public static void generarArxiusComanda(int numeroTaules) {
