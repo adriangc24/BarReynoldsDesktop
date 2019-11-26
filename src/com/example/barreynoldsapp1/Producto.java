@@ -1,11 +1,18 @@
 package com.example.barreynoldsapp1;
 
-public class Producto {
-	 private int id;
+import java.io.Serializable;
+
+public class Producto implements Serializable {
+	 /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1733521708430895847L;
+	private int id;
 	    private String nombre;
 	    private float precio;
 	    private String descripcion;
 	    private int categoria,cantidad;
+	    private String categoriaNombre;
 	    
 		public Producto(int id, String nombre, float precio, String descripcion, int categoria) {
 			super();
@@ -14,6 +21,15 @@ public class Producto {
 			this.precio = precio;
 			this.descripcion = descripcion;
 			this.categoria = categoria;
+			if(categoria==1) {
+				this.categoriaNombre="begudes";
+			}else if(categoria==2) {
+				this.categoriaNombre="tapes";
+			}else if(categoria==3) {
+				this.categoriaNombre="plats";
+			}else if(categoria==4) {
+				this.categoriaNombre="entrepans";
+			}
 		}
 		public int getId() {
 			return id;

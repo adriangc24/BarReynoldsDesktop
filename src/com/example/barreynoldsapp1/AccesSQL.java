@@ -58,6 +58,7 @@ public class AccesSQL implements ConexionServer {
 			while (rsst.next()) {
 				Producto p1 = new Producto(rsst.getInt("id"), rsst.getString("Nom_Producte"), rsst.getFloat("preu"),
 						rsst.getString("descripcio"), rsst.getInt("id_categoria"));
+				
 				ap.add(p1);
 			}
 		} catch (SQLException e) {

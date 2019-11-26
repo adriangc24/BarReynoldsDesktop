@@ -44,7 +44,18 @@ public class FrameInterno extends JInternalFrame {
 	JButton btnCobrar;
 	String nom;
 	static JLabel lblPrecioTotal;
-	DefaultTableModel model2=new DefaultTableModel();
+	DefaultTableModel model2=new DefaultTableModel() {
+		public Class getColumnClass(int column) {
+			switch (column) {
+			case 0:
+				return String.class;
+			case 1:
+				return String.class;
+			default:
+				return Boolean.class;
+			}
+		}
+	};
 	DefaultTableModel model = new DefaultTableModel() {
 		public Class getColumnClass(int column) {
 			switch (column) {
@@ -68,8 +79,9 @@ public class FrameInterno extends JInternalFrame {
 		model.addColumn("Producte");
 		model.addColumn("Preu");
 		model.addColumn("Preparat");
-		model2.addColumn("Quantitat");
+		model2.addColumn("Qty");
 		model2.addColumn("Producte");
+		model2.addColumn("Retornat");
 		JPanel panel = new JPanel();
 
 		JPanel panel_1 = new JPanel();
@@ -119,20 +131,19 @@ public class FrameInterno extends JInternalFrame {
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 740, Short.MAX_VALUE)
+					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 840, Short.MAX_VALUE)
 					.addGap(10))
 				.addGroup(groupLayout.createSequentialGroup()
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 564, GroupLayout.PREFERRED_SIZE)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 509, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addComponent(panel_2, GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(panel, GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
-						.addComponent(panel_2, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addComponent(panel_2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(panel, GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
@@ -147,10 +158,11 @@ public class FrameInterno extends JInternalFrame {
 				// TODO Auto-generated method stub
 		
 				for(int i=model.getRowCount()-1;i>=0;i--) {
-					System.out.println(table.isCellSelected(i, 0));
-					if(table.isRowSelected(i)) {
-						System.out.println("hello");
-					}
+					//model2.addRow(new Object[] { "cantidad", "nombre", false });
+					if(table.getModel().getValueAt(i, 3).equals(true)) {
+						model2.addRow(new Object[] { model.getValueAt(i, 0), model.getValueAt(i, 1), false });
+						model.removeRow(i);
+											}
 					/*if(table.isRowSelected(i)&&table.getModel().getValueAt(i, 3).equals(true)) {
 						model2.addRow(new Object[] { table.getModel().getValueAt(i, 0), table.getModel().getValueAt(i, 1) });
 						System.out.println("entra");
@@ -201,12 +213,11 @@ public class FrameInterno extends JInternalFrame {
 		);
 		panel_1.setLayout(gl_panel_1);
 		panel.setLayout(new BorderLayout(0, 0));
-
 		table = new JTable(model);
 		table2 = new JTable(model2);
 		
 		scrollPane_1 = new JScrollPane(table2);
-		scrollPane_1.setBounds(45, 0, 125, 402);
+		scrollPane_1.setBounds(45, 0, 224, 402);
 		panel_2.add(scrollPane_1);
 		JScrollPane scrollPane = new JScrollPane(table);
 		panel.add(scrollPane, BorderLayout.NORTH);
