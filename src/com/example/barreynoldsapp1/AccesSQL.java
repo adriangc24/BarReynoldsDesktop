@@ -162,6 +162,8 @@ public class AccesSQL implements ConexionServer {
 			NodeList data = doc.getElementsByTagName("fecha");
 			int idCambrer = Integer.parseInt(cambrer.item(0).getTextContent().substring(0, 1));
 			String dataCreacio = data.item(0).getTextContent();
+			System.out.println(idCambrer);
+			System.out.println(dataCreacio);
 			String insert = "INSERT INTO comanda (`ID_Cambrer`, `hora_creacio`) VALUES (?, ?)";
 			try (PreparedStatement pstmt = (PreparedStatement) connection.prepareStatement(insert)) {
 				pstmt.setInt(1, idCambrer);

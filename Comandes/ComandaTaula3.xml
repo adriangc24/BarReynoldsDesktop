@@ -1,1 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><comanda/>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><comanda><producto id="12"><nombre>Olives</nombre><precio>1.0</precio><descripcion>Tapa de olives farcides amb anxova</descripcion><imagen>2131165333</imagen><cantidad>1</cantidad></producto><camarero>Bundle[{mesaNum=3}]</camarero><mesa>3</mesa><fecha>26/11/2019 23:08:56</fecha><fin>2</fin></comanda>
