@@ -146,29 +146,16 @@ public class FramePrincipal extends JFrame {
 
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
 				Server s1 = new Server();
-				// EnviarListaCambrers elc=new EnviarListaCambrers();
 			}
 		}).start();
 		new Thread(new Runnable() {
 
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
-				// EnviarListaCambrers elc = new EnviarListaCambrers();
 				EnviarDatos ed = new EnviarDatos();
 			}
 		}).start();
-
-		/*
-		 * new Thread(new Runnable() {
-		 * 
-		 * @Override public void run() { // TODO Auto-generated method stub try {
-		 * EnviarListaProductos elp = new EnviarListaProductos(); } catch (SQLException
-		 * e) { // TODO Auto-generated catch block e.printStackTrace(); } } }).start();
-		 */
-
 	}
 
 	public static void introducirComanda(FrameInterno intFrame, int numeroTaules) {
@@ -262,8 +249,8 @@ public class FramePrincipal extends JFrame {
 			introducirComanda(intFrame, numeroTaules);
 			generarArxiusComanda(numeroTaules);
 			Component tab = intFrame;
-			//intFrame.lblPrecioTotal.setText(String.valueOf(intFrame.sumarPrecioProductos()));
-			
+			// intFrame.lblPrecioTotal.setText(String.valueOf(intFrame.sumarPrecioProductos()));
+
 			tabbedPane.addTab("Taula" + i, tab);
 		}
 	}

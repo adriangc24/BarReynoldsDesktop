@@ -67,9 +67,9 @@ public class AccesSQL implements ConexionServer {
 			e.printStackTrace();
 		}
 	}
-	
-	public static ArrayList<Producto>arrayTodosProductos(){
-		ArrayList<Producto>ap=new ArrayList<>();
+
+	public static ArrayList<Producto> arrayTodosProductos() {
+		ArrayList<Producto> ap = new ArrayList<>();
 		try {
 			conexionJDBC();
 			Statement stmnt = connection.createStatement();
@@ -77,16 +77,17 @@ public class AccesSQL implements ConexionServer {
 			while (rsst.next()) {
 				Producto p1 = new Producto(rsst.getInt("id"), rsst.getString("Nom_Producte"), rsst.getFloat("preu"),
 						rsst.getString("descripcio"), rsst.getInt("id_categoria"));
-				
+
 				ap.add(p1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return ap;
-		
+
 	}
+
 	public static int cargarMesasBBDD() {
 		int numTaules = 0;
 		conexionJDBC();
@@ -211,18 +212,26 @@ public class AccesSQL implements ConexionServer {
 		}
 	}
 
-	public static void actualitzarEstatProducte(int row, String producte, String dataCreacio) {
+	public static void actualitzarEstatProducte(String producte, String dataCreacio) {
 		conexionJDBC();
 		Statement stmnt;
 		try {
 			stmnt = connection.createStatement();
+			int ID_Comanda = 0;
+			int ID_Producte = 0;
 			ResultSet rsst = stmnt
 					.executeQuery("SELECT `ID` FROM `productes` WHERE `Nom_Producte` = '" + producte + "'");
-			ResultSet rsst2 = stmnt
-					.executeQuery("SELECT `ID` FROM `comanda` WHERE `hora_creacio` = '" + dataCreacio + "'");
+			if (rsst.next()) {
+				ID_Producte = rsst.getInt("ID");
+			}
+
+			rsst = stmnt.executeQuery("SELECT `ID` FROM `comanda` WHERE `hora_creacio` = '" + dataCreacio + "'");
+			if (rsst.next()) {
+				ID_Comanda = rsst.getInt("ID");
+			}
 
 			stmnt.executeUpdate("UPDATE `relacio_comanda_producte` SET `Estat`= " + 1 + " WHERE `ID_Producte` = "
-					+ rsst.getInt("ID") + " AND ID_Comanda = " + rsst2.getInt("ID"));
+					+ ID_Producte + " AND `ID_Comanda` = " + ID_Comanda);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -233,17 +242,10 @@ public class AccesSQL implements ConexionServer {
 			throws ParserConfigurationException, SAXException {
 		conexionJDBC();
 		try {
-			File factura = new File(
-					"Factures" + File.separatorChar + "Factura_" + hora1 + "_" + minut + "_" + segon + ".xml");
-			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-			factory.setNamespaceAware(true);
-			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document doc = builder.parse(factura);
-			NodeList listaPreuFinal = doc.getElementsByTagName("preciofinal");
-			double precioFinal = Double.parseDouble(listaPreuFinal.item(0).getTextContent());
+
 			String insert = "INSERT INTO factura (`Preu Final`) VALUES (?)";
 			try (PreparedStatement pstmt = (PreparedStatement) connection.prepareStatement(insert)) {
-				pstmt.setDouble(1, precioFinal);
+				pstmt.setDouble(1, FrameInterno.sumaTotal);
 				pstmt.executeUpdate();
 				System.out.println("Taula actualitzada.");
 			} catch (SQLException e) {

@@ -45,7 +45,7 @@ public class FrameInterno extends JInternalFrame {
 	JLabel lblCambrer, lblTaula, lblData;
 	JTable table, table2;
 	JButton btnCobrar;
-	ArrayList<Float>precio;
+	ArrayList<Float> precio;
 	String nom;
 	static float sumaTotal = 0;
 	DefaultTableModel model2 = new DefaultTableModel() {
@@ -77,7 +77,7 @@ public class FrameInterno extends JInternalFrame {
 	private JScrollPane scrollPane_1;
 
 	public FrameInterno(String nom) {
-		precio=new ArrayList<>();
+		precio = new ArrayList<>();
 		this.nom = nom;
 		setBorder(null);
 		model.addColumn("Quantitat");
@@ -106,6 +106,13 @@ public class FrameInterno extends JInternalFrame {
 		btnCobrar = new JButton("Cobrar");
 		btnCobrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (sumaTotal == 0) {
+					for (int i = 0; i < model.getRowCount(); i++) {
+						sumaTotal = sumaTotal + Float.parseFloat(table.getValueAt(i, 0).toString())
+								* Float.parseFloat(table.getValueAt(i, 2).toString());
+					}
+				}
+
 				boolean entregats = true;
 				for (int i = 0; i < table.getModel().getRowCount(); i++) {
 					if (table.getModel().getValueAt(i, 3).equals(false)) {
@@ -160,11 +167,10 @@ public class FrameInterno extends JInternalFrame {
 					for (int i = model.getRowCount() - 1; i >= 0; i--) {
 
 						if (model.getValueAt(i, 3).equals(true)) {
-							
-							
+
 							model2.addRow(new Object[] { model.getValueAt(i, 0), model.getValueAt(i, 1), false });
-							
-							precio.add(model2.getRowCount()-1,Float.parseFloat(model.getValueAt(i, 2).toString()));
+
+							precio.add(model2.getRowCount() - 1, Float.parseFloat(model.getValueAt(i, 2).toString()));
 							model.removeRow(i);
 						}
 
@@ -186,7 +192,8 @@ public class FrameInterno extends JInternalFrame {
 
 						if (model2.getValueAt(i, 2).equals(true)) {
 
-							model.addRow(new Object[] { model2.getValueAt(i, 0), model2.getValueAt(i, 1),precio.get(i), false });
+							model.addRow(new Object[] { model2.getValueAt(i, 0), model2.getValueAt(i, 1), precio.get(i),
+									false });
 							precio.remove(i);
 							model2.removeRow(i);
 						}
@@ -196,49 +203,35 @@ public class FrameInterno extends JInternalFrame {
 			}
 		});
 		panel_2.add(button_devuelto);
-		
+
 		JButton buttonPrecio = new JButton("");
 		buttonPrecio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				sumaTotal=0;
+				sumaTotal = 0;
 				for (int i = 0; i < model.getRowCount(); i++) {
 					sumaTotal = sumaTotal + Float.parseFloat(table.getValueAt(i, 0).toString())
 							* Float.parseFloat(table.getValueAt(i, 2).toString());
-						}
+				}
 				buttonPrecio.setText(String.valueOf(sumaTotal));
 			}
 		});
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
-		gl_panel_1.setHorizontalGroup(
-			gl_panel_1.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_1.createSequentialGroup()
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+		gl_panel_1.setHorizontalGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_1.createSequentialGroup().addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_1.createSequentialGroup().addContainerGap().addComponent(lblCambrer)
+								.addGap(123).addComponent(lblTaula, GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
+								.addGap(196).addComponent(lblData))
 						.addGroup(gl_panel_1.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(lblCambrer)
-							.addGap(123)
-							.addComponent(lblTaula, GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
-							.addGap(196)
-							.addComponent(lblData))
-						.addGroup(gl_panel_1.createSequentialGroup()
-							.addComponent(btnCobrar, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(buttonPrecio)))
-					.addContainerGap())
-		);
-		gl_panel_1.setVerticalGroup(
-			gl_panel_1.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_panel_1.createSequentialGroup()
-					.addGap(0, 0, Short.MAX_VALUE)
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnCobrar)
-						.addComponent(buttonPrecio, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblCambrer)
-						.addComponent(lblTaula)
-						.addComponent(lblData)))
-		);
+								.addComponent(btnCobrar, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.RELATED).addComponent(buttonPrecio)))
+						.addContainerGap()));
+		gl_panel_1.setVerticalGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panel_1.createSequentialGroup().addGap(0, 0, Short.MAX_VALUE)
+						.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE).addComponent(btnCobrar)
+								.addComponent(buttonPrecio, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE).addComponent(lblCambrer)
+								.addComponent(lblTaula).addComponent(lblData))));
 		panel_1.setLayout(gl_panel_1);
 		panel.setLayout(new BorderLayout(0, 0));
 		table = new JTable(model);
@@ -257,25 +250,14 @@ public class FrameInterno extends JInternalFrame {
 				int column = target.getSelectedColumn();
 				if (column == 3) {
 					String producte = table.getModel().getValueAt(row, 1).toString();
-					String data = lblData.getText().substring(6, lblData.getText().length() - 1);
-					AccesSQL.actualitzarEstatProducte(row, producte, data);
+					String data = lblData.getText().substring(6, lblData.getText().length());
+					AccesSQL.actualitzarEstatProducte(producte, data);
 				}
 			}
 		});
 		getContentPane().setLayout(groupLayout);
-		
-	
 
 	}
-
-	/*public static float sumarPrecioProductos() {
-		float sumaTotal = 0;
-		for (int i = 0; i < model.getRowCount(); i++) {
-			sumaTotal = sumaTotal + Float.parseFloat(table.getValueAt(i, 0).toString())
-					* Float.parseFloat(table.getValueAt(i, 2).toString());
-				}
-		return sumaTotal;
-	}*/
 
 	public static void generarFactura(String nombre)
 			throws ParserConfigurationException, SAXException, TransformerException {
