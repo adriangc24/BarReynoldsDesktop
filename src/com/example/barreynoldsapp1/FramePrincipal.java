@@ -50,7 +50,7 @@ public class FramePrincipal extends JFrame {
 				try {
 					frame = new FramePrincipal();
 					frame.setVisible(true);
-					//arrancarServer();
+					arrancarServer();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -116,9 +116,9 @@ public class FramePrincipal extends JFrame {
 		});
 		mnPantalla.add(mntmTaules);
 		generarTaules(tabbedPane, numeroTaules);
-		/*if (!registrado) {
+		if (!registrado) {
 			generarLogin(contentPane);
-		}*/
+		}
 	}
 
 	public static void refreshFrame() {
@@ -237,10 +237,8 @@ public class FramePrincipal extends JFrame {
 					Document doc = dBuilder.parse(file);
 
 					NodeList nList = doc.getElementsByTagName("fecha");
-					String[] parts = nList.item(0).getTextContent().split(" ");
-					String data = parts[0];
-					String hora = parts[1];
-					intFrame.lblData.setText("Data: " + data + " Hora: " + hora);
+					String data = nList.item(0).getTextContent();
+					intFrame.lblData.setText("Data: " + data);
 				} catch (Exception e) {
 				}
 			}

@@ -28,6 +28,8 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileWriter;
@@ -221,6 +223,19 @@ public class FrameInterno extends JInternalFrame {
 		panel_2.add(scrollPane_1);
 		JScrollPane scrollPane = new JScrollPane(table);
 		panel.add(scrollPane, BorderLayout.NORTH);
+
+		table.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				JTable target = (JTable) e.getSource();
+				int row = target.getSelectedRow();
+				int column = target.getSelectedColumn();
+				if (column == 3) {
+					String producte = table.getModel().getValueAt(row, 1).toString();
+					String data = lblData.getText().substring(6, lblData.getText().length() - 1);
+					AccesSQL.actualitzarEstatProducte(row, producte, data);
+				}
+			}
+		});
 		getContentPane().setLayout(groupLayout);
 
 	}
@@ -281,6 +296,7 @@ public class FrameInterno extends JInternalFrame {
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
 			transformer.transform(source, result);
+			AccesSQL.pujadaFactura(hora1, minut, segon);
 			file.delete();
 			FramePrincipal.refreshFrame();
 		} catch (IOException e) {
