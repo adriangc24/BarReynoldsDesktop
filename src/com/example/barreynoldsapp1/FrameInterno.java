@@ -35,6 +35,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.ScrollPane;
 import java.awt.Component;
@@ -44,7 +45,9 @@ public class FrameInterno extends JInternalFrame {
 	JLabel lblCambrer, lblTaula, lblData;
 	static JTable table, table2;
 	JButton btnCobrar;
+	ArrayList<Float>precio;
 	String nom;
+	
 	static JLabel lblPrecioTotal;
 	DefaultTableModel model2 = new DefaultTableModel() {
 		public Class getColumnClass(int column) {
@@ -75,6 +78,7 @@ public class FrameInterno extends JInternalFrame {
 	private JScrollPane scrollPane_1;
 
 	public FrameInterno(String nom) {
+		precio=new ArrayList<>();
 		this.nom = nom;
 		setBorder(null);
 		model.addColumn("Quantitat");
@@ -157,8 +161,11 @@ public class FrameInterno extends JInternalFrame {
 					for (int i = model.getRowCount() - 1; i >= 0; i--) {
 
 						if (model.getValueAt(i, 3).equals(true)) {
-
+							
+							
 							model2.addRow(new Object[] { model.getValueAt(i, 0), model.getValueAt(i, 1), false });
+							
+							precio.add(model2.getRowCount()-1,Float.parseFloat(model.getValueAt(i, 2).toString()));
 							model.removeRow(i);
 						}
 
@@ -180,8 +187,8 @@ public class FrameInterno extends JInternalFrame {
 
 						if (model2.getValueAt(i, 2).equals(true)) {
 
-							model.addRow(new Object[] { model2.getValueAt(i, 0), model2.getValueAt(i, 1),
-									model2.getValueAt(i, 1), false });
+							model.addRow(new Object[] { model2.getValueAt(i, 0), model2.getValueAt(i, 1),precio.get(i), false });
+							precio.remove(i);
 							model2.removeRow(i);
 						}
 
