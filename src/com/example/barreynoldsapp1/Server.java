@@ -31,9 +31,9 @@ import org.w3c.dom.NodeList;
 
 public class Server {
 
-	/*public static void main(String[] args) {
-		Server sv = new Server();
-	}*/
+	/*
+	 * public static void main(String[] args) { Server sv = new Server(); }
+	 */
 
 	public Server() {
 		try {
@@ -97,6 +97,19 @@ public class Server {
 					TransformerFactory transformerFactory = TransformerFactory.newInstance();
 					Transformer transformer = transformerFactory.newTransformer();
 					transformer.transform(source, result);
+					AccesSQL.pujarComanda(taula);
+
+					NodeList nomProducte = doc.getElementsByTagName("nombre");
+					NodeList listaQuantitat = doc.getElementsByTagName("cantidad");
+					NodeList data = doc.getElementsByTagName("fecha");
+					String producte;
+					int quantitat;
+					for (int i = 0; i < nomProducte.getLength(); i++) {
+						producte = nomProducte.item(i).getTextContent();
+						quantitat = Integer.parseInt(listaQuantitat.item(i).getTextContent());
+						AccesSQL.pujarRelacioComandaProducte(quantitat, producte, data.item(0).getTextContent());
+
+					}
 				} catch (Exception e) {
 					System.out.println("Esto peta");
 				}
