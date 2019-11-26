@@ -262,7 +262,7 @@ public class FramePrincipal extends JFrame {
 			introducirComanda(intFrame, numeroTaules);
 			generarArxiusComanda(numeroTaules);
 			Component tab = intFrame;
-			intFrame.lblPrecioTotal.setText(String.valueOf(intFrame.sumarPrecioProductos()));
+			//intFrame.lblPrecioTotal.setText(String.valueOf(intFrame.sumarPrecioProductos()));
 			
 			tabbedPane.addTab("Taula" + i, tab);
 		}

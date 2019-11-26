@@ -43,12 +43,11 @@ import javax.swing.table.TableModel;
 
 public class FrameInterno extends JInternalFrame {
 	JLabel lblCambrer, lblTaula, lblData;
-	static JTable table, table2;
+	JTable table, table2;
 	JButton btnCobrar;
 	ArrayList<Float>precio;
 	String nom;
-	
-	static JLabel lblPrecioTotal;
+	static float sumaTotal = 0;
 	DefaultTableModel model2 = new DefaultTableModel() {
 		public Class getColumnClass(int column) {
 			switch (column) {
@@ -197,29 +196,49 @@ public class FrameInterno extends JInternalFrame {
 			}
 		});
 		panel_2.add(button_devuelto);
-
-		lblPrecioTotal = new JLabel("Precio total: ");
+		
+		JButton buttonPrecio = new JButton("");
+		buttonPrecio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				sumaTotal=0;
+				for (int i = 0; i < model.getRowCount(); i++) {
+					sumaTotal = sumaTotal + Float.parseFloat(table.getValueAt(i, 0).toString())
+							* Float.parseFloat(table.getValueAt(i, 2).toString());
+						}
+				buttonPrecio.setText(String.valueOf(sumaTotal));
+			}
+		});
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
-		gl_panel_1.setHorizontalGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+		gl_panel_1.setHorizontalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_1.createSequentialGroup()
-						.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_panel_1.createSequentialGroup().addContainerGap().addComponent(lblCambrer)
-										.addGap(123)
-										.addComponent(lblTaula, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
-												Short.MAX_VALUE)
-										.addGap(196).addComponent(lblData))
-								.addGroup(gl_panel_1.createSequentialGroup()
-										.addComponent(btnCobrar, GroupLayout.PREFERRED_SIZE, 143,
-												GroupLayout.PREFERRED_SIZE)
-										.addGap(18).addComponent(lblPrecioTotal)))
-						.addContainerGap()));
-		gl_panel_1.setVerticalGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_panel_1.createSequentialGroup().addGap(0, 0, Short.MAX_VALUE)
-						.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE).addComponent(btnCobrar)
-								.addComponent(lblPrecioTotal))
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE).addComponent(lblCambrer)
-								.addComponent(lblTaula).addComponent(lblData))));
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_1.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(lblCambrer)
+							.addGap(123)
+							.addComponent(lblTaula, GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
+							.addGap(196)
+							.addComponent(lblData))
+						.addGroup(gl_panel_1.createSequentialGroup()
+							.addComponent(btnCobrar, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(buttonPrecio)))
+					.addContainerGap())
+		);
+		gl_panel_1.setVerticalGroup(
+			gl_panel_1.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addGap(0, 0, Short.MAX_VALUE)
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnCobrar)
+						.addComponent(buttonPrecio, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblCambrer)
+						.addComponent(lblTaula)
+						.addComponent(lblData)))
+		);
 		panel_1.setLayout(gl_panel_1);
 		panel.setLayout(new BorderLayout(0, 0));
 		table = new JTable(model);
@@ -244,22 +263,19 @@ public class FrameInterno extends JInternalFrame {
 			}
 		});
 		getContentPane().setLayout(groupLayout);
+		
+	
 
 	}
 
-	public static float sumarPrecioProductos() {
+	/*public static float sumarPrecioProductos() {
 		float sumaTotal = 0;
-		for (int i = 0; i < table.getRowCount(); i++) {
+		for (int i = 0; i < model.getRowCount(); i++) {
 			sumaTotal = sumaTotal + Float.parseFloat(table.getValueAt(i, 0).toString())
 					* Float.parseFloat(table.getValueAt(i, 2).toString());
-			/*
-			 * System.out.println(table.getValueAt(i, 0).toString());
-			 * System.out.println(table.getValueAt(i, 1).toString());
-			 * System.out.println(table.getValueAt(i, 2).toString());
-			 */
-		}
+				}
 		return sumaTotal;
-	}
+	}*/
 
 	public static void generarFactura(String nombre)
 			throws ParserConfigurationException, SAXException, TransformerException {
