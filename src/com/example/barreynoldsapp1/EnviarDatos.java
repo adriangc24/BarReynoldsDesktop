@@ -46,6 +46,11 @@ public class EnviarDatos {
 				salidaDatos.writeObject(listaCambrers);
 				salidaDatos.writeObject(numMes);
 				salidaDatos.writeObject(listaCategoria);
+				salidaDatos.writeObject(AccesSQL.arrayTodosProductos());
+				/*for (int i=0;i<listaCategoria.size();i++)
+				{
+					salidaDatos.writeObject(AccesSQL.cargarProductos(listaCategoria.get(i)));
+				}*/
 				// ObjectOutputStream numMesas=new ObjectOutputStream(socket.getOutputStream());
 				// numMesas.writeObject(numMesas);
 				// salidaCategorias.writeObject(listaCategoria);

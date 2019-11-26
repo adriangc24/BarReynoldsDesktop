@@ -67,7 +67,26 @@ public class AccesSQL implements ConexionServer {
 			e.printStackTrace();
 		}
 	}
-
+	
+	public static ArrayList<Producto>arrayTodosProductos(){
+		ArrayList<Producto>ap=new ArrayList<>();
+		try {
+			conexionJDBC();
+			Statement stmnt = connection.createStatement();
+			ResultSet rsst = stmnt.executeQuery("SELECT * FROM productes");
+			while (rsst.next()) {
+				Producto p1 = new Producto(rsst.getInt("id"), rsst.getString("Nom_Producte"), rsst.getFloat("preu"),
+						rsst.getString("descripcio"), rsst.getInt("id_categoria"));
+				
+				ap.add(p1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return ap;
+		
+	}
 	public static int cargarMesasBBDD() {
 		int numTaules = 0;
 		conexionJDBC();
