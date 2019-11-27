@@ -108,9 +108,9 @@ public class FrameInterno extends JInternalFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (sumaTotal == 0) {
 					for (int i = 0; i < model.getRowCount(); i++) {
-						sumaTotal = sumaTotal + Float.parseFloat(table.getValueAt(i, 0).toString())
-								* Float.parseFloat(table.getValueAt(i, 2).toString());
-					}
+						sumaTotal = sumaTotal + Float.parseFloat(table2.getValueAt(i, 0).toString())
+								* precio.get(i);
+					}/*Float.parseFloat(table2.getValueAt(i, 2).toString()*/
 				}
 
 				boolean entregats = true;
@@ -216,22 +216,37 @@ public class FrameInterno extends JInternalFrame {
 			}
 		});
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
-		gl_panel_1.setHorizontalGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_1.createSequentialGroup().addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_1.createSequentialGroup().addContainerGap().addComponent(lblCambrer)
-								.addGap(123).addComponent(lblTaula, GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
-								.addGap(196).addComponent(lblData))
+		gl_panel_1.setHorizontalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel_1.createSequentialGroup()
-								.addComponent(btnCobrar, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(ComponentPlacement.RELATED).addComponent(buttonPrecio)))
-						.addContainerGap()));
-		gl_panel_1.setVerticalGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_panel_1.createSequentialGroup().addGap(0, 0, Short.MAX_VALUE)
-						.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE).addComponent(btnCobrar)
-								.addComponent(buttonPrecio, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE).addComponent(lblCambrer)
-								.addComponent(lblTaula).addComponent(lblData))));
+							.addContainerGap()
+							.addComponent(lblCambrer)
+							.addGap(123)
+							.addComponent(lblTaula, GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblData, GroupLayout.PREFERRED_SIZE, 189, GroupLayout.PREFERRED_SIZE)
+							.addGap(68))
+						.addGroup(gl_panel_1.createSequentialGroup()
+							.addComponent(btnCobrar, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(buttonPrecio)))
+					.addContainerGap())
+		);
+		gl_panel_1.setVerticalGroup(
+			gl_panel_1.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addGap(0, 4, Short.MAX_VALUE)
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnCobrar)
+						.addComponent(buttonPrecio, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblCambrer)
+						.addComponent(lblTaula)
+						.addComponent(lblData)))
+		);
 		panel_1.setLayout(gl_panel_1);
 		panel.setLayout(new BorderLayout(0, 0));
 		table = new JTable(model);
