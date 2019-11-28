@@ -113,6 +113,7 @@ public class Server {
 				} catch (Exception e) {
 					System.out.println("Esto peta");
 				}
+				
 				out.close();
 				in.close();
 				socket.close();
