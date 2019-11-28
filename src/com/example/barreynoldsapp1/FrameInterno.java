@@ -213,6 +213,7 @@ public class FrameInterno extends JInternalFrame {
 							* Float.parseFloat(table.getValueAt(i, 2).toString());
 				}
 				buttonPrecio.setText(String.valueOf(sumaTotal));
+				AccesSQL.recuperarComandaInacabada(1 ,2);
 			}
 		});
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);

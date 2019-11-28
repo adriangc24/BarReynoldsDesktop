@@ -6,10 +6,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -28,7 +31,8 @@ import com.mysql.jdbc.PreparedStatement;
 
 public class AccesSQL implements ConexionServer {
 	private static Connection connection;
-
+//nombres bbdd a cambiar: Comanda: id,id_cambrer,num_mesa,fecha_comanda,estado_comanda
+	
 	public static void conexionJDBC() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -162,12 +166,11 @@ public class AccesSQL implements ConexionServer {
 			NodeList data = doc.getElementsByTagName("fecha");
 			int idCambrer = Integer.parseInt(cambrer.item(0).getTextContent().substring(0, 1));
 			String dataCreacio = data.item(0).getTextContent();
-			System.out.println(idCambrer);
-			System.out.println(dataCreacio);
-			String insert = "INSERT INTO comanda (`ID_Cambrer`, `hora_creacio`) VALUES (?, ?)";
+			String insert = "INSERT INTO comanda (`ID_Cambrer`, `fecha_comanda`, num_mesa) VALUES (?, ?, ?);";
 			try (PreparedStatement pstmt = (PreparedStatement) connection.prepareStatement(insert)) {
 				pstmt.setInt(1, idCambrer);
-				pstmt.setString(2, dataCreacio);
+				pstmt.setString(2, convertirFecha(dataCreacio));
+				pstmt.setInt(3, Integer.parseInt(taula));
 				pstmt.executeUpdate();
 				System.out.println("Taula actualitzada.");
 			} catch (SQLException e) {
@@ -176,6 +179,15 @@ public class AccesSQL implements ConexionServer {
 		} catch (Exception e) {
 			System.out.println("Esto peta");
 		}
+	}
+
+	public static String convertirFecha(String fecha) {
+		String fechaSql;
+		String[] split = fecha.split(" ");
+		split[0].replace('/', '-');
+		fechaSql = split[0].substring(split[0].length() - 4, split[0].length()) + "-" + split[0].substring(3, 5) + "-"
+				+ split[0].substring(0, 2) + " " + split[1];
+		return fechaSql;
 	}
 
 	public static void pujarRelacioComandaProducte(int quantitat, String producte, String dataCreacio) {
@@ -190,7 +202,8 @@ public class AccesSQL implements ConexionServer {
 				ID_Producte = rsst.getInt("ID");
 			}
 
-			rsst = stmnt.executeQuery("SELECT `ID` FROM `comanda` WHERE `hora_creacio` = '" + dataCreacio + "'");
+			rsst = stmnt.executeQuery(
+					"SELECT `ID` FROM `comanda` WHERE fecha_comanda = '" + convertirFecha(dataCreacio) + "'");
 			if (rsst.next()) {
 				ID_Comanda = rsst.getInt("ID");
 			}
@@ -227,7 +240,8 @@ public class AccesSQL implements ConexionServer {
 				ID_Producte = rsst.getInt("ID");
 			}
 
-			rsst = stmnt.executeQuery("SELECT `ID` FROM `comanda` WHERE `hora_creacio` = '" + dataCreacio + "'");
+			rsst = stmnt.executeQuery(
+					"SELECT `ID` FROM `comanda` WHERE `hora_creacio` = '" + convertirFecha(dataCreacio) + "'");
 			if (rsst.next()) {
 				ID_Comanda = rsst.getInt("ID");
 			}
@@ -307,6 +321,71 @@ public class AccesSQL implements ConexionServer {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static ArrayList<Producto> recuperarComandaInacabada(int mesa, int camarero) {
+		conexionJDBC();
+		int idComanda = 0, estadoComanda = 0;
+		String select = "select id, estado_comanda from comanda where id_cambrer=" + camarero + " and num_mesa= " + mesa
+				+ " order by fecha_comanda desc;";
+		Statement stmnt;
+
+		try {
+			stmnt = connection.createStatement();
+			ResultSet rsst = stmnt.executeQuery(select);
+			if (rsst.next()) {
+				idComanda = rsst.getInt("id");
+				estadoComanda = rsst.getInt("estado_comanda");
+				System.out.println("idComanda " + idComanda + " estado: " + estadoComanda);
+			}
+
+			if (estadoComanda == 1) {
+				return devolverProductosComandaIniciada(idComanda);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+
+	}
+
+	public static ArrayList<Producto> devolverProductosComandaIniciada(int idComanda) {
+		String select = "select * from relacio_comanda_producte where id_comanda=" + idComanda + ";";
+		int idProducto = 0, cantidadProducto = 0;
+
+		ArrayList<Producto> productos = new ArrayList<Producto>();
+		Statement stmnt1;
+		Statement stmnt2;
+
+		try {
+			stmnt1 = connection.createStatement();
+			ResultSet rsst1 = stmnt1.executeQuery(select);
+			while (rsst1.next()) {
+				idProducto = rsst1.getInt("ID_Producte");
+				cantidadProducto = rsst1.getInt("Quantitat");
+				String select2 = "select * from productes where id=" + idProducto + " ;";
+				stmnt2 = connection.createStatement();
+				ResultSet rsst2 = stmnt2.executeQuery(select2);
+
+				if (rsst2.next()) {
+					Producto p1 = new Producto(rsst2.getInt("id"), rsst2.getString("Nom_Producte"),
+							rsst2.getFloat("preu"), rsst2.getString("Descripcio"), rsst2.getInt("ID_Categoria"));
+
+					for (int i = 0; i < cantidadProducto; i++) {
+						System.out.println(p1.toString());
+						productos.add(p1);
+					}
+				}
+
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return productos;
 	}
 
 }

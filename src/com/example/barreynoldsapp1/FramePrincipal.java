@@ -116,9 +116,9 @@ public class FramePrincipal extends JFrame {
 		});
 		mnPantalla.add(mntmTaules);
 		generarTaules(tabbedPane, numeroTaules);
-		if (!registrado) {
+		/*if (!registrado) {
 			generarLogin(contentPane);
-		}
+		}*/
 	}
 
 	public static void refreshFrame() {
