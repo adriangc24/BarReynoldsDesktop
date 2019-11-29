@@ -27,8 +27,13 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
 public class RefrescoDeComandas {
-String camareroMesa;
-	public RefrescoDeComandas() {
+public RefrescoDeComandas() {
+	RefrescoDeComandas1();
+}
+
+
+	public void RefrescoDeComandas1() {
+		String camareroMesa;
 		try {
 			System.out.println("LocalHost = " + InetAddress.getLocalHost().toString());
 		} catch (UnknownHostException uhe) {
@@ -52,6 +57,7 @@ String camareroMesa;
 				ObjectOutputStream salidaDatos = new ObjectOutputStream(socket.getOutputStream());
 				ArrayList<Producto>arp=AccesSQL.recuperarComandaInacabada(i+1, 0);
 				if(arp!=null) {
+				salidaDatos.writeInt(i+1);
 				salidaDatos.writeObject(arp);
 				System.out.println("Comanda inacabada enviadas de la mesa "+(i+1));
 				}
