@@ -6,6 +6,8 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -62,6 +64,12 @@ public class FramePrincipal extends JFrame {
 		// int numeroTaules = leerMesas();
 		int numeroTaules = AccesSQL.cargarMesasBBDD();
 		System.out.println(numeroTaules);
+		for (int i=0;i<numeroTaules;i++) {
+			ArrayList<Producto>arp= AccesSQL.recuperarComandaInacabada(i+1, 0);
+			if(arp!=null) {
+				
+			}
+		}
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(800, 600);
@@ -154,6 +162,13 @@ public class FramePrincipal extends JFrame {
 			@Override
 			public void run() {
 				EnviarDatos ed = new EnviarDatos();
+			}
+		}).start();
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				RefrescoDeComandas rfc = new RefrescoDeComandas();
 			}
 		}).start();
 	}

@@ -31,7 +31,7 @@ import com.mysql.jdbc.PreparedStatement;
 
 public class AccesSQL implements ConexionServer {
 	private static Connection connection;
-//nombres bbdd a cambiar: Comanda: id,id_cambrer,num_mesa,fecha_comanda,estado_comanda
+
 	
 	public static void conexionJDBC() {
 		try {
@@ -326,7 +326,10 @@ public class AccesSQL implements ConexionServer {
 	public static ArrayList<Producto> recuperarComandaInacabada(int mesa, int camarero) {
 		conexionJDBC();
 		int idComanda = 0, estadoComanda = 0;
-		String select = "select id, estado_comanda from comanda where id_cambrer=" + camarero + " and num_mesa= " + mesa
+		/*String select = "select id, estado_comanda from comanda where id_cambrer=" + camarero + " and num_mesa= " + mesa
+				+ " order by fecha_comanda desc;";*/
+		
+		String select = "select id, estado_comanda from comanda where num_mesa= " + mesa
 				+ " order by fecha_comanda desc;";
 		Statement stmnt;
 
