@@ -241,7 +241,7 @@ public class AccesSQL implements ConexionServer {
 			}
 
 			rsst = stmnt.executeQuery(
-					"SELECT `ID` FROM `comanda` WHERE `hora_creacio` = '" + convertirFecha(dataCreacio) + "'");
+					"SELECT `ID` FROM `comanda` WHERE `fecha_comanda` = '" + convertirFecha(dataCreacio) + "'");
 			if (rsst.next()) {
 				ID_Comanda = rsst.getInt("ID");
 			}
