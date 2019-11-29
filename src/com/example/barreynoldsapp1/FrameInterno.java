@@ -290,6 +290,7 @@ public class FrameInterno extends JInternalFrame {
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
 			transformer.transform(source, result);
+			file.delete();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -318,7 +319,6 @@ public class FrameInterno extends JInternalFrame {
 			Transformer transformer = transformerFactory.newTransformer();
 			transformer.transform(source, result);
 			AccesSQL.pujadaFactura(hora1, minut, segon);
-			file.delete();
 			FramePrincipal.refreshFrame();
 		} catch (IOException e) {
 			e.printStackTrace();
