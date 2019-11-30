@@ -171,6 +171,14 @@ public class FramePrincipal extends JFrame {
 				RefrescoDeComandas rfc = new RefrescoDeComandas();
 			}
 		}).start();
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				EnviarProductosComandasInacabadas epci = new EnviarProductosComandasInacabadas();
+			}
+		}).start();
+		
 	}
 
 	public static void introducirComanda(FrameInterno intFrame, int numeroTaules) {

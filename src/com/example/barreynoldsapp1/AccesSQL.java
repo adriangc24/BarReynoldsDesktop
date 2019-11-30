@@ -330,7 +330,7 @@ public class AccesSQL implements ConexionServer {
 				+ " order by fecha_comanda desc;";*/
 		
 		String select = "select id, estado_comanda from comanda where num_mesa= " + mesa
-				+ " order by fecha_comanda desc;";
+				+ " and estado_comanda=1 order by fecha_comanda desc;";
 		Statement stmnt;
 
 		try {
@@ -352,6 +352,26 @@ public class AccesSQL implements ConexionServer {
 		}
 		return null;
 
+	}
+	public static boolean saberMesasConComandasInacabadas(int mesa) {
+		String select = "select id, estado_comanda from comanda where num_mesa= " + mesa
+				+ " and estado_comanda=1 order by fecha_comanda desc;";
+		Statement stmnt;
+
+		
+			try {
+				stmnt = connection.createStatement();
+				ResultSet rsst = stmnt.executeQuery(select);
+				if (rsst.next()) {
+					return true;
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+
+		 return false;
 	}
 
 	public static ArrayList<Producto> devolverProductosComandaIniciada(int idComanda) {

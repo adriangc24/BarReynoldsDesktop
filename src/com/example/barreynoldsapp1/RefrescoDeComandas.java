@@ -34,6 +34,13 @@ public RefrescoDeComandas() {
 
 	public void RefrescoDeComandas1() {
 		String camareroMesa;
+		ArrayList<Integer>mesasInacabadas=new ArrayList<Integer>();
+		int numMes = AccesSQL.cargarMesasBBDD();
+		for(int i=0;i<numMes;i++) {
+			if(AccesSQL.saberMesasConComandasInacabadas(i+1)) {
+				mesasInacabadas.add(i+1);
+			}
+		}
 		try {
 			System.out.println("LocalHost = " + InetAddress.getLocalHost().toString());
 		} catch (UnknownHostException uhe) {
@@ -48,25 +55,25 @@ public RefrescoDeComandas() {
 		}
 
 		Socket socket = null;
-		int numMes = AccesSQL.cargarMesasBBDD();
+		
 		while (true) {
-			for(int i=0;i<numMes;i++) {
 			try {
 				socket = serverSocket.accept();
 
 				ObjectOutputStream salidaDatos = new ObjectOutputStream(socket.getOutputStream());
-				ArrayList<Producto>arp=AccesSQL.recuperarComandaInacabada(i+1, 0);
-				if(arp!=null) {
-				salidaDatos.writeInt(i+1);
-				salidaDatos.writeObject(arp);
-				System.out.println("Comanda inacabada enviadas de la mesa "+(i+1));
-				}
+				salidaDatos.writeObject(mesasInacabadas);
+				//ArrayList<Producto>arp=AccesSQL.recuperarComandaInacabada(i+1, 0);
+				//if(arp!=null) {
+			//	salidaDatos.writeInt(i+1);
+				//salidaDatos.writeObject(arp);
+				System.out.println("Comanda inacabada enviadas de las mesas ");
+				//}
 
 				salidaDatos.close();
 				socket.close();
 			} catch (IOException ex) {
 				System.out.println("No se pudo aceptar la conexion.");
 			}
-		}}
+		}
 	}
 }
