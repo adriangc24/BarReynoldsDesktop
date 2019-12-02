@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><config>
-	<numeroTaulas>5</numeroTaulas>
+	<numeroTaulas>3</numeroTaulas>
 	<pda id="1">
 		<pdaName>Sergio</pdaName>
 	</pda>

@@ -42,7 +42,7 @@ public class FramePrincipal extends JFrame {
 	static JMenuBar menuBar;
 	static JInternalFrame internalFrame;
 	static boolean registrado = false;
-
+	static int numeroTaules;
 	/**
 	 * Launch the application.
 	 */
@@ -176,6 +176,14 @@ public class FramePrincipal extends JFrame {
 				RefrescoDeComandas rfc = new RefrescoDeComandas();
 			}
 		}).start();
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				EnviarProductosComandasInacabadas epci = new EnviarProductosComandasInacabadas();
+			}
+		}).start();
+		
 	}
 
 	public static void introducirComanda(FrameInterno intFrame, int numeroTaules) {

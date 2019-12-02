@@ -322,6 +322,32 @@ public class AccesSQL implements ConexionServer {
 		}
 	}
 
+	public static void anadirCamarero(String nombreCamarero, String passwrd) {
+		conexionJDBC();
+		String insert = "INSERT INTO nuevo_camarero(nom_cambrer,contrasenya) VALUES (?, ?)";
+		try (PreparedStatement pstmt = (PreparedStatement) connection.prepareStatement(insert)) {
+			pstmt.setString(1, nombreCamarero);
+			pstmt.setString(2, passwrd);
+			//falta subir la foto?¿¿?¿?
+			pstmt.executeUpdate();
+			System.out.println("Camarero añadido");
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+public static void actualizarEstadoComandaUnaVezPasadaAFacturas(int idComanda) {
+	conexionJDBC();
+	String update="UPDATE comanda SET estado_comanda= 2 WHERE id ="+idComanda+";";
+	Statement stmnt;
+		try {
+			stmnt = connection.createStatement();
+			stmnt.executeUpdate(update);
+			System.out.println("Estado comanda actualizado a 2, idComanda= "+idComanda);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+}
 	public static ArrayList<Producto> recuperarComandaInacabada(int mesa, int camarero) {
 		conexionJDBC();
 		int idComanda = 0, estadoComanda = 0;
@@ -331,7 +357,7 @@ public class AccesSQL implements ConexionServer {
 		 */
 
 		String select = "select id, estado_comanda from comanda where num_mesa= " + mesa
-				+ " order by fecha_comanda desc;";
+				+ " and estado_comanda=1 order by fecha_comanda desc;";
 		Statement stmnt;
 
 		try {
@@ -355,6 +381,25 @@ public class AccesSQL implements ConexionServer {
 
 	}
 
+	public static boolean saberMesasConComandasInacabadas(int mesa) {
+		String select = "select id, estado_comanda from comanda where num_mesa= " + mesa
+				+ " and estado_comanda=1 order by fecha_comanda desc;";
+		Statement stmnt;
+
+		try {
+			stmnt = connection.createStatement();
+			ResultSet rsst = stmnt.executeQuery(select);
+			if (rsst.next()) {
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return false;
+	}
+
 	public static ArrayList<Producto> devolverProductosComandaIniciada(int idComanda) {
 		String select = "select * from relacio_comanda_producte where id_comanda=" + idComanda + ";";
 		int idProducto = 0, cantidadProducto = 0;
@@ -376,11 +421,12 @@ public class AccesSQL implements ConexionServer {
 				if (rsst2.next()) {
 					Producto p1 = new Producto(rsst2.getInt("id"), rsst2.getString("Nom_Producte"),
 							rsst2.getFloat("preu"), rsst2.getString("Descripcio"), rsst2.getInt("ID_Categoria"));
-
-					for (int i = 0; i < cantidadProducto; i++) {
+					p1.setCantidad(cantidadProducto);
+					productos.add(p1);
+					/*for (int i = 0; i < cantidadProducto; i++) {
 						System.out.println(p1.toString());
 						productos.add(p1);
-					}
+					}*/
 				}
 
 			}
