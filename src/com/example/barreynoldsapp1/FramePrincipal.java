@@ -42,7 +42,7 @@ public class FramePrincipal extends JFrame {
 	static JMenuBar menuBar;
 	static JInternalFrame internalFrame;
 	static boolean registrado = false;
-
+	static int numeroTaules;
 	/**
 	 * Launch the application.
 	 */
@@ -62,7 +62,7 @@ public class FramePrincipal extends JFrame {
 
 	public FramePrincipal() {
 		// int numeroTaules = leerMesas();
-		int numeroTaules = AccesSQL.cargarMesasBBDD();
+		 numeroTaules = AccesSQL.cargarMesasBBDD();
 		System.out.println(numeroTaules);
 		for (int i=0;i<numeroTaules;i++) {
 			ArrayList<Producto>arp= AccesSQL.recuperarComandaInacabada(i+1, 0);

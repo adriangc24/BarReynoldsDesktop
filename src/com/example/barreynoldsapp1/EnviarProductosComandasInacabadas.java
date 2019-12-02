@@ -33,16 +33,32 @@ public class EnviarProductosComandasInacabadas {
 				Socket socket = null;
 				ObjectInputStream in = null;
 				ObjectOutputStream salidaDatos = null;
+				int mesa=AccesSQL.cargarMesasBBDD();
 				while (true) {
 					try {
+						ArrayList<ArrayList<Producto>>comandasInacab=new ArrayList<>();
 						socket = serverSocket.accept();
-						  in = new ObjectInputStream(socket.getInputStream());
-						 int mesa= in.readInt();
-						 in.close();
+						 // in = new ObjectInputStream(socket.getInputStream());
+						// int mesas= in.readInt();
+						
+						for(int i=1;i<=mesa;i++) {
+							ArrayList<Producto> ap=new ArrayList<>();
+							
+							if(AccesSQL.recuperarComandaInacabada(i, 0) != null) {
+								ap=AccesSQL.recuperarComandaInacabada(i, 0);
+								comandasInacab.add(i-1,ap);
+								System.out.println(ap.get(0).toString());
+								System.out.println("Productos de comanda inacabada enviada de la mesa "+i);
+							}
+						}
+						/*if( AccesSQL.recuperarComandaInacabada(mesas, 0)!=null) {
+							salidaDatos = new ObjectOutputStream(socket.getOutputStream());
+							 salidaDatos.writeObject(AccesSQL.recuperarComandaInacabada(mesas, 0));
+						}*/
 						  salidaDatos = new ObjectOutputStream(socket.getOutputStream());
-						 salidaDatos.writeObject(AccesSQL.recuperarComandaInacabada(mesa, 0));
+						 salidaDatos.writeObject(comandasInacab);
 						 salidaDatos.close();
-						System.out.println("Productos de comanda inacabada enviada de la mesa "+mesa);
+						 //in.close();
 
 						socket.close();
 					} catch (IOException ex) {

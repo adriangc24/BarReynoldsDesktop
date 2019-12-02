@@ -2,10 +2,13 @@ package com.example.barreynoldsapp1;
 
 import java.io.Serializable;
 
+import javax.swing.text.html.ImageView;
+
 public class Cambrer implements Serializable {
 	int id;
 	String nom_Cambrer;
 	String password;
+	ImageView fotoCamarero;
 	private static final long serialVersionUID = 1733521708430895847L;
 	
 	public Cambrer(int id, String nom_Cambrer, String password) {
