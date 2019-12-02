@@ -32,7 +32,6 @@ import com.mysql.jdbc.PreparedStatement;
 public class AccesSQL implements ConexionServer {
 	private static Connection connection;
 
-	
 	public static void conexionJDBC() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -326,9 +325,11 @@ public class AccesSQL implements ConexionServer {
 	public static ArrayList<Producto> recuperarComandaInacabada(int mesa, int camarero) {
 		conexionJDBC();
 		int idComanda = 0, estadoComanda = 0;
-		/*String select = "select id, estado_comanda from comanda where id_cambrer=" + camarero + " and num_mesa= " + mesa
-				+ " order by fecha_comanda desc;";*/
-		
+		/*
+		 * String select = "select id, estado_comanda from comanda where id_cambrer=" +
+		 * camarero + " and num_mesa= " + mesa + " order by fecha_comanda desc;";
+		 */
+
 		String select = "select id, estado_comanda from comanda where num_mesa= " + mesa
 				+ " order by fecha_comanda desc;";
 		Statement stmnt;
@@ -389,6 +390,17 @@ public class AccesSQL implements ConexionServer {
 			e.printStackTrace();
 		}
 		return productos;
+	}
+
+	public static void cambiarNumeroTaules(String nouNum) {
+		conexionJDBC();
+		Statement stmnt;
+		try {
+			stmnt = connection.createStatement();
+			stmnt.executeUpdate("UPDATE `taula_mestra_configuracio` SET `NumeroTaules` = " + Integer.parseInt(nouNum));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

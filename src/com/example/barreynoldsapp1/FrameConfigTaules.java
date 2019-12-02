@@ -65,9 +65,10 @@ public class FrameConfigTaules extends JFrame {
 		btnAcceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (!esNumero(textField.getText())) {
-					JOptionPane.showMessageDialog(FrameConfigTaules.this, "ERROR: Aixo no es un enter", "ERROR", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(FrameConfigTaules.this, "ERROR: Aixo no es un enter", "ERROR",
+							JOptionPane.ERROR_MESSAGE);
 				} else {
-					cambiarTaules(textField.getText());
+					AccesSQL.cambiarNumeroTaules(textField.getText());
 					dispose();
 					FramePrincipal.refreshFrame();
 				}
@@ -105,25 +106,6 @@ public class FrameConfigTaules extends JFrame {
 												.addComponent(btnAcceptar).addComponent(btnCancelar))
 										.addGap(52)));
 		contentPane.setLayout(gl_contentPane);
-	}
-
-	public static void cambiarTaules(String taules) {
-		try {
-			File file = new File("config.xml");
-			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.parse(file);
-			NodeList nList = doc.getElementsByTagName("numeroTaulas");
-			Element element = (Element) nList.item(0);
-			element.setTextContent(taules);
-			TransformerFactory transformerFactory = TransformerFactory.newInstance();
-			Transformer transformer = transformerFactory.newTransformer();
-			DOMSource source = new DOMSource(doc);
-			StreamResult result = new StreamResult(new File("config.xml"));
-			transformer.transform(source, result);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	public static boolean esNumero(String texto) {
