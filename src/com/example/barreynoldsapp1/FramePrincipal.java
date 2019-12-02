@@ -183,6 +183,13 @@ public class FramePrincipal extends JFrame {
 				EnviarProductosComandasInacabadas epci = new EnviarProductosComandasInacabadas();
 			}
 		}).start();
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				RecibirCamarero rec = new RecibirCamarero();
+			}
+		}).start();
 		
 	}
 
