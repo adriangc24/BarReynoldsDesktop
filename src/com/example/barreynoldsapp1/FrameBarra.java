@@ -5,6 +5,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -15,7 +16,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import javax.swing.border.LineBorder;
 import java.awt.Color;
 
 public class FrameBarra extends JInternalFrame {
@@ -29,20 +29,25 @@ public class FrameBarra extends JInternalFrame {
 		setVisible(true);
 
 		JPanel panelComanda = new JPanel();
-		panelComanda.setBounds(0, 0, 296, 226);
+		panelComanda.setBounds(0, 0, 293, 248);
 		getContentPane().add(panelComanda);
 
 		JScrollPane scrollPane = new JScrollPane();
 		panelComanda.add(scrollPane);
 
 		JPanel panelCategoria = new JPanel();
-		panelCategoria.setBorder(null);
-		panelCategoria.setBounds(-64, 237, 200, 281);
+		panelCategoria.setBounds(-66, 279, 200, 281);
 		getContentPane().add(panelCategoria);
-
 		GridBagLayout gbl_panelCategoria = new GridBagLayout();
 		panelCategoria.setLayout(gbl_panelCategoria);
+		
+		JLayeredPane panelProductes = new JLayeredPane();
+		panelProductes.setBounds(144, 279, 477, 281);
+		getContentPane().add(panelProductes);
+		
 		GridBagConstraints constraints = new GridBagConstraints();
+		
+		// Introducir botones de categoria
 		int contador = 0;
 		int valorColumna = 0;
 		for (int i = 0; i < listaCategorias.size(); i++) {
@@ -65,9 +70,9 @@ public class FrameBarra extends JInternalFrame {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-
 		}
-
+		
+		// Introducir botones de productos
+		
 	}
-
 }
