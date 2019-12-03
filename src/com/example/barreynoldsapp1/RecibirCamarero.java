@@ -26,6 +26,7 @@ import java.nio.file.Files;
 import javax.imageio.ImageIO;
 import javax.imageio.spi.ImageInputStreamSpi;
 import javax.imageio.stream.ImageInputStream;
+import javax.swing.JFrame;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Transformer;
@@ -74,46 +75,20 @@ public class RecibirCamarero implements Serializable {
 				in = new ObjectInputStream(socket.getInputStream());
 				Cambrer c = (Cambrer) in.readObject();
 				System.out.println(c.toString());
-
+				System.out.println("Foto: "+c.foto);
+				
+				ByteArrayInputStream bis = new ByteArrayInputStream(c.foto);
+			    bImage = ImageIO.read(bis);
+			    
+			    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+				ImageIO.write(bImage, "jpg", bos );
+			    byte [] data = bos.toByteArray();
+			    bis = new ByteArrayInputStream(data);
+			    bImage = ImageIO.read(bis);
+			    ImageIO.write(bImage, "jpg", new File("aaa.jpg"));
+				
+				
 				in.close();
-				socket.close();
-				
-				// Abrimos 2o Socket para recibir la foto
-				socket = serverSocket2.accept();
-				in2 = new ObjectInputStream(socket.getInputStream());				
-				try {
-					ByteArrayOutputStream bos = new ByteArrayOutputStream();
-				      byte [] data = bos.toByteArray();
-					ByteArrayInputStream bis = new ByteArrayInputStream(data);
-					ObjectInputStream inputStreamn = null;
-					try {
-						inputStreamn = new ObjectInputStream(bis);
-					  Object o = inputStreamn.readObject(); 
-					} finally {
-					  try {
-					    if (inputStreamn != null) {
-					    	inputStreamn.close();
-					    }
-					  } catch (IOException ex) {
-					    // ignore close exception
-					  }
-					}
-					
-				      System.out.println("image created");
-				}
-				catch(Exception e) {
-					// Default Image de camarero para cuando no pasen foto
-					 bImage = ImageIO.read(new File("moon.jpg"));
-					ByteArrayOutputStream bos = new ByteArrayOutputStream();
-				      ImageIO.write(bImage, "jpg", bos );
-				      byte [] data = bos.toByteArray();
-				      ByteArrayInputStream bis = new ByteArrayInputStream(data);
-				      BufferedImage bImage2 = ImageIO.read(bis);
-				      ImageIO.write(bImage2, "jpg", new File("output.jpg") );
-				      System.out.println("Default image created");
-				}
-				
-				in2.close();
 				socket.close();
 
 			} catch (IOException e) {
@@ -123,11 +98,6 @@ public class RecibirCamarero implements Serializable {
 
 		}
 		
-	}
-	public static Object deserialize(byte[] data) throws IOException, ClassNotFoundException {
-	    ByteArrayInputStream in = new ByteArrayInputStream(data);
-	    ObjectInputStream is = new ObjectInputStream(in);
-	    return is.readObject();
 	}
 
 }
