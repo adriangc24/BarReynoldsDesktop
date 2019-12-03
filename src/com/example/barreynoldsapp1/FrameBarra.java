@@ -8,6 +8,12 @@ import javax.swing.JInternalFrame;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -17,6 +23,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.awt.Color;
+import java.awt.CardLayout;
 
 public class FrameBarra extends JInternalFrame {
 
@@ -40,13 +47,9 @@ public class FrameBarra extends JInternalFrame {
 		getContentPane().add(panelCategoria);
 		GridBagLayout gbl_panelCategoria = new GridBagLayout();
 		panelCategoria.setLayout(gbl_panelCategoria);
-		
-		JLayeredPane panelProductes = new JLayeredPane();
-		panelProductes.setBounds(144, 279, 477, 281);
-		getContentPane().add(panelProductes);
-		
+
 		GridBagConstraints constraints = new GridBagConstraints();
-		
+
 		// Introducir botones de categoria
 		int contador = 0;
 		int valorColumna = 0;
@@ -71,8 +74,41 @@ public class FrameBarra extends JInternalFrame {
 				e.printStackTrace();
 			}
 		}
-		
-		// Introducir botones de productos
-		
+
+		JPanel panelProductes = new JPanel();
+		panelProductes.setBounds(144, 279, 479, 281);
+		getContentPane().add(panelProductes);
+		panelProductes.setLayout(new CardLayout(0, 0));
+		String begudes = "Card amb begudes";
+		String tapes = "Card amb tapes";
+		String plats = "Card amb plats";
+		String entrepans = "Card amb entrepans";
+		JPanel card1 = new JPanel();
+		JPanel card2 = new JPanel();
+		JPanel card3 = new JPanel();
+		JPanel card4 = new JPanel();
+		panelProductes.add(card1, begudes);
+		panelProductes.add(card2, tapes);
+		panelProductes.add(card3, plats);
+		panelProductes.add(card4, entrepans);
+		insertarImatgesProductes("begudes");
+	}
+
+	public static void insertarImatgesProductes(String categoria) {
+		File file = new File("PRODUCTES.xml");
+		try {
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			factory.setNamespaceAware(true);
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document doc = builder.parse(file);
+			NodeList nList = doc.getElementsByTagName("imatge");
+			for (int i = 0; i < nList.getLength(); i++) {
+				if (nList.item(i).getParentNode().getParentNode().getNodeName() == categoria) {
+					//Ahora seria sacar la imagen de cada uno y pimpam crear botones con la imagen en el card
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
