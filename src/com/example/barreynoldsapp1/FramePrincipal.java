@@ -31,14 +31,14 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JInternalFrame;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
+import javax.swing.JLayeredPane;
+import java.awt.GridBagLayout;
 
 public class FramePrincipal extends JFrame {
 
-	static JPanel contentPane;
+	static JPanel contentPane, panelBarra;
 	static FramePrincipal frame;
-	static JTabbedPane tabbedPane;
+	static JTabbedPane tabbedPaneTaulas;
 	static JMenuBar menuBar;
 	static JInternalFrame internalFrame;
 	static boolean registrado = false;
@@ -61,13 +61,12 @@ public class FramePrincipal extends JFrame {
 	}
 
 	public FramePrincipal() {
-		// int numeroTaules = leerMesas();
-		 numeroTaules = AccesSQL.cargarMesasBBDD();
+		int numeroTaules = AccesSQL.cargarMesasBBDD();
 		System.out.println(numeroTaules);
-		for (int i=0;i<numeroTaules;i++) {
-			ArrayList<Producto>arp= AccesSQL.recuperarComandaInacabada(i+1, 0);
-			if(arp!=null) {
-				
+		for (int i = 0; i < numeroTaules; i++) {
+			ArrayList<Producto> arp = AccesSQL.recuperarComandaInacabada(i + 1, 0);
+			if (arp != null) {
+
 			}
 		}
 		setVisible(true);
@@ -77,15 +76,12 @@ public class FramePrincipal extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(new BorderLayout(0, 0));
-
-		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setVisible(false);
-		contentPane.add(tabbedPane, BorderLayout.CENTER);
+		contentPane.setLayout(null);
 
 		menuBar = new JMenuBar();
+		menuBar.setBounds(5, 5, 784, 21);
 		menuBar.setVisible(true);
-		contentPane.add(menuBar, BorderLayout.NORTH);
+		contentPane.add(menuBar);
 
 		JMenu mnConfiguracio = new JMenu("Configuracio");
 		menuBar.add(mnConfiguracio);
@@ -104,49 +100,58 @@ public class FramePrincipal extends JFrame {
 		JMenu mnPantalla = new JMenu("Pantalla");
 		menuBar.add(mnPantalla);
 
-		JMenuItem mntmPrincipal = new JMenuItem("Principal");
+		JMenuItem mntmPrincipal = new JMenuItem("Barra");
 		mntmPrincipal.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				tabbedPane.setVisible(false);
+				tabbedPaneTaulas.setVisible(false);
+				panelBarra.setVisible(true);
 			}
 		});
 		mnPantalla.add(mntmPrincipal);
 
-		JMenuItem mntmTaules = new JMenuItem("Taules");
+		JMenuItem mntmTaules = new JMenuItem("Cuina");
 		mntmTaules.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				tabbedPane.setVisible(true);
+				tabbedPaneTaulas.setVisible(true);
+				panelBarra.setVisible(false);
 			}
 		});
 		mnPantalla.add(mntmTaules);
-		generarTaules(tabbedPane, numeroTaules);
-		/*if (!registrado) {
-			generarLogin(contentPane);
-		}*/
+
+		tabbedPaneTaulas = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPaneTaulas.setBounds(5, 26, 784, 541);
+		tabbedPaneTaulas.setVisible(false);
+		contentPane.add(tabbedPaneTaulas);
+		generarTaulesCuina(tabbedPaneTaulas, numeroTaules);
+
+		panelBarra = new JPanel();
+		panelBarra.setBounds(5, 26, 784, 541);
+		panelBarra.setVisible(false);
+		contentPane.add(panelBarra);
+		panelBarra.setLayout(new BorderLayout(0, 0));
+
+		FrameBarra frameBarra = new FrameBarra() {
+			public void setUI(InternalFrameUI ui) {
+				super.setUI(ui);
+				BasicInternalFrameUI frameUI = (BasicInternalFrameUI) getUI();
+				if (frameUI != null)
+					frameUI.setNorthPane(null);
+			}
+		};
+		panelBarra.add(frameBarra);
+
+		/*
+		 * if (!registrado) { generarLogin(contentPane); }
+		 */
 	}
 
 	public static void refreshFrame() {
 		frame.dispose();
 		frame = new FramePrincipal();
-	}
-
-	public static int leerMesas() {
-		try {
-			File file = new File("config.xml");
-			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.parse(file);
-			NodeList nList = doc.getElementsByTagName("numeroTaulas");
-			Element element = (Element) nList.item(0);
-			return Integer.parseInt(element.getTextContent());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return 0;
 	}
 
 	public static void arrancarServer() {
@@ -255,7 +260,7 @@ public class FramePrincipal extends JFrame {
 		}
 	}
 
-	public static void generarTaules(JTabbedPane tabbedPane, int numeroTaules) {
+	public static void generarTaulesCuina(JTabbedPane tabbedPane, int numeroTaules) {
 		for (int i = 1; i < numeroTaules + 1; i++) {
 			FrameInterno intFrame = new FrameInterno("Taula" + i) {
 				public void setUI(InternalFrameUI ui) {
@@ -291,7 +296,7 @@ public class FramePrincipal extends JFrame {
 		internalFrame.setVisible(true);
 		internalFrame.setBorder(null);
 		Login login = new Login();
-		internalFrame.add(login);
+		internalFrame.getContentPane().add(login);
 	}
 
 	public static void generarArxiusComanda(int numeroTaules) {

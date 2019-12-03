@@ -207,7 +207,7 @@ public class FrameInterno extends JInternalFrame {
 		});
 		panel_2.add(button_devuelto);
 
-		JButton buttonPrecio = new JButton("");
+		JButton buttonPrecio = new JButton("Calcular Preu");
 		buttonPrecio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				sumaTotal = 0;

@@ -469,4 +469,15 @@ public static int recuperarComandaIDInacabada(int mesa, int camarero) {
 		return productos;
 	}
 
+	public static void cambiarNumeroTaules(String nouNum) {
+		conexionJDBC();
+		Statement stmnt;
+		try {
+			stmnt = connection.createStatement();
+			stmnt.executeUpdate("UPDATE `taula_mestra_configuracio` SET `NumeroTaules` = " + Integer.parseInt(nouNum));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
 }
