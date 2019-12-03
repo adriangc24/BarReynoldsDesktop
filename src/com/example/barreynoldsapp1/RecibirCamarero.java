@@ -85,8 +85,9 @@ public class RecibirCamarero implements Serializable {
 			    byte [] data = bos.toByteArray();
 			    bis = new ByteArrayInputStream(data);
 			    bImage = ImageIO.read(bis);
-			    ImageIO.write(bImage, "jpg", new File("aaa.jpg"));
-				
+			    ImageIO.write(bImage, "jpg", new File("fotoCamarero.jpg"));
+				File foto = new File("fotoCamarero.jpg");
+				// Falta subirlo como blop a base de datos
 				
 				in.close();
 				socket.close();
