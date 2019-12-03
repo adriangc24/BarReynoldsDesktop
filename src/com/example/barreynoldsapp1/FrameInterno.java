@@ -123,6 +123,9 @@ public class FrameInterno extends JInternalFrame {
 					JOptionPane.showMessageDialog(FrameInterno.this, "ERROR: Els productes no estan preparats", "ERROR",
 							JOptionPane.ERROR_MESSAGE);
 				} else {
+					if(AccesSQL.recuperarComandaIDInacabada(Integer.parseInt(lblTaula.getText().substring(lblTaula.getText().length()-1)), 0)!=0) {
+						AccesSQL.actualizarEstadoComandaUnaVezPasadaAFacturas(AccesSQL.recuperarComandaIDInacabada(Integer.parseInt(lblTaula.getText().substring(lblTaula.getText().length()-1)), 0));
+					}
 					try {
 						generarFactura(nom);
 					} catch (ParserConfigurationException e1) {
@@ -213,7 +216,8 @@ public class FrameInterno extends JInternalFrame {
 							* Float.parseFloat(table.getValueAt(i, 2).toString());
 				}
 				buttonPrecio.setText(String.valueOf(sumaTotal));
-				AccesSQL.recuperarComandaInacabada(1 ,2);
+				//AccesSQL.recuperarComandaInacabada(1 ,2);
+				System.out.println(lblTaula.getText().substring(lblTaula.getText().length()-1));
 			}
 		});
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
