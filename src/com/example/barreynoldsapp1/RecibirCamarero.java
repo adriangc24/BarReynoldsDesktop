@@ -87,7 +87,9 @@ public class RecibirCamarero implements Serializable {
 			    bImage = ImageIO.read(bis);
 			    ImageIO.write(bImage, "jpg", new File("fotoCamarero.jpg"));
 				File foto = new File("fotoCamarero.jpg");
-				// Falta subirlo como blop a base de datos
+				// Falta subirlo como blop a base de datos 
+				// Insertar camarero en bbdd con el procedure
+				AccesSQL.anadirCamarero(c.nom_Cambrer, c.password);
 				
 				in.close();
 				socket.close();
