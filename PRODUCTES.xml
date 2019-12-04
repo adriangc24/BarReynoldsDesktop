@@ -2,68 +2,52 @@
 <productes>
 	<begudes>
 		<producte id='1'>
-			<nom>Coca-Cola</nom>
+			<nom>Coca_Cola</nom>
 			<preu>1.99</preu>
-			<descripcio>Coca-Cola Classica</descripcio>
-			<imatge>
-				<image href="Imatges/coca-cola.jpg"/>
-			</imatge>
+			<descripcio>Coca_Cola Classica</descripcio>
+			<imatge>coca_cola.jpg</imatge>
 		</producte>
 		<producte id='2'>
-			<nom>Coca-Cola Zero</nom>
+			<nom>Coca_Cola Zero</nom>
 			<preu>1.99</preu>
-			<descripcio>Coca-Cola sense sucres afegits</descripcio>
-			<imatge>
-				<image href="Imatges/coca-cola-zero.jpg"/>
-			</imatge>
+			<descripcio>Coca_Cola sense sucres afegits</descripcio>
+			<imatge>coca_cola_zero.jpg</imatge>
 		</producte>
 		<producte id='3'>
 			<nom>Fanta Taronja</nom>
 			<preu>1.99</preu>
 			<descripcio>Fanta de taronja classica</descripcio>
-			<imatge>
-				<image href="Imatges/fanta-naranja.jpg"/>
-			</imatge>
+			<imatge>fanta_taronja.jpg</imatge>
 		</producte>
 		<producte id='4'>
 			<nom>Fanta Llimona</nom>
 			<preu>1.99</preu>
 			<descripcio>Fanta de llimona classica</descripcio>
-			<imatge>
-				<image href="Imatges/fanta-limon.jpg"/>
-			</imatge>
+			<imatge>fanta_llimona.jpg</imatge>
 		</producte>
 		<producte id='5'>
 			<nom>Sprite</nom>
 			<preu>2.25</preu>
 			<descripcio>Gaseosa sabor llimona</descripcio>
-			<imatge>
-				<image href="Imatges/sprite.jpg"/>
-			</imatge>
+			<imatge>sprite.jpg</imatge>
 		</producte>
 		<producte id='6'>
 			<nom>Aquarius</nom>
 			<preu>2.25</preu>
 			<descripcio>Aquarius classica</descripcio>
-			<imatge>
-				<image href="Imatges/aquarius.jpg"/>
-			</imatge>
+			<imatge>aquarius.jpg</imatge>
 		</producte>
 		<producte id='7'>
 			<nom>Cafe amb llet</nom>
 			<preu>1.50</preu>
 			<descripcio>Cafe amb llet</descripcio>
-			<imatge>
-				<image href="Imatges/cafe-leche.jpg"/>
-			</imatge>
+			<imatge>cafe_amb_llet.jpg</imatge>
 		</producte>
 		<producte id='8'>
 			<nom>Cafe express</nom>
 			<preu>1.50</preu>
 			<descripcio>Cafe express de maquina</descripcio>
-			<imatge>
-				<image href="Imatges/cafe-express.jpg"/>
-			</imatge>
+			<imatge>cafe_express.jpg</imatge>
 		</producte>
 	</begudes>
 	<tapes>
@@ -71,49 +55,37 @@
 			<nom>Pernil Serra</nom>
 			<preu>1.00</preu>
 			<descripcio>Tapa de pernil serra</descripcio>
-			<imatge>
-				<image href="Imatges/pernil-serra.jpg"/>
-			</imatge>
+			<imatge>pernil_serra.jpg</imatge>
 		</producte>
 		<producte id='10'>
 			<nom>Truita espanyola</nom>
 			<preu>1.00</preu>
 			<descripcio>Tapa de truita espanyola</descripcio>
-			<imatge>
-				<image href="Imatges/tapa-truita.jpg"/>
-			</imatge>
+			<imatge>truita_espanyola.jpg</imatge>
 		</producte>
 		<producte id='11'>
 			<nom>Olives</nom>
 			<preu>1.00</preu>
 			<descripcio>Tapa de olives farcides amb anxova</descripcio>
-			<imatge>
-				<image href="Imatges/tapa-oliva.jpg"/>
-			</imatge>
+			<imatge>olives.jpg</imatge>
 		</producte>
 		<producte id='12'>
 			<nom>Croquetes</nom>
 			<preu>1.00</preu>
 			<descripcio>Tapa de croquetes de pernil</descripcio>
-			<imatge>
-				<image href="Imatges/tapa-croquetas.jpg"/>
-			</imatge>
+			<imatge>croquetes.jpg</imatge>
 		</producte>
 		<producte id='13'>
 			<nom>Pop gallec</nom>
 			<preu>1.50</preu>
 			<descripcio>Tapa de pop gallec</descripcio>
-			<imatge>
-				<image href="Imatges/tapa-pulpo.jpg"/>
-			</imatge>
+			<imatge>pop_gallec.jpg</imatge>
 		</producte>
 		<producte id='14'>
 			<nom>Pa amb tomaquet</nom>
 			<preu>1.00</preu>
 			<descripcio>Tapa de pa amb tomaquet i oli</descripcio>
-			<imatge>
-				<image href="Imatges/tapa-pa.jpg"/>
-			</imatge>
+			<imatge>pa_amb_tomaquet.jpg</imatge>
 		</producte>
 	</tapes>
 	<plats>
@@ -121,49 +93,37 @@
 			<nom>Patates Braves</nom>
 			<preu>4.50</preu>
 			<descripcio>Plat de patates braves amb salsa brava</descripcio>
-			<imatge>
-				<image href="Imatges/bravas.jpg"/>
-			</imatge>
+			<imatge>patates_braves.jpg</imatge>
 		</producte>
 		<producte id='16'>
 			<nom>Paella</nom>
 			<preu>5.00</preu>
 			<descripcio>Paella tradicional valenciana</descripcio>
-			<imatge>
-				<image href="Imatges/paella.jpg"/>
-			</imatge>
+			<imatge>paella.jpg</imatge>
 		</producte>
 		<producte id='17'>
 			<nom>Pintxo</nom>
 			<preu>4.50</preu>
 			<descripcio>Plat de pintxos de carn de porc marinada</descripcio>
-			<imatge>
-				<image href="Imatges/pincho.jpg"/>
-			</imatge>
+			<imatge>pintxo.jpg</imatge>
 		</producte>
 		<producte id='18'>
 			<nom>Lluç al forn</nom>
 			<preu>5.50</preu>
 			<descripcio>Plat de lluç al forn amb patates de guarnicio</descripcio>
-			<imatge>
-				<image href="Imatges/lluç.jpg"/>
-			</imatge>
+			<imatge>lluc_al_forn.jpg</imatge>
 		</producte>
 		<producte id='19'>
 			<nom>Pizza Hawaiana</nom>
 			<preu>6.50</preu>
 			<descripcio>Pizza amb pernil de york i pinya</descripcio>
-			<imatge>
-				<image href="Imatges/pizza-hawaiana.jpg"/>
-			</imatge>
+			<imatge>pizza_hawaiana.jpg</imatge>
 		</producte>
 		<producte id='20'>
 			<nom>Pizza Reynolds</nom>
 			<preu>6.50</preu>
 			<descripcio>Pizza de la casa. Mozzarella, carbasso, ceba, pebrot vermell, olives negres, orenga</descripcio>
-			<imatge>
-				<image href="Imatges/pizza-reynolds.jpg"/>
-			</imatge>
+			<imatge>pizza_reynolds.jpg</imatge>
 		</producte>
 	</plats>
 	<entrepans>
@@ -171,49 +131,37 @@
 			<nom>Entrepa de llom i formatge (calent)</nom>
 			<preu>2.50</preu>
 			<descripcio>Entrepa de llom de porc amb formatge</descripcio>
-			<imatge>
-				<image href="Imatges/lomo-queso.jpg"/>
-			</imatge>
+			<imatge>entrepa_de_llom_i_formatge.jpg</imatge>
 		</producte>
 		<producte id='22'>
 			<nom>Entrepa de pernil serra</nom>
 			<preu>2.50</preu>
 			<descripcio>Entrepa de pernil serra</descripcio>
-			<imatge>
-				<image href="Imatges/entrepa-pernil-serra.jpg"/>
-			</imatge>
+			<imatge>entrepa_de_pernil_serra.jpg</imatge>
 		</producte>
 		<producte id='23'>
 			<nom>Vegetal de pollastre</nom>
 			<preu>2.50</preu>
 			<descripcio>Entrepa vegetal de pollastre</descripcio>
-			<imatge>
-				<image href="Imatges/vegetal-pollo.jpg"/>
-			</imatge>
+			<imatge>vegetal_de_pollastre.jpg</imatge>
 		</producte>
 		<producte id='24'>
 			<nom>Vegetal de tonyina</nom>
 			<preu>2.50</preu>
 			<descripcio>Entrepa vegetal de tonyina</descripcio>
-			<imatge>
-				<image href="Imatges/vegetal-atun.jpg"/>
-			</imatge>
+			<imatge>vegetal_de_tonyina.jpg</imatge>
 		</producte>
 		<producte id='25'>
 			<nom>Entrepa de pernil de york</nom>
 			<preu>2.50</preu>
 			<descripcio>Entrepa de pernil de york i formatge</descripcio>
-			<imatge>
-				<image href="Imatges/york-queso.jpg"/>
-			</imatge>
+			<imatge>entrepa_de_pernil_de_york.jpg</imatge>
 		</producte>
 		<producte id='26'>
 			<nom>Entrepa de truita espanyola</nom>
 			<preu>3.00</preu>
 			<descripcio>Entrepa de truita espanyola</descripcio>
-			<imatge>
-				<image href="Imatges/entrepa-truita.jpg"/>
-			</imatge>
+			<imatge>entrepa_de_truita_espanyola.jpg</imatge>
 		</producte>
 	</entrepans>
 </productes>
