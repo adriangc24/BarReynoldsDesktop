@@ -38,7 +38,9 @@ public class FrameBarra extends JInternalFrame {
 		JPanel panelComanda = new JPanel();
 		panelComanda.setBounds(0, 0, 293, 248);
 		getContentPane().add(panelComanda);
-
+		
+		
+		
 		JScrollPane scrollPane = new JScrollPane();
 		panelComanda.add(scrollPane);
 
@@ -91,6 +93,11 @@ public class FrameBarra extends JInternalFrame {
 		panelProductes.add(card2, tapes);
 		panelProductes.add(card3, plats);
 		panelProductes.add(card4, entrepans);
+		
+		//JPanel panel = new JPanel();
+		NumberPanel numberPanel=new NumberPanel();
+		numberPanel.setBounds(305, 0, 448, 289);
+		getContentPane().add(numberPanel);
 		insertarImatgesProductes("begudes");
 	}
 
