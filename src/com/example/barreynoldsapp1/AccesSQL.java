@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -322,7 +323,7 @@ public class AccesSQL implements ConexionServer {
 		}
 	}
 
-	public static void anadirCamarero(String nombreCamarero, String passwrd) {
+	public static void anadirCamarero(String nombreCamarero, String passwrd,Blob fotoCamarero) {
 		conexionJDBC();
 		//String insert = "INSERT INTO nuevo_camarero(nom_cambrer,contrasenya) VALUES (?, ?)";
 		String insert="call crearCamarero (?,?,0)";
@@ -330,7 +331,7 @@ public class AccesSQL implements ConexionServer {
 			pstmt.setString(1, nombreCamarero);
 			pstmt.setString(2, passwrd);
 			//pstmt.setBlob(3, );
-			//falta subir la foto?¿¿?¿?
+			//falta subir la foto
 			pstmt.executeUpdate();
 			System.out.println("Camarero añadido");
 		} catch (SQLException e) {

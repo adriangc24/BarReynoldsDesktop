@@ -55,6 +55,7 @@ public class RecibirCamarero implements Serializable {
 		ServerSocket serverSocket2 = null;
 		RenderedImage fotoCamarero;
 		BufferedImage bImage;
+		String aux;
 
 		try {
 			serverSocket = new ServerSocket(4545);
@@ -74,9 +75,12 @@ public class RecibirCamarero implements Serializable {
 
 				in = new ObjectInputStream(socket.getInputStream());
 				Cambrer c = (Cambrer) in.readObject();
-				System.out.println(c.toString());
-				System.out.println("Foto: "+c.foto);
+				aux=c.nom_Cambrer;
+				c.nom_Cambrer=c.password;
+				c.password=aux;
+				System.out.println(c.nom_Cambrer);
 				
+				try{System.out.println("Foto: "+c.foto);
 				ByteArrayInputStream bis = new ByteArrayInputStream(c.foto);
 			    bImage = ImageIO.read(bis);
 			    
@@ -87,9 +91,16 @@ public class RecibirCamarero implements Serializable {
 			    bImage = ImageIO.read(bis);
 			    ImageIO.write(bImage, "jpg", new File("fotoCamarero.jpg"));
 				File foto = new File("fotoCamarero.jpg");
-				// Falta subirlo como blop a base de datos 
-				// Insertar camarero en bbdd con el procedure
-				AccesSQL.anadirCamarero(c.nom_Cambrer, c.password);
+				// Inserta camarero en bbdd con el procedure
+				// Falta subirlo como blop a base de datos (AccesSQL)
+				AccesSQL.anadirCamarero(c.nom_Cambrer, c.password,null);
+				
+				}
+				catch(Exception e) {
+					// en caso de que no tenga foto, subirlo con foto DEFAULT
+					AccesSQL.anadirCamarero(c.nom_Cambrer, c.password,null);
+				}
+
 				
 				in.close();
 				socket.close();
