@@ -31,7 +31,6 @@ public RefrescoDeComandas() {
 	RefrescoDeComandas1();
 }
 
-
 	public void RefrescoDeComandas1() {
 		String camareroMesa;
 		ArrayList<Integer>mesasInacabadas=new ArrayList<Integer>();

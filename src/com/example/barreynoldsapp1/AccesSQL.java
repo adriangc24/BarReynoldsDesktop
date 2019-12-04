@@ -1,3 +1,4 @@
+
 package com.example.barreynoldsapp1;
 
 import java.io.ByteArrayInputStream;
@@ -27,6 +28,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import com.mysql.jdbc.Blob;
 import com.mysql.jdbc.PreparedStatement;
 
 public class AccesSQL implements ConexionServer {
@@ -322,13 +324,17 @@ public class AccesSQL implements ConexionServer {
 		}
 	}
 
-	public static void anadirCamarero(String nombreCamarero, String passwrd) {
+	public static void anadirCamarero(String nombreCamarero, String passwrd, Blob fotoCamarero) {
 		conexionJDBC();
-		String insert = "INSERT INTO nuevo_camarero(nom_cambrer,contrasenya) VALUES (?, ?)";
+		// String insert = "INSERT INTO nuevo_camarero(nom_cambrer,contrasenya) VALUES
+		// (?, ?)";
+		String insert = "call crearCamarero (?,?,0)";
 		try (PreparedStatement pstmt = (PreparedStatement) connection.prepareStatement(insert)) {
 			pstmt.setString(1, nombreCamarero);
 			pstmt.setString(2, passwrd);
 			// falta subir la foto?¿¿?¿?
+			// pstmt.setBlob(3, );
+			// falta subir la foto
 			pstmt.executeUpdate();
 			System.out.println("Camarero añadido");
 		} catch (SQLException e) {
