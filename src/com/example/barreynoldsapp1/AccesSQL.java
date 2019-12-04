@@ -328,56 +328,56 @@ public class AccesSQL implements ConexionServer {
 		try (PreparedStatement pstmt = (PreparedStatement) connection.prepareStatement(insert)) {
 			pstmt.setString(1, nombreCamarero);
 			pstmt.setString(2, passwrd);
-			//falta subir la foto?¿¿?¿?
+			// falta subir la foto?¿¿?¿?
 			pstmt.executeUpdate();
 			System.out.println("Camarero añadido");
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
 	}
-public static void actualizarEstadoComandaUnaVezPasadaAFacturas(int idComanda) {
-	conexionJDBC();
-	String update="UPDATE comanda SET estado_comanda= 2 WHERE id ="+idComanda+";";
-	Statement stmnt;
+
+	public static void actualizarEstadoComandaUnaVezPasadaAFacturas(int idComanda) {
+		conexionJDBC();
+		String update = "UPDATE comanda SET estado_comanda= 2 WHERE id =" + idComanda + ";";
+		Statement stmnt;
 		try {
 			stmnt = connection.createStatement();
 			stmnt.executeUpdate(update);
-			System.out.println("Estado comanda actualizado a 2, idComanda= "+idComanda);
+			System.out.println("Estado comanda actualizado a 2, idComanda= " + idComanda);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-}
-public static int recuperarComandaIDInacabada(int mesa, int camarero) {
-	conexionJDBC();
-	int idComanda = 0, estadoComanda = 0;
-	/*
-	 * String select = "select id, estado_comanda from comanda where id_cambrer=" +
-	 * camarero + " and num_mesa= " + mesa + " order by fecha_comanda desc;";
-	 */
-
-	String select = "select id, estado_comanda from comanda where num_mesa= " + mesa
-			+ " and estado_comanda=1 order by fecha_comanda desc;";
-	Statement stmnt;
-
-	try {
-		stmnt = connection.createStatement();
-		ResultSet rsst = stmnt.executeQuery(select);
-		if (rsst.next()) {
-			idComanda = rsst.getInt("id");
-			estadoComanda = rsst.getInt("estado_comanda");
-			System.out.println("idComanda " + idComanda + " estado: " + estadoComanda);
-		}
-
-		
-
-	} catch (SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
 	}
-	return idComanda;
 
-}
+	public static int recuperarComandaIDInacabada(int mesa, int camarero) {
+		conexionJDBC();
+		int idComanda = 0, estadoComanda = 0;
+		/*
+		 * String select = "select id, estado_comanda from comanda where id_cambrer=" +
+		 * camarero + " and num_mesa= " + mesa + " order by fecha_comanda desc;";
+		 */
+
+		String select = "select id, estado_comanda from comanda where num_mesa= " + mesa
+				+ " and estado_comanda=1 order by fecha_comanda desc;";
+		Statement stmnt;
+
+		try {
+			stmnt = connection.createStatement();
+			ResultSet rsst = stmnt.executeQuery(select);
+			if (rsst.next()) {
+				idComanda = rsst.getInt("id");
+				estadoComanda = rsst.getInt("estado_comanda");
+				System.out.println("idComanda " + idComanda + " estado: " + estadoComanda);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return idComanda;
+
+	}
 
 	public static ArrayList<Producto> recuperarComandaInacabada(int mesa, int camarero) {
 		conexionJDBC();
@@ -454,10 +454,10 @@ public static int recuperarComandaIDInacabada(int mesa, int camarero) {
 							rsst2.getFloat("preu"), rsst2.getString("Descripcio"), rsst2.getInt("ID_Categoria"));
 					p1.setCantidad(cantidadProducto);
 					productos.add(p1);
-					/*for (int i = 0; i < cantidadProducto; i++) {
-						System.out.println(p1.toString());
-						productos.add(p1);
-					}*/
+					/*
+					 * for (int i = 0; i < cantidadProducto; i++) {
+					 * System.out.println(p1.toString()); productos.add(p1); }
+					 */
 				}
 
 			}
