@@ -32,3 +32,4 @@ public class Cambrer implements Serializable {
 		return "Cambrer [id=" + id + ", nom_Cambrer=" + nom_Cambrer + "]";
 	}
 }
+

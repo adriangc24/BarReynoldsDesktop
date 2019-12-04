@@ -1,3 +1,4 @@
+
 package com.example.barreynoldsapp1;
 
 import java.io.ByteArrayInputStream;
@@ -5,7 +6,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -28,6 +28,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import com.mysql.jdbc.Blob;
 import com.mysql.jdbc.PreparedStatement;
 
 public class AccesSQL implements ConexionServer {
@@ -351,6 +352,37 @@ public static void actualizarEstadoComandaUnaVezPasadaAFacturas(int idComanda) {
 			e.printStackTrace();
 		}
 }
+public static int recuperarComandaIDInacabada(int mesa, int camarero) {
+	conexionJDBC();
+	int idComanda = 0, estadoComanda = 0;
+	/*
+	 * String select = "select id, estado_comanda from comanda where id_cambrer=" +
+	 * camarero + " and num_mesa= " + mesa + " order by fecha_comanda desc;";
+	 */
+
+	String select = "select id, estado_comanda from comanda where num_mesa= " + mesa
+			+ " and estado_comanda=1 order by fecha_comanda desc;";
+	Statement stmnt;
+
+	try {
+		stmnt = connection.createStatement();
+		ResultSet rsst = stmnt.executeQuery(select);
+		if (rsst.next()) {
+			idComanda = rsst.getInt("id");
+			estadoComanda = rsst.getInt("estado_comanda");
+			System.out.println("idComanda " + idComanda + " estado: " + estadoComanda);
+		}
+
+		
+
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	return idComanda;
+
+}
+
 	public static ArrayList<Producto> recuperarComandaInacabada(int mesa, int camarero) {
 		conexionJDBC();
 		int idComanda = 0, estadoComanda = 0;

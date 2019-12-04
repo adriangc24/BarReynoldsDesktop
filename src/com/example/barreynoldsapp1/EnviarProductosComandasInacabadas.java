@@ -1,3 +1,4 @@
+
 package com.example.barreynoldsapp1;
 
 import java.io.IOException;
@@ -37,6 +38,9 @@ public class EnviarProductosComandasInacabadas {
 				while (true) {
 					try {
 						ArrayList<ArrayList<Producto>>comandasInacab=new ArrayList<>();
+						for(int i=0;i<mesa;i++) {
+							comandasInacab.add(new ArrayList<Producto>());
+						}
 						socket = serverSocket.accept();
 						 // in = new ObjectInputStream(socket.getInputStream());
 						// int mesas= in.readInt();
@@ -47,7 +51,7 @@ public class EnviarProductosComandasInacabadas {
 							if(AccesSQL.recuperarComandaInacabada(i, 0) != null) {
 								ap=AccesSQL.recuperarComandaInacabada(i, 0);
 								comandasInacab.add(i-1,ap);
-								//System.out.println(ap.get(0).toString());
+								System.out.println(ap.get(0).toString());
 								System.out.println("Productos de comanda inacabada enviada de la mesa "+i);
 							}
 						}
