@@ -1,3 +1,4 @@
+
 package com.example.barreynoldsapp1;
 
 import java.io.IOException;
@@ -50,8 +51,7 @@ public class EnviarProductosComandasInacabadas {
 							if(AccesSQL.recuperarComandaInacabada(i, 0) != null) {
 								ap=AccesSQL.recuperarComandaInacabada(i, 0);
 								comandasInacab.add(i-1,ap);
-								//comandasInacab.remove(i);
-								//System.out.println(ap.get(0).toString());
+								System.out.println(ap.get(0).toString());
 								System.out.println("Productos de comanda inacabada enviada de la mesa "+i);
 							}
 						}

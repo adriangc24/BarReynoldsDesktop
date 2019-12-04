@@ -60,6 +60,33 @@ public class InsertarFotosMySQL {
 			System.out.println(e.getMessage());
 		}
 	}
+	public static void writeBlobCamarero(int candidateId, String filename) {
+		String updateSQL = "INSERT INTO Cambrer (Nom_Cambrer,Contrasenya,fotoCamarero) VALUES ? ? ?";
+
+		conexionJDBC();
+		try (PreparedStatement pstmt = connection.prepareStatement(updateSQL)) {
+			// read the file
+			File file = new File(filename);
+			FileInputStream input = new FileInputStream(file);
+
+			// Blob imagen camarero
+			pstmt.setBinaryStream(3, input);
+			// Contrasenya
+			pstmt.setString(2, "");
+			// Nom Cambrer
+			pstmt.setString(1, "");
+
+			
+
+			// store the resume file in database
+			System.out.println("Reading file " + file.getAbsolutePath());
+			System.out.println("Store file in the database.");
+			pstmt.executeUpdate();
+
+		} catch (SQLException | FileNotFoundException e) {
+			System.out.println(e.getMessage());
+		}
+	}
 
 	/**
 	 * @param args the command line arguments
