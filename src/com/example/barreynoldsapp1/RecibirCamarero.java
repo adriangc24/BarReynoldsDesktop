@@ -93,7 +93,7 @@ public class RecibirCamarero implements Serializable {
 				File foto = new File("fotoCamarero.jpg");
 				// Inserta camarero en bbdd con el procedure
 				// Falta subirlo como blop a base de datos (AccesSQL)
-				AccesSQL.anadirCamarero(c.nom_Cambrer, c.password,null);
+				AccesSQL.anadirCamarero(c.nom_Cambrer, c.password,foto);
 				
 				}
 				catch(Exception e) {

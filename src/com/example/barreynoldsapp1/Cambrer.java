@@ -1,6 +1,7 @@
 package com.example.barreynoldsapp1;
 
 import java.io.Serializable;
+import java.sql.Blob;
 
 import javax.swing.text.html.ImageView;
 
@@ -26,6 +27,7 @@ public class Cambrer implements Serializable {
 		this.password = password;
 		this.foto = foto;
 	}
+
 
 	@Override
 	public String toString() {

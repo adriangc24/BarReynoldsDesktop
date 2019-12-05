@@ -3,6 +3,8 @@ package com.example.barreynoldsapp1;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -65,8 +67,9 @@ public class AccesSQL implements ConexionServer {
 				int id = (int) rsst.getObject("id");
 				String nom = rsst.getObject("Nom_Cambrer").toString();
 				String password = rsst.getObject("Contrasenya").toString();
-				listaCambrers.add(new Cambrer(id, nom, password));
-				System.out.println(id + nom);
+				byte[] foto = rsst.getBytes("fotoCamarero");
+				listaCambrers.add(new Cambrer(id, nom, password,foto));
+				System.out.println(id + nom + foto);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -324,19 +327,35 @@ public class AccesSQL implements ConexionServer {
 		}
 	}
 
-	public static void anadirCamarero(String nombreCamarero, String passwrd,Blob fotoCamarero) {
+	public static void anadirCamarero(String nombreCamarero, String passwrd,File file) {
 		conexionJDBC();
+		FileInputStream input = null;
 		//String insert = "INSERT INTO nuevo_camarero(nom_cambrer,contrasenya) VALUES (?, ?)";
-		String insert="call crearCamarero (?,?,0)";
+		String insert="call crearCamarero (?,?,?)";
 		try (PreparedStatement pstmt = (PreparedStatement) connection.prepareStatement(insert)) {
 			pstmt.setString(1, nombreCamarero);
 			pstmt.setString(2, passwrd);
+			try {
+			input = new FileInputStream(file);
+			//input = new FileInputStream(new File("fotoCamarero.jpg"));
+			}
+			catch(Exception e) {
+				input = new FileInputStream(new File("fotoDefault.png"));
+			}
+			pstmt.setBinaryStream(3, input);
+			// Blob imagen camarero
 			//pstmt.setBlob(3, );
 			//falta subir la foto
 			pstmt.executeUpdate();
+			File f = new File("fotoCamarero.jpg");
+			f.delete();
+			System.out.println("deleting photo");
 			System.out.println("Camarero añadido");
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 public static void actualizarEstadoComandaUnaVezPasadaAFacturas(int idComanda) {
