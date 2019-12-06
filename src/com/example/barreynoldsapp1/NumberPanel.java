@@ -165,7 +165,7 @@ public class NumberPanel extends JPanel implements ActionListener {
 				textField_1.setText("");
 			}
 			if(opcion.equals("r")) {
-				if(textField.getText().isBlank()||textField_1.getText().isBlank()) {
+				if(textField.getText().isEmpty()||textField_1.getText().isEmpty()) {
 					System.out.println("si no introduces money no hay operacion colegon");
 				}else {
 				textField_2.setText(String.valueOf(Float.parseFloat(textField.getText())-Float.parseFloat(textField_1.getText())));

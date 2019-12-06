@@ -83,7 +83,7 @@ public class AccesSQL implements ConexionServer {
 			ResultSet rsst = stmnt.executeQuery("SELECT * FROM productes");
 			while (rsst.next()) {
 				Producto p1 = new Producto(rsst.getInt("id"), rsst.getString("Nom_Producte"), rsst.getFloat("preu"),
-						rsst.getString("descripcio"), rsst.getInt("id_categoria"));
+						rsst.getString("descripcio"), rsst.getInt("id_categoria"),rsst.getBytes("Imatge"));
 
 				ap.add(p1);
 			}
@@ -128,7 +128,8 @@ public class AccesSQL implements ConexionServer {
 		ResultSet rsst2 = stmnt.executeQuery("SELECT * FROM productes where '" + id + "'=ID_Categoria;");
 		while (rsst2.next()) {
 			Producto p1 = new Producto(rsst2.getInt("id"), rsst2.getString("Nom_Producte"), rsst2.getFloat("preu"),
-					rsst2.getString("descripcio"), rsst2.getInt("id_categoria"));
+					rsst2.getString("descripcio"), rsst2.getInt("id_categoria"), rsst2.getBytes("imatge"));
+			System.out.println(p1.foto);
 			arrayProductos.add(p1);
 
 		}
@@ -473,7 +474,7 @@ public class AccesSQL implements ConexionServer {
 
 				if (rsst2.next()) {
 					Producto p1 = new Producto(rsst2.getInt("id"), rsst2.getString("Nom_Producte"),
-							rsst2.getFloat("preu"), rsst2.getString("Descripcio"), rsst2.getInt("ID_Categoria"));
+							rsst2.getFloat("preu"), rsst2.getString("Descripcio"), rsst2.getInt("ID_Categoria"),rsst2.getBytes("Imatge"));
 					p1.setCantidad(cantidadProducto);
 					productos.add(p1);
 					/*

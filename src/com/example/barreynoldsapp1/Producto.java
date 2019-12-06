@@ -13,14 +13,17 @@ public class Producto implements Serializable {
 	    private String descripcion;
 	    private int categoria,cantidad;
 	    private String categoriaNombre;
+		public byte[]foto;
+
 	    
-		public Producto(int id, String nombre, float precio, String descripcion, int categoria) {
+		public Producto(int id, String nombre, float precio, String descripcion, int categoria,byte[]foto) {
 			super();
 			this.id = id;
 			this.nombre = nombre;
 			this.precio = precio;
 			this.descripcion = descripcion;
 			this.categoria = categoria;
+			this.foto=foto;
 			if(categoria==1) {
 				this.categoriaNombre="begudes";
 			}else if(categoria==2) {
@@ -31,6 +34,15 @@ public class Producto implements Serializable {
 				this.categoriaNombre="entrepans";
 			}
 		}
+		
+		public byte[] getFoto() {
+			return foto;
+		}
+
+		public void setFoto(byte[] foto) {
+			this.foto = foto;
+		}
+
 		public int getId() {
 			return id;
 		}

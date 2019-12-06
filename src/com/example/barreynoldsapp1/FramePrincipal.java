@@ -52,7 +52,7 @@ public class FramePrincipal extends JFrame {
 				try {
 					frame = new FramePrincipal();
 					frame.setVisible(true);
-					//arrancarServer();
+					arrancarServer();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
