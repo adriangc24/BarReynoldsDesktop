@@ -8,6 +8,7 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class EnviarDatos {
@@ -47,19 +48,22 @@ public class EnviarDatos {
 				salidaDatos.writeObject(numMes);
 				salidaDatos.writeObject(listaCategoria);
 				salidaDatos.writeObject(AccesSQL.arrayTodosProductos());
-				/*for (int i=0;i<listaCategoria.size();i++)
+				for (int i=0;i<listaCategoria.size();i++)
 				{
 					salidaDatos.writeObject(AccesSQL.cargarProductos(listaCategoria.get(i)));
-				}*/
-				// ObjectOutputStream numMesas=new ObjectOutputStream(socket.getOutputStream());
-				// numMesas.writeObject(numMesas);
-				// salidaCategorias.writeObject(listaCategoria);
+				}
+				 ObjectOutputStream numMesas=new ObjectOutputStream(socket.getOutputStream());
+				 numMesas.writeObject(numMesas);
+				 //salidaCategorias.writeObject(listaCategoria);
 
 				System.out.println("listas enviadas");
 				salidaDatos.close();
 				socket.close();
 			} catch (IOException ex) {
 				System.out.println("No se pudo aceptar la conexion.");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 	}
@@ -78,7 +82,7 @@ public class EnviarDatos {
 		}
 
 		Socket socket = null;
-		ArrayList<Producto> listaProducto;
+		ArrayList<Producto> listaProducto = null;
 
 		while (true) {
 			try {
@@ -101,7 +105,7 @@ public class EnviarDatos {
 
 				
 				ObjectOutputStream salidaProducto = new ObjectOutputStream(socket.getOutputStream());
-				// salidaProducto.writeObject(listaProducto);
+				salidaProducto.writeObject(listaProducto);
 				System.out.println("productos enviadas");
 				salidaProducto.close();
 				socket.close();
