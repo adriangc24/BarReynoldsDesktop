@@ -144,9 +144,9 @@ public class FramePrincipal extends JFrame {
 		};
 		panelBarra.add(frameBarra);
 
-		/*
-		 * if (!registrado) { generarLogin(contentPane); }
-		 */
+		
+		//  if (!registrado) { generarLogin(contentPane); }
+		 
 	}
 
 	public static void refreshFrame() {
@@ -279,7 +279,8 @@ public class FramePrincipal extends JFrame {
 			};
 			intFrame.setTitle("Taula" + i);
 			introducirCambrer(intFrame, numeroTaules);
-			introducirNumTaula(intFrame, numeroTaules);
+			//introducirNumTaula(intFrame, numeroTaules);
+			intFrame.lblTaula.setText("Taula: "+i);
 			introducirData(intFrame, numeroTaules);
 			introducirComanda(intFrame, numeroTaules);
 			generarArxiusComanda(numeroTaules);
