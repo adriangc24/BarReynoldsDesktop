@@ -50,7 +50,7 @@ public class FrameBarra extends JInternalFrame implements ActionListener {
 		panelComanda.add(scrollPane);
 
 		JPanel panelCategoria = new JPanel();
-		panelCategoria.setBounds(-66, 279, 200, 281);
+		panelCategoria.setBounds(-66, 292, 200, 268);
 		getContentPane().add(panelCategoria);
 		GridBagLayout gbl_panelCategoria = new GridBagLayout();
 		panelCategoria.setLayout(gbl_panelCategoria);
@@ -62,7 +62,7 @@ public class FrameBarra extends JInternalFrame implements ActionListener {
 		int valorColumna = 0;
 
 		JPanel panelProductes = new JPanel();
-		panelProductes.setBounds(144, 279, 479, 281);
+		panelProductes.setBounds(144, 292, 479, 268);
 		getContentPane().add(panelProductes);
 		panelProductes.setLayout(new CardLayout(0, 0));
 
