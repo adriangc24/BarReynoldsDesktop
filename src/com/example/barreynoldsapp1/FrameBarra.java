@@ -26,13 +26,19 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.CardLayout;
 import java.awt.FlowLayout;
+import java.awt.BorderLayout;
+import javax.swing.JTabbedPane;
+import javax.swing.plaf.InternalFrameUI;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 public class FrameBarra extends JInternalFrame implements ActionListener {
 	static JPanel begudes, tapes, plats, entrepans;
 	ArrayList<String> listaCategorias;
 	static ArrayList<JPanel> llistaPanelProductes;
+	static JTabbedPane tabbedPane;
 
 	public FrameBarra() {
 		listaCategorias = AccesSQL.cargarCategorias();
@@ -41,13 +47,6 @@ public class FrameBarra extends JInternalFrame implements ActionListener {
 		setBounds(100, 100, 633, 412);
 		getContentPane().setLayout(null);
 		setVisible(true);
-
-		JPanel panelComanda = new JPanel();
-		panelComanda.setBounds(0, 0, 293, 248);
-		getContentPane().add(panelComanda);
-
-		JScrollPane scrollPane = new JScrollPane();
-		panelComanda.add(scrollPane);
 
 		JPanel panelCategoria = new JPanel();
 		panelCategoria.setBounds(-66, 292, 200, 268);
@@ -62,7 +61,7 @@ public class FrameBarra extends JInternalFrame implements ActionListener {
 		int valorColumna = 0;
 
 		JPanel panelProductes = new JPanel();
-		panelProductes.setBounds(144, 292, 479, 268);
+		panelProductes.setBounds(144, 337, 479, 268);
 		getContentPane().add(panelProductes);
 		panelProductes.setLayout(new CardLayout(0, 0));
 
@@ -140,13 +139,58 @@ public class FrameBarra extends JInternalFrame implements ActionListener {
 		// cuando pongamos la tabla de productos donde esta el 50 habra que poner
 		// el precio de la comanda
 		NumberPanel numberPanel = new NumberPanel(50);
-		numberPanel.setBounds(305, 0, 448, 289);
+		numberPanel.setBounds(347, 0, 448, 289);
 		getContentPane().add(numberPanel);
-		// insertarImatgesProductes("begudes");
+
+		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setBounds(0, 0, 337, 281);
+		generarTaulesBarra(tabbedPane, AccesSQL.cargarMesasBBDD());
 		insertarImatgesProductes("begudes", 1);
 		insertarImatgesProductes("tapes", 2);
 		insertarImatgesProductes("plats", 3);
 		insertarImatgesProductes("entrepans", 4);
+		getContentPane().add(tabbedPane);
+
+	}
+
+	public static void generarTaulesBarra(JTabbedPane tabbedPane, int numeroTaules) {
+		for (int i = 1; i < numeroTaules + 1; i++) {
+			FrameInternoBarra intFrameBarra = new FrameInternoBarra("Taula" + i) {
+				public void setUI(InternalFrameUI ui) {
+					super.setUI(ui);
+					BasicInternalFrameUI frameUI = (BasicInternalFrameUI) getUI();
+					if (frameUI != null)
+						frameUI.setNorthPane(null);
+				}
+			};
+			intFrameBarra.setTitle("Taula" + i);
+			introducirComanda(intFrameBarra, numeroTaules);
+			Component tab = intFrameBarra;
+
+			tabbedPane.addTab("Taula" + i, tab);
+		}
+	}
+
+	public static void introducirComanda(FrameInternoBarra intFrameBarra, int numeroTaules) {
+		for (int i = 1; i < numeroTaules + 1; i++) {
+			if (intFrameBarra.getTitle().equals("Taula" + i)) {
+				try {
+					File file = new File("Comandes" + File.separatorChar + "ComandaTaula" + i + ".xml");
+					DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+					DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+					Document doc = dBuilder.parse(file);
+					NodeList nList = doc.getElementsByTagName("producto");
+					for (int j = 0; j < nList.getLength(); j++) {
+						Element element = (Element) nList.item(j);
+						String nombre = element.getElementsByTagName("nombre").item(0).getTextContent();
+						String precio = element.getElementsByTagName("precio").item(0).getTextContent();
+						String cantidad = element.getElementsByTagName("cantidad").item(0).getTextContent();
+						intFrameBarra.model.addRow(new Object[] { cantidad, nombre, precio });
+					}
+				} catch (Exception e) {
+				}
+			}
+		}
 	}
 
 	public static void insertarImatgesProductes(String categoria, int ID_Categoria) {
