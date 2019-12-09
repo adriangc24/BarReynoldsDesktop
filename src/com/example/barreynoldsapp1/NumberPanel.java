@@ -168,7 +168,7 @@ public class NumberPanel extends JPanel implements ActionListener {
 				if(textField.getText().isEmpty()||textField_1.getText().isEmpty()) {
 					System.out.println("si no introduces money no hay operacion colegon");
 				}else {
-				textField_2.setText(String.valueOf(Float.parseFloat(textField.getText())-Float.parseFloat(textField_1.getText())));
+				textField_2.setText(String.valueOf(Float.parseFloat(textField.getText())-Float.parseFloat(textField_1.getText())*-1));
 			}}
 		}
 
