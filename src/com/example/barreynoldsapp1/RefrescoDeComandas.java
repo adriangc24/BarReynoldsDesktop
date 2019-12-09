@@ -33,13 +33,7 @@ public RefrescoDeComandas() {
 
 	public void RefrescoDeComandas1() {
 		String camareroMesa;
-		ArrayList<Integer>mesasInacabadas=new ArrayList<Integer>();
-		int numMes = AccesSQL.cargarMesasBBDD();
-		for(int i=0;i<numMes;i++) {
-			if(AccesSQL.saberMesasConComandasInacabadas(i+1)) {
-				mesasInacabadas.add(i+1);
-			}
-		}
+		
 		try {
 			System.out.println("LocalHost = " + InetAddress.getLocalHost().toString());
 		} catch (UnknownHostException uhe) {
@@ -57,6 +51,14 @@ public RefrescoDeComandas() {
 		
 		while (true) {
 			try {
+				ArrayList<Integer>mesasInacabadas=new ArrayList<Integer>();
+
+				int numMes = AccesSQL.cargarMesasBBDD();
+				for(int i=0;i<numMes;i++) {
+					if(AccesSQL.saberMesasConComandasInacabadas(i+1)) {
+						mesasInacabadas.add(i+1);
+					}
+				}
 				socket = serverSocket.accept();
 
 				ObjectOutputStream salidaDatos = new ObjectOutputStream(socket.getOutputStream());

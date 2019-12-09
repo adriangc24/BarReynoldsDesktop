@@ -33,12 +33,13 @@ public class EnviarDatos {
 		}
 
 		Socket socket = null;
-		ArrayList<Cambrer> listaCambrers = new ArrayList<Cambrer>();
-		AccesSQL.generarListaCambrers(listaCambrers);
-		ArrayList<String> listaCategoria = AccesSQL.cargarCategorias();
-		int numMes = AccesSQL.cargarMesasBBDD();
+		
 		while (true) {
 			try {
+				ArrayList<Cambrer> listaCambrers = new ArrayList<Cambrer>();
+				AccesSQL.generarListaCambrers(listaCambrers);
+				ArrayList<String> listaCategoria = AccesSQL.cargarCategorias();
+				int numMes = AccesSQL.cargarMesasBBDD();
 				socket = serverSocket.accept();
 
 				ObjectOutputStream salidaDatos = new ObjectOutputStream(socket.getOutputStream());
