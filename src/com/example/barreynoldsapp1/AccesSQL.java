@@ -343,9 +343,6 @@ public class AccesSQL implements ConexionServer {
 				input = new FileInputStream(new File("fotoDefault.png"));
 			}
 			pstmt.setBinaryStream(3, input);
-			// Blob imagen camarero
-			//pstmt.setBlob(3, );
-			//falta subir la foto
 			pstmt.executeUpdate();
 			File f = new File("fotoCamarero.jpg");
 			f.delete();
