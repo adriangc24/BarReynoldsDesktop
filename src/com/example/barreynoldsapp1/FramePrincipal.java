@@ -266,7 +266,7 @@ public class FramePrincipal extends JFrame {
 			}
 		}
 	}
-
+	
 	public static void generarTaulesCuina(JTabbedPane tabbedPane, int numeroTaules) {
 		for (int i = 1; i < numeroTaules + 1; i++) {
 			FrameInterno intFrame = new FrameInterno("Taula" + i) {

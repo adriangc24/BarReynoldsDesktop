@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><comanda/>
+=======
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><comanda/><?xml version="1.0" encoding="UTF-8" standalone="no"?><comanda><producto id="7"><nombre>Aquarius</nombre><precio>2.25</precio><descripcion>Aquarius classica</descripcion><imagen>[B@7880d08</imagen><cantidad>3</cantidad></producto><camarero>1Adrian Gonzalez</camarero><mesa>1</mesa><fecha>09/12/2019 08:32:25</fecha><fin>2</fin></comanda>
+>>>>>>> 44972218474dca408658ab5f6ca4477b4c60106c
