@@ -48,7 +48,7 @@ import java.awt.GridBagLayout;
 
 public class FramePrincipal extends JFrame {
 
-	static JPanel contentPane, panelBarra;
+	static JPanel contentPane, panelBarra,panelLogin;
 	static FramePrincipal frame;
 	static JTabbedPane tabbedPaneTaulas;
 	static JMenuBar menuBar;
@@ -67,7 +67,8 @@ public class FramePrincipal extends JFrame {
 			public void run(){
 			arrancarServer();
 			ProgressBar();
-			new FramePrincipal().setVisible(true);
+			frame = new FramePrincipal();
+			frame.setVisible(true);
 			}
 		}).start();
 
@@ -91,6 +92,7 @@ public class FramePrincipal extends JFrame {
 	}
 
 	public FramePrincipal() {
+
 		int numeroTaules = AccesSQL.cargarMesasBBDD();
 		System.out.println(numeroTaules);
 		for (int i = 0; i < numeroTaules; i++) {
@@ -107,20 +109,17 @@ public class FramePrincipal extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		menuBar = new JMenuBar();
 		menuBar.setBounds(5, 5, 784, 21);
 		menuBar.setVisible(true);
 		contentPane.add(menuBar);
-		
-		login();
 
 		JMenu mnConfiguracio = new JMenu("Configuracio");
 		menuBar.add(mnConfiguracio);
 
 		JMenuItem mntmModifTaules = new JMenuItem("Cambiar total de taules");
 		mntmModifTaules.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				FrameConfigTaules frameConfig = new FrameConfigTaules();
@@ -128,13 +127,12 @@ public class FramePrincipal extends JFrame {
 			}
 		});
 		mnConfiguracio.add(mntmModifTaules);
-
 		JMenu mnPantalla = new JMenu("Pantalla");
 		menuBar.add(mnPantalla);
 
 		JMenuItem mntmPrincipal = new JMenuItem("Barra");
 		mntmPrincipal.addActionListener(new ActionListener() {
-
+		
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				tabbedPaneTaulas.setVisible(false);
@@ -142,7 +140,7 @@ public class FramePrincipal extends JFrame {
 			}
 		});
 		mnPantalla.add(mntmPrincipal);
-
+		
 		JMenuItem mntmTaules = new JMenuItem("Cuina");
 		mntmTaules.addActionListener(new ActionListener() {
 
@@ -153,18 +151,17 @@ public class FramePrincipal extends JFrame {
 			}
 		});
 		mnPantalla.add(mntmTaules);
-
 		tabbedPaneTaulas = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPaneTaulas.setBounds(5, 26, 784, 541);
 		tabbedPaneTaulas.setVisible(false);
 		contentPane.add(tabbedPaneTaulas);
 		generarTaulesCuina(tabbedPaneTaulas, numeroTaules);
-
 		panelBarra = new JPanel();
 		panelBarra.setBounds(5, 26, 784, 541);
 		panelBarra.setVisible(false);
 		contentPane.add(panelBarra);
 		panelBarra.setLayout(new BorderLayout(0, 0));
+		login();
 
 		FrameBarra frameBarra = new FrameBarra() {
 			public void setUI(InternalFrameUI ui) {
@@ -175,11 +172,10 @@ public class FramePrincipal extends JFrame {
 			}
 		};
 		panelBarra.add(frameBarra);
-
-		
+		//login();
 	}
 	public void login() {
-		JPanel panelLogin = new JPanel();
+		panelLogin = new JPanel();
 		panelLogin.setBounds(0, 26, 794, 541);
 		contentPane.add(panelLogin);
 		panelLogin.setLayout(new BorderLayout(0, 0));
