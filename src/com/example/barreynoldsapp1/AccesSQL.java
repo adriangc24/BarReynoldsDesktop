@@ -184,6 +184,12 @@ public class AccesSQL implements ConexionServer {
 			System.out.println("Esto peta");
 		}
 	}
+/*public static String nombreCamarero(int idCamarero) {
+	
+	
+	return ;
+}*/
+
 
 	public static String convertirFecha(String fecha) {
 		String fechaSql;
@@ -193,7 +199,30 @@ public class AccesSQL implements ConexionServer {
 				+ split[0].substring(0, 2) + " " + split[1];
 		return fechaSql;
 	}
+public static String devolverHoraYCamareroComandaInacabada(int numMesa) {
+	conexionJDBC();
+	String HoraYCamarero="";
 
+	String select = "select id, estado_comanda, fecha_comanda, ID_Cambrer from comanda where num_mesa= " + numMesa
+			+ " and estado_comanda=1 order by fecha_comanda desc;";
+	Statement stmnt;
+
+	try {
+		stmnt = connection.createStatement();
+		ResultSet rsst = stmnt.executeQuery(select);
+		if (rsst.next()) {
+			HoraYCamarero = String.valueOf(rsst.getInt("ID_Cambrer"));
+			HoraYCamarero =HoraYCamarero+","+ rsst.getDate("fecha_comanda");
+		}
+
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	return HoraYCamarero;
+
+	
+}
 	public static void pujarRelacioComandaProducte(int quantitat, String producte, String dataCreacio) {
 		Statement stmnt;
 		try {

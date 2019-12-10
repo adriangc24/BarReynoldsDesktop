@@ -147,6 +147,7 @@ public class FramePrincipal extends JFrame {
 
 		if (!registrado) {
 			generarLogin(contentPane);
+			System.out.println("LOGIN");
 		}
 
 	}
@@ -289,6 +290,7 @@ public class FramePrincipal extends JFrame {
 			Component tab = intFrame;
 			// intFrame.lblPrecioTotal.setText(String.valueOf(intFrame.sumarPrecioProductos()));
 			tabbedPane.addTab("Taula" + i, tab);
+			
 			if (intFrame.lblCambrer.getText().equalsIgnoreCase("Cambrer: ")
 					&& intFrame.lblData.getText().equalsIgnoreCase("Data: Hora:")) {
 				ArrayList<Producto>productosDeCadaMesa=new ArrayList<>();
@@ -297,6 +299,11 @@ public class FramePrincipal extends JFrame {
 				for(int j=0;j<productosDeCadaMesa.size();j++) {
 					intFrame.model.addRow(new Object[] { productosDeCadaMesa.get(j).getCantidad(), productosDeCadaMesa.get(j).getNombre(), productosDeCadaMesa.get(j).getPrecio(), false });
 				}
+				if(!AccesSQL.devolverHoraYCamareroComandaInacabada(i).equalsIgnoreCase("")) {
+					String camareroHora[]=AccesSQL.devolverHoraYCamareroComandaInacabada(i).split(",");
+					
+				}
+				
 				}catch(Exception ex) {
 					System.out.println("No existe ninguna comanda empezada de esta mesa");
 				}
@@ -319,6 +326,7 @@ public class FramePrincipal extends JFrame {
 		internalFrame.setBorder(null);
 		Login login = new Login();
 		internalFrame.getContentPane().add(login);
+		System.out.println("LOGIN");
 	}
 
 	public static void generarArxiusComanda(int numeroTaules) {
