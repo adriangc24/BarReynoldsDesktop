@@ -43,6 +43,7 @@ public class FramePrincipal extends JFrame {
 	static JInternalFrame internalFrame;
 	static boolean registrado = false;
 	static int numeroTaules;
+
 	/**
 	 * Launch the application.
 	 */
@@ -143,10 +144,17 @@ public class FramePrincipal extends JFrame {
 			}
 		};
 		panelBarra.add(frameBarra);
+		
+		JPanel panelLogin = new JPanel();
+		panelLogin.setBounds(0, 26, 794, 541);
+		contentPane.add(panelLogin);
+		panelLogin.setLayout(new BorderLayout(0, 0));
 
-		/*
-		 * if (!registrado) { generarLogin(contentPane); }
-		 */
+		if (!registrado) {
+			generarLogin(panelLogin);
+			menuBar.setVisible(false);
+		}
+
 	}
 
 	public static void refreshFrame() {
@@ -190,7 +198,7 @@ public class FramePrincipal extends JFrame {
 				RecibirCamarero rec = new RecibirCamarero();
 			}
 		}).start();
-		
+
 	}
 
 	public static void introducirComanda(FrameInterno intFrame, int numeroTaules) {
@@ -266,7 +274,7 @@ public class FramePrincipal extends JFrame {
 			}
 		}
 	}
-	
+
 	public static void generarTaulesCuina(JTabbedPane tabbedPane, int numeroTaules) {
 		for (int i = 1; i < numeroTaules + 1; i++) {
 			FrameInterno intFrame = new FrameInterno("Taula" + i) {
@@ -290,8 +298,8 @@ public class FramePrincipal extends JFrame {
 		}
 	}
 
-	public static void generarLogin(JPanel contentPane) {
-		internalFrame = new JInternalFrame("New JInternalFrame") {
+	public static void generarLogin(JPanel panelLogin) {
+		Login login = new Login() {
 			public void setUI(InternalFrameUI ui) {
 				super.setUI(ui);
 				BasicInternalFrameUI frameUI = (BasicInternalFrameUI) getUI();
@@ -299,11 +307,10 @@ public class FramePrincipal extends JFrame {
 					frameUI.setNorthPane(null);
 			}
 		};
-		contentPane.add(internalFrame, BorderLayout.CENTER);
-		internalFrame.setVisible(true);
-		internalFrame.setBorder(null);
-		Login login = new Login();
-		internalFrame.getContentPane().add(login);
+		panelLogin.add(login, BorderLayout.CENTER);
+		login.setVisible(true);
+		login.setBorder(null);
+		
 	}
 
 	public static void generarArxiusComanda(int numeroTaules) {

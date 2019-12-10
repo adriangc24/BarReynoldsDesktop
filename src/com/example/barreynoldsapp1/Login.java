@@ -16,7 +16,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.math.BigInteger;
 import java.util.ArrayList;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class Login extends JInternalFrame {
 	private JTextField textFieldNomCambrer;
@@ -132,11 +135,10 @@ public class Login extends JInternalFrame {
 				boolean valid = false;
 				for (int i = 0; i < listaCambrers.size(); i++) {
 					if (listaCambrers.get(i).nom_Cambrer.equalsIgnoreCase(textFieldNomCambrer.getText())
-							&& listaCambrers.get(i).password.equalsIgnoreCase(textFieldPassword.getText())) {
+							&& listaCambrers.get(i).password.equalsIgnoreCase(getMD5(textFieldPassword.getText()))) {
 						valid = true;
 					}
 				}
-
 				if (valid) {
 					FramePrincipal.registrado = true;
 					FramePrincipal.refreshFrame();
@@ -177,5 +179,22 @@ public class Login extends JInternalFrame {
 						.addGroup(groupLayout.createSequentialGroup().addGap(28).addComponent(btnEntrar)))
 				.addGap(56).addComponent(panel, GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE).addGap(94)));
 		getContentPane().setLayout(groupLayout);
+	}
+
+	public static String getMD5(String input) {
+		try {
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			byte[] messageDigest = md.digest(input.getBytes());
+			BigInteger number = new BigInteger(1, messageDigest);
+			String hashtext = number.toString(16);
+
+			while (hashtext.length() < 32) {
+				hashtext = "0" + hashtext;
+			}
+
+			return hashtext;
+		} catch (NoSuchAlgorithmException e) {
+			throw new RuntimeException(e);
+		}
 	}
 }
