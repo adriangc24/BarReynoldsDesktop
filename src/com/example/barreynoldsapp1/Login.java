@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -23,7 +24,7 @@ import java.security.NoSuchAlgorithmException;
 
 public class Login extends JInternalFrame {
 	private JTextField textFieldNomCambrer;
-	private JTextField textFieldPassword;
+	private JPasswordField textFieldPassword;
 	private JPanel panel;
 	private static ArrayList<Cambrer> listaCambrers;
 	int var;
@@ -53,7 +54,7 @@ public class Login extends JInternalFrame {
 			}
 		});
 
-		textFieldPassword = new JTextField();
+		textFieldPassword = new JPasswordField();
 		textFieldPassword.setColumns(10);
 		textFieldPassword.addFocusListener(new FocusListener() {
 
@@ -120,7 +121,7 @@ public class Login extends JInternalFrame {
 							textFieldNomCambrer.getText().substring(0, textFieldNomCambrer.getText().length() - 1));
 				} else if (var == 1 && !textFieldPassword.getText().isEmpty()) {
 					textFieldPassword.setText(
-							textFieldPassword.getText().substring(0, textFieldPassword.getText().length() - 1));
+							textFieldPassword.toString().substring(0, textFieldPassword.toString().length() - 1));
 				}
 			}
 		});
@@ -135,7 +136,7 @@ public class Login extends JInternalFrame {
 				boolean valid = false;
 				for (int i = 0; i < listaCambrers.size(); i++) {
 					if (listaCambrers.get(i).nom_Cambrer.equalsIgnoreCase(textFieldNomCambrer.getText())
-							&& listaCambrers.get(i).password.equalsIgnoreCase(getMD5(textFieldPassword.getText()))) {
+							&& listaCambrers.get(i).password.equalsIgnoreCase(getMD5(String.valueOf(textFieldPassword.getPassword())))) {
 						valid = true;
 					}
 				}
