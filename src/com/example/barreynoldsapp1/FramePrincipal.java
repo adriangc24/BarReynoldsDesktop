@@ -43,6 +43,7 @@ public class FramePrincipal extends JFrame {
 	static JInternalFrame internalFrame;
 	static boolean registrado = false;
 	static int numeroTaules;
+
 	/**
 	 * Launch the application.
 	 */
@@ -144,9 +145,10 @@ public class FramePrincipal extends JFrame {
 		};
 		panelBarra.add(frameBarra);
 
-		
-		//  if (!registrado) { generarLogin(contentPane); }
-		 
+		if (!registrado) {
+			generarLogin(contentPane);
+		}
+
 	}
 
 	public static void refreshFrame() {
@@ -190,7 +192,7 @@ public class FramePrincipal extends JFrame {
 				RecibirCamarero rec = new RecibirCamarero();
 			}
 		}).start();
-		
+
 	}
 
 	public static void introducirComanda(FrameInterno intFrame, int numeroTaules) {
@@ -266,10 +268,10 @@ public class FramePrincipal extends JFrame {
 			}
 		}
 	}
-	
+
 	public static void generarTaulesCuina(JTabbedPane tabbedPane, int numeroTaules) {
 		for (int i = 1; i < numeroTaules + 1; i++) {
-			FrameInterno intFrame = new FrameInterno("Taula" + i) {
+			FrameInterno intFrame = new FrameInterno("Taula" + i, i) {
 				public void setUI(InternalFrameUI ui) {
 					super.setUI(ui);
 					BasicInternalFrameUI frameUI = (BasicInternalFrameUI) getUI();
@@ -279,15 +281,27 @@ public class FramePrincipal extends JFrame {
 			};
 			intFrame.setTitle("Taula" + i);
 			introducirCambrer(intFrame, numeroTaules);
-			//introducirNumTaula(intFrame, numeroTaules);
-			intFrame.lblTaula.setText("Taula: "+i);
+			// introducirNumTaula(intFrame, numeroTaules);
+			// intFrame.lblTaula.setText("Taula: " + i);
 			introducirData(intFrame, numeroTaules);
 			introducirComanda(intFrame, numeroTaules);
 			generarArxiusComanda(numeroTaules);
 			Component tab = intFrame;
 			// intFrame.lblPrecioTotal.setText(String.valueOf(intFrame.sumarPrecioProductos()));
-
 			tabbedPane.addTab("Taula" + i, tab);
+			if (intFrame.lblCambrer.getText().equalsIgnoreCase("Cambrer: ")
+					&& intFrame.lblData.getText().equalsIgnoreCase("Data: Hora:")) {
+				ArrayList<Producto>productosDeCadaMesa=new ArrayList<>();
+				productosDeCadaMesa=AccesSQL.recuperarComandaInacabada(i, 0);
+				try {
+				for(int j=0;j<productosDeCadaMesa.size();j++) {
+					intFrame.model.addRow(new Object[] { productosDeCadaMesa.get(j).getCantidad(), productosDeCadaMesa.get(j).getNombre(), productosDeCadaMesa.get(j).getPrecio(), false });
+				}
+				}catch(Exception ex) {
+					System.out.println("No existe ninguna comanda empezada de esta mesa");
+				}
+				
+			}
 		}
 	}
 

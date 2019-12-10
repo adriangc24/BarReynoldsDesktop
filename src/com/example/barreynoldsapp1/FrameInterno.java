@@ -76,7 +76,7 @@ public class FrameInterno extends JInternalFrame {
 	};
 	private JScrollPane scrollPane_1;
 
-	public FrameInterno(String nom) {
+	public FrameInterno(String nom,int numMesa) {
 		precio = new ArrayList<>();
 		this.nom = nom;
 		setBorder(null);
@@ -95,7 +95,7 @@ public class FrameInterno extends JInternalFrame {
 		lblCambrer.setFont(lblCambrer.getFont().deriveFont(13.0f));
 		lblCambrer.setHorizontalAlignment(SwingConstants.CENTER);
 
-		lblTaula = new JLabel("Taula: ");
+		lblTaula = new JLabel("Taula: "+numMesa);
 		lblTaula.setFont(lblTaula.getFont().deriveFont(13.0f));
 		lblTaula.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -265,9 +265,7 @@ public class FrameInterno extends JInternalFrame {
 		});
 		getContentPane().setLayout(groupLayout);
 		
-		if(lblCambrer.getText().equalsIgnoreCase("Cambrer: ")&&lblData.getText().equalsIgnoreCase("Data: Hora:")) {
-			System.out.println("ole tu");
-		}
+		
 	}
 
 	public static void generarFactura(String nombre)
