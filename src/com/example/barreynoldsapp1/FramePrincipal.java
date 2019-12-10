@@ -144,7 +144,7 @@ public class FramePrincipal extends JFrame {
 			}
 		};
 		panelBarra.add(frameBarra);
-		
+
 		JPanel panelLogin = new JPanel();
 		panelLogin.setBounds(0, 26, 794, 541);
 		contentPane.add(panelLogin);
@@ -154,7 +154,6 @@ public class FramePrincipal extends JFrame {
 			generarLogin(panelLogin);
 			menuBar.setVisible(false);
 		}
-
 	}
 
 	public static void refreshFrame() {
@@ -277,7 +276,7 @@ public class FramePrincipal extends JFrame {
 
 	public static void generarTaulesCuina(JTabbedPane tabbedPane, int numeroTaules) {
 		for (int i = 1; i < numeroTaules + 1; i++) {
-			FrameInterno intFrame = new FrameInterno("Taula" + i) {
+			FrameInterno intFrame = new FrameInterno("Taula" + i, i) {
 				public void setUI(InternalFrameUI ui) {
 					super.setUI(ui);
 					BasicInternalFrameUI frameUI = (BasicInternalFrameUI) getUI();
@@ -287,14 +286,29 @@ public class FramePrincipal extends JFrame {
 			};
 			intFrame.setTitle("Taula" + i);
 			introducirCambrer(intFrame, numeroTaules);
-			introducirNumTaula(intFrame, numeroTaules);
+			// introducirNumTaula(intFrame, numeroTaules);
+			// intFrame.lblTaula.setText("Taula: " + i);
 			introducirData(intFrame, numeroTaules);
 			introducirComanda(intFrame, numeroTaules);
 			generarArxiusComanda(numeroTaules);
 			Component tab = intFrame;
 			// intFrame.lblPrecioTotal.setText(String.valueOf(intFrame.sumarPrecioProductos()));
-
 			tabbedPane.addTab("Taula" + i, tab);
+			if (intFrame.lblCambrer.getText().equalsIgnoreCase("Cambrer: ")
+					&& intFrame.lblData.getText().equalsIgnoreCase("Data: Hora:")) {
+				ArrayList<Producto> productosDeCadaMesa = new ArrayList<>();
+				productosDeCadaMesa = AccesSQL.recuperarComandaInacabada(i, 0);
+				try {
+					for (int j = 0; j < productosDeCadaMesa.size(); j++) {
+						intFrame.model.addRow(new Object[] { productosDeCadaMesa.get(j).getCantidad(),
+								productosDeCadaMesa.get(j).getNombre(), productosDeCadaMesa.get(j).getPrecio(),
+								false });
+					}
+				} catch (Exception ex) {
+					System.out.println("No existe ninguna comanda empezada de esta mesa");
+				}
+
+			}
 		}
 	}
 
@@ -310,7 +324,7 @@ public class FramePrincipal extends JFrame {
 		panelLogin.add(login, BorderLayout.CENTER);
 		login.setVisible(true);
 		login.setBorder(null);
-		
+
 	}
 
 	public static void generarArxiusComanda(int numeroTaules) {

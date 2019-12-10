@@ -76,7 +76,7 @@ public class FrameInterno extends JInternalFrame {
 	};
 	private JScrollPane scrollPane_1;
 
-	public FrameInterno(String nom) {
+	public FrameInterno(String nom,int numMesa) {
 		precio = new ArrayList<>();
 		this.nom = nom;
 		setBorder(null);
@@ -95,7 +95,7 @@ public class FrameInterno extends JInternalFrame {
 		lblCambrer.setFont(lblCambrer.getFont().deriveFont(13.0f));
 		lblCambrer.setHorizontalAlignment(SwingConstants.CENTER);
 
-		lblTaula = new JLabel("Taula: ");
+		lblTaula = new JLabel("Taula: "+numMesa);
 		lblTaula.setFont(lblTaula.getFont().deriveFont(13.0f));
 		lblTaula.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -108,9 +108,8 @@ public class FrameInterno extends JInternalFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (sumaTotal == 0) {
 					for (int i = 0; i < model.getRowCount(); i++) {
-						sumaTotal = sumaTotal + Float.parseFloat(table2.getValueAt(i, 0).toString())
-								* precio.get(i);
-					}/*Float.parseFloat(table2.getValueAt(i, 2).toString()*/
+						sumaTotal = sumaTotal + Float.parseFloat(table2.getValueAt(i, 0).toString()) * precio.get(i);
+					} /* Float.parseFloat(table2.getValueAt(i, 2).toString() */
 				}
 
 				boolean entregats = true;
@@ -123,8 +122,10 @@ public class FrameInterno extends JInternalFrame {
 					JOptionPane.showMessageDialog(FrameInterno.this, "ERROR: Els productes no estan preparats", "ERROR",
 							JOptionPane.ERROR_MESSAGE);
 				} else {
-					if(AccesSQL.recuperarComandaIDInacabada(Integer.parseInt(lblTaula.getText().substring(lblTaula.getText().length()-1)), 0)!=0) {
-						AccesSQL.actualizarEstadoComandaUnaVezPasadaAFacturas(AccesSQL.recuperarComandaIDInacabada(Integer.parseInt(lblTaula.getText().substring(lblTaula.getText().length()-1)), 0));
+					if (AccesSQL.recuperarComandaIDInacabada(
+							Integer.parseInt(lblTaula.getText().substring(lblTaula.getText().length() - 1)), 0) != 0) {
+						AccesSQL.actualizarEstadoComandaUnaVezPasadaAFacturas(AccesSQL.recuperarComandaIDInacabada(
+								Integer.parseInt(lblTaula.getText().substring(lblTaula.getText().length() - 1)), 0));
 					}
 					try {
 						generarFactura(nom);
@@ -216,42 +217,29 @@ public class FrameInterno extends JInternalFrame {
 							* Float.parseFloat(table.getValueAt(i, 2).toString());
 				}
 				buttonPrecio.setText(String.valueOf(sumaTotal));
-				//AccesSQL.recuperarComandaInacabada(1 ,2);
-				System.out.println(lblTaula.getText().substring(lblTaula.getText().length()-1));
+				// AccesSQL.recuperarComandaInacabada(1 ,2);
+				System.out.println(lblTaula.getText().substring(lblTaula.getText().length() - 1));
 			}
 		});
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
-		gl_panel_1.setHorizontalGroup(
-			gl_panel_1.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_1.createSequentialGroup()
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+		gl_panel_1.setHorizontalGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_1.createSequentialGroup().addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_1.createSequentialGroup().addContainerGap().addComponent(lblCambrer)
+								.addGap(123).addComponent(lblTaula, GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(lblData, GroupLayout.PREFERRED_SIZE, 189, GroupLayout.PREFERRED_SIZE)
+								.addGap(68))
 						.addGroup(gl_panel_1.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(lblCambrer)
-							.addGap(123)
-							.addComponent(lblTaula, GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblData, GroupLayout.PREFERRED_SIZE, 189, GroupLayout.PREFERRED_SIZE)
-							.addGap(68))
-						.addGroup(gl_panel_1.createSequentialGroup()
-							.addComponent(btnCobrar, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(buttonPrecio)))
-					.addContainerGap())
-		);
-		gl_panel_1.setVerticalGroup(
-			gl_panel_1.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_panel_1.createSequentialGroup()
-					.addGap(0, 4, Short.MAX_VALUE)
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnCobrar)
-						.addComponent(buttonPrecio, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblCambrer)
-						.addComponent(lblTaula)
-						.addComponent(lblData)))
-		);
+								.addComponent(btnCobrar, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.RELATED).addComponent(buttonPrecio)))
+						.addContainerGap()));
+		gl_panel_1.setVerticalGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panel_1.createSequentialGroup().addGap(0, 4, Short.MAX_VALUE)
+						.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE).addComponent(btnCobrar)
+								.addComponent(buttonPrecio, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE).addComponent(lblCambrer)
+								.addComponent(lblTaula).addComponent(lblData))));
 		panel_1.setLayout(gl_panel_1);
 		panel.setLayout(new BorderLayout(0, 0));
 		table = new JTable(model);
@@ -276,7 +264,8 @@ public class FrameInterno extends JInternalFrame {
 			}
 		});
 		getContentPane().setLayout(groupLayout);
-
+		
+		
 	}
 
 	public static void generarFactura(String nombre)

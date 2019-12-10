@@ -33,7 +33,7 @@ public RefrescoDeComandas() {
 
 	public void RefrescoDeComandas1() {
 		String camareroMesa;
-		
+
 		try {
 			System.out.println("LocalHost = " + InetAddress.getLocalHost().toString());
 		} catch (UnknownHostException uhe) {
