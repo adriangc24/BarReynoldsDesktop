@@ -145,11 +145,16 @@ public class FramePrincipal extends JFrame {
 		};
 		panelBarra.add(frameBarra);
 
-		if (!registrado) {
-			generarLogin(contentPane);
-			System.out.println("LOGIN");
-		}
+		JPanel panelLogin = new JPanel();
+		panelLogin.setBounds(0, 26, 794, 541);
+		contentPane.add(panelLogin);
+		panelLogin.setLayout(new BorderLayout(0, 0));
 
+		if (!registrado) {
+
+			generarLogin(panelLogin);
+			menuBar.setVisible(false);
+		}
 	}
 
 	public static void refreshFrame() {
@@ -293,8 +298,8 @@ public class FramePrincipal extends JFrame {
 			
 			if (intFrame.lblCambrer.getText().equalsIgnoreCase("Cambrer: ")
 					&& intFrame.lblData.getText().equalsIgnoreCase("Data: Hora:")) {
-				ArrayList<Producto>productosDeCadaMesa=new ArrayList<>();
-				productosDeCadaMesa=AccesSQL.recuperarComandaInacabada(i, 0);
+				ArrayList<Producto> productosDeCadaMesa = new ArrayList<>();
+				productosDeCadaMesa = AccesSQL.recuperarComandaInacabada(i, 0);
 				try {
 				for(int j=0;j<productosDeCadaMesa.size();j++) {
 					intFrame.model.addRow(new Object[] { productosDeCadaMesa.get(j).getCantidad(), productosDeCadaMesa.get(j).getNombre(), productosDeCadaMesa.get(j).getPrecio(), false });
@@ -305,15 +310,16 @@ public class FramePrincipal extends JFrame {
 				}
 				
 				}catch(Exception ex) {
+
 					System.out.println("No existe ninguna comanda empezada de esta mesa");
 				}
-				
+
 			}
 		}
 	}
 
-	public static void generarLogin(JPanel contentPane) {
-		internalFrame = new JInternalFrame("New JInternalFrame") {
+	public static void generarLogin(JPanel panelLogin) {
+		Login login = new Login() {
 			public void setUI(InternalFrameUI ui) {
 				super.setUI(ui);
 				BasicInternalFrameUI frameUI = (BasicInternalFrameUI) getUI();
@@ -321,12 +327,11 @@ public class FramePrincipal extends JFrame {
 					frameUI.setNorthPane(null);
 			}
 		};
-		contentPane.add(internalFrame, BorderLayout.CENTER);
-		internalFrame.setVisible(true);
-		internalFrame.setBorder(null);
-		Login login = new Login();
-		internalFrame.getContentPane().add(login);
-		System.out.println("LOGIN");
+
+		panelLogin.add(login, BorderLayout.CENTER);
+		login.setVisible(true);
+		login.setBorder(null);
+
 	}
 
 	public static void generarArxiusComanda(int numeroTaules) {
