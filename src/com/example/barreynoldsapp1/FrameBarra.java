@@ -139,7 +139,6 @@ public class FrameBarra extends JInternalFrame implements ActionListener {
 
 		// cuando pongamos la tabla de productos donde esta el 50 habra que poner
 		// el precio de la comanda
-		
 
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(0, 0, 337, 281);
@@ -168,6 +167,18 @@ public class FrameBarra extends JInternalFrame implements ActionListener {
 			introducirComanda(intFrameBarra, numeroTaules);
 			Component tab = intFrameBarra;
 			tabbedPane.addTab("Taula" + i, tab);
+			if (intFrameBarra.model.getRowCount() == 0) {
+				ArrayList<Producto> productosDeCadaMesa = AccesSQL.recuperarComandaInacabada(i, 0);
+				if (productosDeCadaMesa != null) {
+					precio1 = 0;
+					for (int j = 0; j < productosDeCadaMesa.size(); j++) {
+						intFrameBarra.model.addRow(new Object[] { productosDeCadaMesa.get(j).getCantidad(),
+								productosDeCadaMesa.get(j).getNombre(), productosDeCadaMesa.get(j).getPrecio() });
+						precio1 = precio1
+								+ productosDeCadaMesa.get(j).getCantidad() * productosDeCadaMesa.get(j).getPrecio();
+					}
+				}
+			}
 		}
 	}
 
@@ -185,7 +196,7 @@ public class FrameBarra extends JInternalFrame implements ActionListener {
 						String nombre = element.getElementsByTagName("nombre").item(0).getTextContent();
 						String precio = element.getElementsByTagName("precio").item(0).getTextContent();
 						String cantidad = element.getElementsByTagName("cantidad").item(0).getTextContent();
-						precio1=precio1+(Float.parseFloat(cantidad)*Float.parseFloat(precio));
+						precio1 = precio1 + (Float.parseFloat(cantidad) * Float.parseFloat(precio));
 						intFrameBarra.model.addRow(new Object[] { cantidad, nombre, precio });
 					}
 				} catch (Exception e) {
