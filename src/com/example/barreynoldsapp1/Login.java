@@ -121,9 +121,12 @@ public class Login extends JInternalFrame {
 				if (var == 0 && !textFieldNomCambrer.getText().isEmpty()) {
 					textFieldNomCambrer.setText(
 							textFieldNomCambrer.getText().substring(0, textFieldNomCambrer.getText().length() - 1));
-				} else if (var == 1 && !textFieldPassword.getText().isEmpty()) {
-					textFieldPassword.setText(
-							textFieldPassword.toString().substring(0, textFieldPassword.toString().length() - 1));
+				} else if (var == 1 && !textFieldPassword.getPassword().toString().isEmpty()) {
+					System.out.println(textFieldPassword.getPassword());
+					String pass = String.valueOf(textFieldPassword.getPassword());
+							pass=pass.substring(0, pass.length() - 1);
+							System.out.println(pass);
+							textFieldPassword.setText(pass);
 				}
 			}
 		});
