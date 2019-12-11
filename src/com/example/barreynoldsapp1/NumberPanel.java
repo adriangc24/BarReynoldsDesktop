@@ -168,7 +168,10 @@ public class NumberPanel extends JPanel implements ActionListener {
 					System.out.println("si no introduces money no hay operacion colegon");
 				} else {
 					textField_2.setText(String.valueOf(
-							Float.parseFloat(textField.getText()) - Float.parseFloat(textField_1.getText()) * -1));
+							Float.parseFloat(textField_1.getText()) - Float.parseFloat(textField.getText())));
+					if(Float.parseFloat(textField_2.getText())<0) {
+						System.out.println("Te falta pasta, "+Float.parseFloat(textField_2.getText())*-1);
+					}
 				}
 			}
 		}

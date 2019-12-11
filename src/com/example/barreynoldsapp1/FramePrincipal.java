@@ -150,11 +150,11 @@ public class FramePrincipal extends JFrame {
 		contentPane.add(panelLogin);
 		panelLogin.setLayout(new BorderLayout(0, 0));
 
-		if (!registrado) {
+		/*if (!registrado) {
 
 			generarLogin(panelLogin);
 			menuBar.setVisible(false);
-		}
+		}*/
 	}
 
 	public static void refreshFrame() {
@@ -306,7 +306,9 @@ public class FramePrincipal extends JFrame {
 				}
 				if(!AccesSQL.devolverHoraYCamareroComandaInacabada(i).equalsIgnoreCase("")) {
 					String camareroHora[]=AccesSQL.devolverHoraYCamareroComandaInacabada(i).split(",");
-					
+					intFrame.lblCambrer.setText("Camarero: "+AccesSQL.nombreCamarero(Integer.parseInt(camareroHora[0])));
+					//String fechaHora[]=camareroHora[1].split(" ");
+					intFrame.lblData.setText(("Data: "+camareroHora[1].substring(0, camareroHora[1].length()-3)));
 				}
 				
 				}catch(Exception ex) {

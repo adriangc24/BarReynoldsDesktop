@@ -39,6 +39,7 @@ public class FrameBarra extends JInternalFrame implements ActionListener {
 	ArrayList<String> listaCategorias;
 	static ArrayList<JPanel> llistaPanelProductes;
 	static JTabbedPane tabbedPane;
+	static float precio1;
 
 	public FrameBarra() {
 		listaCategorias = AccesSQL.cargarCategorias();
@@ -138,9 +139,7 @@ public class FrameBarra extends JInternalFrame implements ActionListener {
 
 		// cuando pongamos la tabla de productos donde esta el 50 habra que poner
 		// el precio de la comanda
-		NumberPanel numberPanel = new NumberPanel(50);
-		numberPanel.setBounds(347, 0, 448, 289);
-		getContentPane().add(numberPanel);
+		
 
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(0, 0, 337, 281);
@@ -150,7 +149,9 @@ public class FrameBarra extends JInternalFrame implements ActionListener {
 		insertarImatgesProductes("plats", 3);
 		insertarImatgesProductes("entrepans", 4);
 		getContentPane().add(tabbedPane);
-
+		NumberPanel numberPanel = new NumberPanel(precio1);
+		numberPanel.setBounds(347, 0, 448, 289);
+		getContentPane().add(numberPanel);
 	}
 
 	public static void generarTaulesBarra(JTabbedPane tabbedPane, int numeroTaules) {
@@ -166,7 +167,6 @@ public class FrameBarra extends JInternalFrame implements ActionListener {
 			intFrameBarra.setTitle("Taula" + i);
 			introducirComanda(intFrameBarra, numeroTaules);
 			Component tab = intFrameBarra;
-
 			tabbedPane.addTab("Taula" + i, tab);
 		}
 	}
@@ -185,6 +185,7 @@ public class FrameBarra extends JInternalFrame implements ActionListener {
 						String nombre = element.getElementsByTagName("nombre").item(0).getTextContent();
 						String precio = element.getElementsByTagName("precio").item(0).getTextContent();
 						String cantidad = element.getElementsByTagName("cantidad").item(0).getTextContent();
+						precio1=precio1+(Float.parseFloat(cantidad)*Float.parseFloat(precio));
 						intFrameBarra.model.addRow(new Object[] { cantidad, nombre, precio });
 					}
 				} catch (Exception e) {

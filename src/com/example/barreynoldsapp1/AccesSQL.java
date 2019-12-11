@@ -184,11 +184,24 @@ public class AccesSQL implements ConexionServer {
 			System.out.println("Esto peta");
 		}
 	}
-/*public static String nombreCamarero(int idCamarero) {
-	
-	
-	return ;
-}*/
+public static String nombreCamarero(int idCamarero) {
+	String nombre="";
+	conexionJDBC();
+	String select = "select Nom_Cambrer from cambrer where ID= " + idCamarero+";";
+	Statement stmnt;
+	try {
+		stmnt = connection.createStatement();
+		ResultSet rsst = stmnt.executeQuery(select);
+		if (rsst.next()) {
+			nombre = rsst.getString("Nom_Cambrer");
+		}
+
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	return nombre ;
+}
 
 
 	public static String convertirFecha(String fecha) {
@@ -212,7 +225,7 @@ public static String devolverHoraYCamareroComandaInacabada(int numMesa) {
 		ResultSet rsst = stmnt.executeQuery(select);
 		if (rsst.next()) {
 			HoraYCamarero = String.valueOf(rsst.getInt("ID_Cambrer"));
-			HoraYCamarero =HoraYCamarero+","+ rsst.getDate("fecha_comanda");
+			HoraYCamarero =HoraYCamarero+","+ rsst.getString("fecha_comanda");
 		}
 
 	} catch (SQLException e) {
@@ -281,6 +294,7 @@ public static String devolverHoraYCamareroComandaInacabada(int numMesa) {
 
 			stmnt.executeUpdate("UPDATE `relacio_comanda_producte` SET `Estat`= " + 1 + " WHERE `ID_Producte` = "
 					+ ID_Producte + " AND `ID_Comanda` = " + ID_Comanda);
+			System.out.println("Estado producto actualizado");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
