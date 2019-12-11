@@ -1,7 +1,9 @@
 package com.example.barreynoldsapp1;
 
 import java.awt.Dialog;
+import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 
 import javax.swing.JInternalFrame;
@@ -11,14 +13,23 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.imageio.ImageIO;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter.DEFAULT;
+
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.security.MessageDigest;
@@ -89,7 +100,8 @@ public class Login extends JInternalFrame {
 		for (int i = 0; i < rows.length; i++) {
 			char[] keys = rows[i].toCharArray();
 			for (int j = 0; j < keys.length; j++) {
-				JButton button = new JButton(Character.toString(keys[j]));
+				JButton button = new JButton(Character.toString(keys[j]).toUpperCase());
+				button.setFont(new Font("Arial Bold",Font.PLAIN,35));
 				button.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
@@ -113,8 +125,17 @@ public class Login extends JInternalFrame {
 				}
 			}
 		}
-
-		JButton button = new JButton("-");
+		BufferedImage img = null;
+		try {
+			img = ImageIO.read(new File("borrar.png"));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		Image newimg = img.getScaledInstance(40, 40, java.awt.Image.SCALE_SMOOTH);
+		Icon icon = new ImageIcon(newimg);
+		JButton button = new JButton(icon);
+		button.setPreferredSize(new Dimension(1,1));
 		button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -122,10 +143,8 @@ public class Login extends JInternalFrame {
 					textFieldNomCambrer.setText(
 							textFieldNomCambrer.getText().substring(0, textFieldNomCambrer.getText().length() - 1));
 				} else if (var == 1 && !textFieldPassword.getPassword().toString().isEmpty()) {
-					System.out.println(textFieldPassword.getPassword());
 					String pass = String.valueOf(textFieldPassword.getPassword());
 							pass=pass.substring(0, pass.length() - 1);
-							System.out.println(pass);
 							textFieldPassword.setText(pass);
 				}
 			}
@@ -133,7 +152,8 @@ public class Login extends JInternalFrame {
 		constraints.gridx = 8;
 		constraints.gridy = 2;
 		panel.add(button, constraints);
-
+		
+		
 		JButton btnEntrar = new JButton("Entrar");
 		btnEntrar.addActionListener(new ActionListener() {
 			@Override
