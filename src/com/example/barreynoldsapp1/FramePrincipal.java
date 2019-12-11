@@ -339,7 +339,7 @@ public class FramePrincipal extends JFrame {
 					String camareroHora[]=AccesSQL.devolverHoraYCamareroComandaInacabada(i).split(",");
 					intFrame.lblCambrer.setText("Camarero: "+AccesSQL.nombreCamarero(Integer.parseInt(camareroHora[0])));
 					//String fechaHora[]=camareroHora[1].split(" ");
-					intFrame.lblData.setText(("Data: "+camareroHora[1].substring(0, camareroHora[1].length()-3)));
+					intFrame.lblData.setText(("Data: "+camareroHora[1].substring(0, camareroHora[1].length()-2)));
 				}
 				
 				}catch(Exception ex) {
