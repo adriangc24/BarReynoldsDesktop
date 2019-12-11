@@ -1,10 +1,12 @@
 package com.example.barreynoldsapp1;
 
+import java.awt.Dialog;
 import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -143,6 +145,9 @@ public class Login extends JInternalFrame {
 				if (valid) {
 					FramePrincipal.registrado = true;
 					FramePrincipal.refreshFrame();
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Las credenciales no son válidas","Login Incorrecto",JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});

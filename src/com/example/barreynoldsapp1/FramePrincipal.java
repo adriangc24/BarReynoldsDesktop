@@ -1,21 +1,30 @@
 package com.example.barreynoldsapp1;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.EventQueue;
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Closeable;
 import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.InternalFrameUI;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.text.html.HTMLDocument.HTMLReader.BlockAction;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.stream.events.StartDocument;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
@@ -27,41 +36,63 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import javax.swing.JTabbedPane;
+import javax.swing.JWindow;
+import javax.swing.SwingConstants;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import java.awt.GridBagLayout;
 
 public class FramePrincipal extends JFrame {
 
-	static JPanel contentPane, panelBarra;
+	static JPanel contentPane, panelBarra,panelLogin;
 	static FramePrincipal frame;
 	static JTabbedPane tabbedPaneTaulas;
 	static JMenuBar menuBar;
 	static JInternalFrame internalFrame;
 	static boolean registrado = false;
 	static int numeroTaules;
-
+	static SplashScreen ss=new SplashScreen();
+	static Thread t2;
 	/**
 	 * Launch the application.
+	 * @throws MalformedURLException 
+	 * @throws InterruptedException 
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					frame = new FramePrincipal();
-					frame.setVisible(true);
-					arrancarServer();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+	public static void main(String[] args){
+		new Thread(new Runnable() {
+			public void run(){
+			arrancarServer();
+			ProgressBar();
+			frame = new FramePrincipal();
+			frame.setVisible(true);
 			}
-		});
+		}).start();
+
+	}
+	public static void ProgressBar()  {
+		ss.show(4000);
+		for(int i=15;i<=100;i+=5) {
+			if(i==70) {
+				i=100;
+			}
+			SplashScreen.progressBar.setValue(i);
+			try {
+				TimeUnit.MILLISECONDS.sleep(250);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			SplashScreen.progressBar.setStringPainted(true);
+		}
+		ss.hide();
 	}
 
 	public FramePrincipal() {
+
 		int numeroTaules = AccesSQL.cargarMesasBBDD();
 		System.out.println(numeroTaules);
 		for (int i = 0; i < numeroTaules; i++) {
@@ -89,7 +120,6 @@ public class FramePrincipal extends JFrame {
 
 		JMenuItem mntmModifTaules = new JMenuItem("Cambiar total de taules");
 		mntmModifTaules.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				FrameConfigTaules frameConfig = new FrameConfigTaules();
@@ -97,13 +127,12 @@ public class FramePrincipal extends JFrame {
 			}
 		});
 		mnConfiguracio.add(mntmModifTaules);
-
 		JMenu mnPantalla = new JMenu("Pantalla");
 		menuBar.add(mnPantalla);
 
 		JMenuItem mntmPrincipal = new JMenuItem("Barra");
 		mntmPrincipal.addActionListener(new ActionListener() {
-
+		
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				tabbedPaneTaulas.setVisible(false);
@@ -111,7 +140,7 @@ public class FramePrincipal extends JFrame {
 			}
 		});
 		mnPantalla.add(mntmPrincipal);
-
+		
 		JMenuItem mntmTaules = new JMenuItem("Cuina");
 		mntmTaules.addActionListener(new ActionListener() {
 
@@ -122,18 +151,17 @@ public class FramePrincipal extends JFrame {
 			}
 		});
 		mnPantalla.add(mntmTaules);
-
 		tabbedPaneTaulas = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPaneTaulas.setBounds(5, 26, 784, 541);
 		tabbedPaneTaulas.setVisible(false);
 		contentPane.add(tabbedPaneTaulas);
 		generarTaulesCuina(tabbedPaneTaulas, numeroTaules);
-
 		panelBarra = new JPanel();
 		panelBarra.setBounds(5, 26, 784, 541);
 		panelBarra.setVisible(false);
 		contentPane.add(panelBarra);
 		panelBarra.setLayout(new BorderLayout(0, 0));
+		login();
 
 		FrameBarra frameBarra = new FrameBarra() {
 			public void setUI(InternalFrameUI ui) {
@@ -144,17 +172,19 @@ public class FramePrincipal extends JFrame {
 			}
 		};
 		panelBarra.add(frameBarra);
-
-		JPanel panelLogin = new JPanel();
+		//login();
+	}
+	public void login() {
+		panelLogin = new JPanel();
 		panelLogin.setBounds(0, 26, 794, 541);
 		contentPane.add(panelLogin);
 		panelLogin.setLayout(new BorderLayout(0, 0));
 
-		/*if (!registrado) {
+		if (!registrado) {
 
 			generarLogin(panelLogin);
 			menuBar.setVisible(false);
-		}*/
+		}
 	}
 
 	public static void refreshFrame() {
@@ -200,6 +230,7 @@ public class FramePrincipal extends JFrame {
 		}).start();
 
 	}
+
 
 	public static void introducirComanda(FrameInterno intFrame, int numeroTaules) {
 		for (int i = 1; i < numeroTaules + 1; i++) {
